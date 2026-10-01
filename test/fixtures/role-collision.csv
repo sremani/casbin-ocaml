@@ -1,0 +1,4 @@
+p, c, data, read
+p, "b,c", data, write
+g, "a,b", c
+g, a, "b,c"

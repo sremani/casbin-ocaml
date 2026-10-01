@@ -1,0 +1,3 @@
+(library
+ (name casbin)
+ (public_name casbin_ocaml))

@@ -1,0 +1,8 @@
+_build/
+_build-*/
+upstream/
+.cache/
+oracle/casbin-oracle
+__pycache__/
+*.py[cod]
+.DS_Store

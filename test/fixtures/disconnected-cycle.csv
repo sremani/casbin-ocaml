@@ -1,0 +1,4 @@
+p, reader, data, read
+g, alice, reader
+g, unrelated_a, unrelated_b
+g, unrelated_b, unrelated_a

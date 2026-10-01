@@ -1,0 +1,4 @@
+# Compatibility fixtures must retain their original bytes across platforms.
+test/fixtures/* -text
+# This CSV fixture deliberately tests trailing spaces and CRLF line endings.
+test/fixtures/whitespace.csv whitespace=-blank-at-eol,cr-at-eol

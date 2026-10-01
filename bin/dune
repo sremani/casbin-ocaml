@@ -1,0 +1,5 @@
+(executable
+ (name main)
+ (public_name casbin-ocaml)
+ (package casbin_ocaml)
+ (libraries casbin))

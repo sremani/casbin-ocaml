@@ -1,0 +1,1032 @@
+{
+  "schema_version": 1,
+  "upstream": {
+    "repository": "https://github.com/apache/casbin",
+    "commit": "524f3f2dc9baef696d748db491d49b3055d359d1"
+  },
+  "cases": [
+    {
+      "name": "basic-0",
+      "model": "basic_model.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "basic-1",
+      "model": "basic_model.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "basic-2",
+      "model": "basic_model.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "bob",
+        "data2",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "basic-3",
+      "model": "basic_model.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "bob",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "basic-4",
+      "model": "basic_model.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "basic-5",
+      "model": "basic_model.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "Alice",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "basic-6",
+      "model": "basic_model.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "READ"
+      ],
+      "expected": false
+    },
+    {
+      "name": "rbac-7",
+      "model": "rbac_model.conf",
+      "policy": "rbac_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "rbac-8",
+      "model": "rbac_model.conf",
+      "policy": "rbac_policy.csv",
+      "request": [
+        "alice",
+        "data2",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "rbac-9",
+      "model": "rbac_model.conf",
+      "policy": "rbac_policy.csv",
+      "request": [
+        "alice",
+        "data2",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "rbac-10",
+      "model": "rbac_model.conf",
+      "policy": "rbac_policy.csv",
+      "request": [
+        "bob",
+        "data2",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "rbac-11",
+      "model": "rbac_model.conf",
+      "policy": "rbac_policy.csv",
+      "request": [
+        "bob",
+        "data2",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "rbac-12",
+      "model": "rbac_model.conf",
+      "policy": "rbac_policy.csv",
+      "request": [
+        "data2_admin",
+        "data2",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "rbac-13",
+      "model": "rbac_model.conf",
+      "policy": "rbac_policy.csv",
+      "request": [
+        "nobody",
+        "data2",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "duplicate-rule",
+      "model": "basic_model.conf",
+      "policy": "duplicates.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "empty-policy-denies",
+      "model": "basic_model.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "empty-policy-empty-fields",
+      "model": "basic_model.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "",
+        ""
+      ],
+      "expected": true,
+      "note": "Go evaluates one synthetic row whose policy fields are empty strings."
+    },
+    {
+      "name": "chain-role0-read",
+      "model": "rbac_model.conf",
+      "policy": "chain.csv",
+      "request": [
+        "role0",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "chain-role0-write",
+      "model": "rbac_model.conf",
+      "policy": "chain.csv",
+      "request": [
+        "role0",
+        "data",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "chain-role1-write",
+      "model": "rbac_model.conf",
+      "policy": "chain.csv",
+      "request": [
+        "role1",
+        "data",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "chain-role10-read",
+      "model": "rbac_model.conf",
+      "policy": "chain.csv",
+      "request": [
+        "role10",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "chain-role11-read",
+      "model": "rbac_model.conf",
+      "policy": "chain.csv",
+      "request": [
+        "role11",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "cycle-a-read",
+      "model": "rbac_model.conf",
+      "policy": "cycles.csv",
+      "request": [
+        "a",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "note": "Pinned Go Casbin rejects cyclic role graphs when loading policies."
+    },
+    {
+      "name": "cycle-b-read",
+      "model": "rbac_model.conf",
+      "policy": "cycles.csv",
+      "request": [
+        "b",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "note": "Pinned Go Casbin rejects cyclic role graphs when loading policies."
+    },
+    {
+      "name": "cycle-c-read",
+      "model": "rbac_model.conf",
+      "policy": "cycles.csv",
+      "request": [
+        "c",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "note": "Pinned Go Casbin rejects cyclic role graphs when loading policies."
+    },
+    {
+      "name": "cycle-a-write",
+      "model": "rbac_model.conf",
+      "policy": "cycles.csv",
+      "request": [
+        "a",
+        "data",
+        "write"
+      ],
+      "expected": "error",
+      "note": "Pinned Go Casbin rejects cyclic role graphs when loading policies."
+    },
+    {
+      "name": "cycle-outsider-read",
+      "model": "rbac_model.conf",
+      "policy": "cycles.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "note": "Pinned Go Casbin rejects cyclic role graphs when loading policies."
+    },
+    {
+      "name": "cycle-isolated-write",
+      "model": "rbac_model.conf",
+      "policy": "cycles.csv",
+      "request": [
+        "isolated",
+        "data",
+        "write"
+      ],
+      "expected": "error",
+      "note": "Pinned Go Casbin rejects cyclic role graphs when loading policies."
+    },
+    {
+      "name": "quoted-comma-quote-spaces",
+      "model": "basic_model.conf",
+      "policy": "quoted.csv",
+      "request": [
+        "alice, jr",
+        "data\"one",
+        " read "
+      ],
+      "expected": true
+    },
+    {
+      "name": "quoted-spaces-preserved",
+      "model": "basic_model.conf",
+      "policy": "quoted.csv",
+      "request": [
+        "alice, jr",
+        "data\"one",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "unquoted-trailing-interior-space",
+      "model": "basic_model.conf",
+      "policy": "whitespace.csv",
+      "request": [
+        "alice ",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "unquoted-interior-space-distinct",
+      "model": "basic_model.conf",
+      "policy": "whitespace.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "unicode-fields",
+      "model": "basic_model.conf",
+      "policy": "unicode.csv",
+      "request": [
+        "café",
+        "東京",
+        "👁"
+      ],
+      "expected": true
+    },
+    {
+      "name": "empty-subject",
+      "model": "basic_model.conf",
+      "policy": "empty-field.csv",
+      "request": [
+        "",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "multiline-csv-error",
+      "model": "basic_model.conf",
+      "policy": "multiline.csv",
+      "request": [
+        "alice\nsmith",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "note": "The Go file adapter reads physical lines, so multiline quoted fields are invalid."
+    },
+    {
+      "name": "unterminated-csv",
+      "model": "basic_model.conf",
+      "policy": "unterminated.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "bare-quote-csv",
+      "model": "basic_model.conf",
+      "policy": "bare-quote.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "postquote-space",
+      "model": "basic_model.conf",
+      "policy": "postquote-space.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "bad-policy-arity",
+      "model": "basic_model.conf",
+      "policy": "bad-arity.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "bad-role-arity",
+      "model": "rbac_model.conf",
+      "policy": "bad-role-arity.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "request-arity-0",
+      "model": "basic_model.conf",
+      "policy": "basic_policy.csv",
+      "request": [],
+      "expected": "error"
+    },
+    {
+      "name": "request-arity-1",
+      "model": "basic_model.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "request-arity-2",
+      "model": "basic_model.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "request-arity-4",
+      "model": "basic_model.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read",
+        "extra"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "precedence-alice-write",
+      "model": "precedence.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "precedence-bob-write",
+      "model": "precedence.conf",
+      "policy": "empty.csv",
+      "request": [
+        "bob",
+        "data",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "precedence-bob-read",
+      "model": "precedence.conf",
+      "policy": "empty.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "precedence-nobody-read",
+      "model": "precedence.conf",
+      "policy": "empty.csv",
+      "request": [
+        "nobody",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "parentheses-alice-write",
+      "model": "parentheses.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "parentheses-bob-read",
+      "model": "parentheses.conf",
+      "policy": "empty.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "parentheses-nobody-read",
+      "model": "parentheses.conf",
+      "policy": "empty.csv",
+      "request": [
+        "nobody",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "field-names-inside-literals",
+      "model": "field-literal.conf",
+      "policy": "empty.csv",
+      "request": [
+        "r.sub",
+        "p.obj",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": " Declared unsupported: field-like text in literals is conservatively rejected by OCaml."
+    },
+    {
+      "name": "literal-distinct-from-field",
+      "model": "field-literal.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": " Declared unsupported: field-like text in literals is conservatively rejected by OCaml."
+    },
+    {
+      "name": "field-literal-preprocessing",
+      "model": "field-literal-space.conf",
+      "policy": "empty.csv",
+      "request": [
+        "x r_sub",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "note": "Casbin EscapeAssertion rewrites field-like tokens after spaces even in quoted literals. Declared unsupported: field-like text in literals is conservatively rejected by OCaml.",
+      "oracle_expected": true
+    },
+    {
+      "name": "field-literal-preprocessing-original",
+      "model": "field-literal-space.conf",
+      "policy": "empty.csv",
+      "request": [
+        "x r.sub",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": " Declared unsupported: field-like text in literals is conservatively rejected by OCaml."
+    },
+    {
+      "name": "backslash-preserved",
+      "model": "string-escape.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a\\b",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "constant-true-empty",
+      "model": "true.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "constant-false-empty",
+      "model": "false.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "one-field-allow",
+      "model": "one-field.conf",
+      "policy": "one-field.csv",
+      "request": [
+        "alice"
+      ],
+      "expected": true
+    },
+    {
+      "name": "one-field-deny",
+      "model": "one-field.conf",
+      "policy": "one-field.csv",
+      "request": [
+        "bob"
+      ],
+      "expected": false
+    },
+    {
+      "name": "four-field-allow",
+      "model": "four-field.conf",
+      "policy": "four-field.csv",
+      "request": [
+        "acme",
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "four-field-deny",
+      "model": "four-field.conf",
+      "policy": "four-field.csv",
+      "request": [
+        "other",
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "unsupported-keymatch",
+      "model": "unsupported-function.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true
+    },
+    {
+      "name": "unsupported-effect",
+      "model": "unsupported-effect.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true
+    },
+    {
+      "name": "undefined-field",
+      "model": "undefined-field.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "malformed-matcher",
+      "model": "malformed-matcher.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "literal-backslash-n",
+      "model": "newline-literal.conf",
+      "policy": "empty.csv",
+      "request": [
+        "\\n",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "actual-newline-not-literal",
+      "model": "newline-literal.conf",
+      "policy": "empty.csv",
+      "request": [
+        "\n",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "self-role-without-edge",
+      "model": "rbac_model.conf",
+      "policy": "duplicates.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "self-role-edge-error",
+      "model": "rbac_model.conf",
+      "policy": "self-edge.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "single-opposite-quote",
+      "model": "single-opposite-quote.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a\"b",
+        "data",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "double-opposite-quote",
+      "model": "double-opposite-quote.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a'b",
+        "data",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "unicode-literal",
+      "model": "unicode-literal.conf",
+      "policy": "empty.csv",
+      "request": [
+        "café",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "date-literal",
+      "model": "date-literal.conf",
+      "policy": "empty.csv",
+      "request": [
+        "2026-10-01",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Declared unsupported: date/time-shaped string literals are conservatively rejected because govaluate infers TIME values."
+    },
+    {
+      "name": "kitchen-literal",
+      "model": "kitchen-literal.conf",
+      "policy": "empty.csv",
+      "request": [
+        "3:04PM",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Declared unsupported: date/time-shaped string literals are conservatively rejected because govaluate infers TIME values."
+    },
+    {
+      "name": "rfc3339-literal",
+      "model": "rfc3339-literal.conf",
+      "policy": "empty.csv",
+      "request": [
+        "2026-10-01T03:04:05Z",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Declared unsupported: date/time-shaped string literals are conservatively rejected because govaluate infers TIME values."
+    },
+    {
+      "name": "iso-hour-literal",
+      "model": "iso-hour-literal.conf",
+      "policy": "empty.csv",
+      "request": [
+        "2026-10-01T03Z0700",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Declared unsupported: date-shaped string literals are conservatively rejected even when govaluate treats a particular spelling as a string."
+    },
+    {
+      "name": "ansic-literal",
+      "model": "ansic-literal.conf",
+      "policy": "empty.csv",
+      "request": [
+        "Mon Jan  2 15:04:05 2006",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Declared unsupported: date/time-shaped string literals are conservatively rejected because govaluate infers TIME values."
+    },
+    {
+      "name": "policy-collision-first",
+      "model": "basic_model.conf",
+      "policy": "policy-collision.csv",
+      "request": [
+        "a,b",
+        "c",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "policy-collision-second",
+      "model": "basic_model.conf",
+      "policy": "policy-collision.csv",
+      "request": [
+        "a",
+        "b,c",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "role-collision-first",
+      "model": "rbac_model.conf",
+      "policy": "role-collision.csv",
+      "request": [
+        "a,b",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "role-collision-second",
+      "model": "rbac_model.conf",
+      "policy": "role-collision.csv",
+      "request": [
+        "a",
+        "data",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "date-shaped-policy-fields",
+      "model": "basic_model.conf",
+      "policy": "date-policy.csv",
+      "request": [
+        "2026-10-01",
+        "3:04PM",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "terminal-r-dot",
+      "model": "terminal-r-dot.conf",
+      "policy": "empty.csv",
+      "request": [
+        "r.",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Declared unsupported literal syntax; pinned upstream preprocessing result is checked explicitly."
+    },
+    {
+      "name": "terminal-p-dot",
+      "model": "terminal-p-dot.conf",
+      "policy": "empty.csv",
+      "request": [
+        "p.",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Declared unsupported literal syntax; pinned upstream preprocessing result is checked explicitly."
+    },
+    {
+      "name": "numeric-field-prefix",
+      "model": "numeric-field-prefix.conf",
+      "policy": "empty.csv",
+      "request": [
+        "x r2_subject",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Declared unsupported literal syntax; pinned upstream preprocessing result is checked explicitly."
+    },
+    {
+      "name": "numeric-field-prefix-original",
+      "model": "numeric-field-prefix-original.conf",
+      "policy": "empty.csv",
+      "request": [
+        "x r2.subject",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Declared unsupported literal syntax; pinned upstream preprocessing result is checked explicitly."
+    },
+    {
+      "name": "bracket-in-preprocessed",
+      "model": "bracket-in-preprocessed.conf",
+      "policy": "empty.csv",
+      "request": [
+        "in(box)",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Declared unsupported literal syntax; pinned upstream preprocessing result is checked explicitly."
+    },
+    {
+      "name": "bracket-in-original",
+      "model": "bracket-in-original.conf",
+      "policy": "empty.csv",
+      "request": [
+        "in[box]",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Declared unsupported literal syntax; pinned upstream preprocessing result is checked explicitly."
+    },
+    {
+      "name": "disconnected-cycle-load-error",
+      "model": "rbac_model.conf",
+      "policy": "disconnected-cycle.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "note": "An unreachable cycle still rejects the complete policy at load time."
+    }
+  ]
+}

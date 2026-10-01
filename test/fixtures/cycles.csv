@@ -1,0 +1,6 @@
+p, c, data, read
+p, isolated, data, write
+g, a, b
+g, b, c
+g, c, a
+g, a, b

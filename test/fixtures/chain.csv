@@ -1,0 +1,13 @@
+p, role10, data, read
+p, role11, data, write
+g, role0, role1
+g, role1, role2
+g, role2, role3
+g, role3, role4
+g, role4, role5
+g, role5, role6
+g, role6, role7
+g, role7, role8
+g, role8, role9
+g, role9, role10
+g, role10, role11

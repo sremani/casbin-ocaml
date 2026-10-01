@@ -1,0 +1,12 @@
+(test
+ (name parser_test)
+ (modules parser_test)
+ (libraries casbin))
+(test
+ (name expr_test)
+ (modules expr_test)
+ (libraries casbin))
+(test
+ (name enforcer_test)
+ (modules enforcer_test)
+ (libraries casbin))
