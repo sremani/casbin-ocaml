@@ -1,0 +1,5 @@
+g, alice, reader, 
+g, café, reader, 東京
+g, alice, reader, "a,b"
+g, alice, reader, " x "
+g, alice, reader, "a	b"

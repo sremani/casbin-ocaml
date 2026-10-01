@@ -8,6 +8,7 @@ type t =
   | Or of t * t
   | Not of t
   | Role of string_expr * string_expr
+  | Role_in_domain of string_expr * string_expr * string_expr
   | Key_match of string_expr * string_expr
 
 type value = String of string_expr | Bool of t
@@ -113,8 +114,15 @@ let lex source =
   in
   Array.of_list (scan 0 [])
 
-let compile ~request_fields ~policy_fields ~roles_enabled source =
+let compile ?role_arity ~request_fields ~policy_fields ~roles_enabled source =
   try
+    let role_arity = match role_arity with
+      | Some arity -> arity
+      | None -> if roles_enabled then 2 else 0
+    in
+    if (roles_enabled && role_arity <> 2 && role_arity <> 3)
+       || (not roles_enabled && role_arity <> 0) then
+      invalid 0 "role arity must be 0 without g, or 2 or 3 with g";
     let validate label fields =
       let rec loop seen = function
         | [] -> ()
@@ -227,8 +235,15 @@ let compile ~request_fields ~policy_fields ~roles_enabled source =
             let left = string (current ()).offset (disjunction ()) in
             expect Comma "',' between g arguments";
             let right = string (current ()).offset (disjunction ()) in
-            expect Right "')' after two g arguments";
-            Bool (Role (left, right)))
+            if role_arity = 2 then begin
+              expect Right "')' after two g arguments";
+              Bool (Role (left, right))
+            end else begin
+              expect Comma "',' before g domain argument";
+              let domain = string (current ()).offset (disjunction ()) in
+              expect Right "')' after three g arguments";
+              Bool (Role_in_domain (left, right, domain))
+            end)
       | Identifier name -> advance (); field token.offset name
       | Left ->
           advance ();
@@ -244,15 +259,17 @@ let compile ~request_fields ~policy_fields ~roles_enabled source =
     Ok (boolean final.offset expression)
   with Invalid_matcher message -> Error message
 
+let policy_operand = function
+  | Literal _ -> false
+  | Field name -> String.length name > 2 && String.sub name 0 2 = "p."
+
 let rec uses_policy = function
   | Boolean _ -> false
   | Equal (left, right) | Not_equal (left, right) | Role (left, right)
   | Key_match (left, right) ->
-      let policy = function
-        | Literal _ -> false
-        | Field name -> String.length name > 2 && String.sub name 0 2 = "p."
-      in
-      policy left || policy right
+      policy_operand left || policy_operand right
+  | Role_in_domain (left, right, domain) ->
+      policy_operand left || policy_operand right || policy_operand domain
   | And (left, right) | Or (left, right) -> uses_policy left || uses_policy right
   | Not expression -> uses_policy expression
 
@@ -268,7 +285,7 @@ let key_match key pattern =
       in
       String.length key >= prefix_length && prefix_matches 0
 
-let eval ~resolve ~has_role expression =
+let eval ?has_role_in_domain ~resolve ~has_role expression =
   let operand = function
     | Literal value -> Ok value
     | Field name -> resolve name
@@ -286,6 +303,19 @@ let eval ~resolve ~has_role expression =
     | Equal (left, right) -> pair String.equal left right
     | Not_equal (left, right) -> pair (fun a b -> not (String.equal a b)) left right
     | Role (left, right) -> pair has_role left right
+    | Role_in_domain (left, right, domain) ->
+        (match has_role_in_domain with
+         | None -> Error "three-argument g requires a domain role resolver"
+         | Some has_role ->
+             match operand left with
+             | Error message -> Error message
+             | Ok subject ->
+                 match operand right with
+                 | Error message -> Error message
+                 | Ok role ->
+                     match operand domain with
+                     | Error message -> Error message
+                     | Ok domain -> Ok (has_role subject role domain))
     | Key_match (left, right) -> pair key_match left right
     | Not value -> Result.map not (boolean value)
     | And (left, right) ->

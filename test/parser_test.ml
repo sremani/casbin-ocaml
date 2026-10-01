@@ -102,7 +102,7 @@ let () =
     "broken effect operator", replace acl "some(where (p.eft == allow))" "some(where (p.eft = = allow))";
     "empty matcher", replace acl "m = r.sub == p.sub && r.obj == p.obj && r.act == p.act" "m = ";
     "missing matcher", replace acl "m = r.sub == p.sub && r.obj == p.obj && r.act == p.act" "# absent";
-    "domain roles", acl ^ "[role_definition]\ng = _, _, _\n";
+    "unsupported role arity", acl ^ "[role_definition]\ng = _, _, _, _\n";
     "empty role section", acl ^ "[role_definition]\n";
     "unsectioned definition", "x = value\n" ^ acl;
     "bad section", replace acl "[matchers]" "[matchers";

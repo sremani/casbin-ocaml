@@ -45,6 +45,16 @@ let operate current line =
         | "add_policy", args -> adopt (E.add_policy snapshot args)
         | "remove_policy", args -> adopt (E.remove_policy snapshot args)
         | "get_grouping_policy", [] -> report print_rows (E.get_grouping_policy snapshot)
+        | "has_grouping_policy", [child; parent; domain] ->
+            report print_bool (E.has_grouping_policy_in_domain snapshot (child, parent, domain))
+        | "add_grouping_policy", [child; parent; domain] ->
+            adopt (E.add_grouping_policy_in_domain snapshot (child, parent, domain))
+        | "remove_grouping_policy", [child; parent; domain] ->
+            adopt (E.remove_grouping_policy_in_domain snapshot (child, parent, domain))
+        | "get_roles_for_user_in_domain", [user; domain] ->
+            report print_values (E.get_roles_for_user_in_domain snapshot ~domain user)
+        | "get_users_for_role_in_domain", [role; domain] ->
+            report print_values (E.get_users_for_role_in_domain snapshot ~domain role)
         | "has_grouping_policy", [child; parent] ->
             report print_bool (E.has_grouping_policy snapshot (child, parent))
         | "add_grouping_policy", [child; parent] ->

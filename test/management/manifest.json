@@ -2807,6 +2807,1268 @@
         "rows\t726561646572,2f666f6f2f2a,72656164,616c6c6f77",
         "rows\t616c696365,726561646572"
       ]
+    },
+    {
+      "name": "domain-upstream-management",
+      "model": "domain-example.conf",
+      "policy": "domain-example.csv",
+      "operations": [
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "alice",
+            "domain1"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "alice",
+            "domain2"
+          ]
+        },
+        {
+          "op": "get_users_for_role_in_domain",
+          "args": [
+            "admin",
+            "domain2"
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "get_users_for_role",
+          "args": [
+            "admin"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "domain1",
+            "data1",
+            "read"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "reader",
+            "domain1"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "reader",
+            "admin",
+            "domain1"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "alice",
+            "domain1"
+          ]
+        },
+        {
+          "op": "get_users_for_role_in_domain",
+          "args": [
+            "admin",
+            "domain1"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "alice",
+            "admin",
+            "domain1"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "domain1",
+            "data1",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "reader",
+            "admin",
+            "domain1"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "domain1",
+            "data1",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "bob",
+            "domain2",
+            "data2",
+            "read"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        }
+      ],
+      "expected": [
+        "rows\t61646d696e,646f6d61696e31,6461746131,72656164;61646d696e,646f6d61696e31,6461746131,7772697465;61646d696e,646f6d61696e32,6461746132,72656164;61646d696e,646f6d61696e32,6461746132,7772697465",
+        "rows\t616c696365,61646d696e,646f6d61696e31;626f62,61646d696e,646f6d61696e32",
+        "values\t61646d696e",
+        "values\t",
+        "values\t626f62",
+        "values\t",
+        "values\t",
+        "true",
+        "true",
+        "true",
+        "values\t61646d696e,726561646572",
+        "values\t616c696365,726561646572",
+        "true",
+        "true",
+        "true",
+        "false",
+        "true",
+        "rows\t626f62,61646d696e,646f6d61696e32;616c696365,726561646572,646f6d61696e31"
+      ]
+    },
+    {
+      "name": "domain-isolation-empty-management",
+      "model": "domain-example.conf",
+      "policy": "domain-permissions.csv",
+      "operations": [
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "mid",
+            "one"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "mid",
+            "top",
+            "one"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "top",
+            "two"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "alice",
+            "one"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "alice",
+            "two"
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "get_users_for_role_in_domain",
+          "args": [
+            "top",
+            "one"
+          ]
+        },
+        {
+          "op": "get_users_for_role_in_domain",
+          "args": [
+            "top",
+            "two"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "one",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "two",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "top",
+            ""
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "get_users_for_role",
+          "args": [
+            "top"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "top",
+            ""
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "alice",
+            "top",
+            "two"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "two",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "one",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "alice",
+            "top",
+            "two"
+          ]
+        }
+      ],
+      "expected": [
+        "true",
+        "true",
+        "true",
+        "values\t6d6964",
+        "values\t746f70",
+        "values\t",
+        "values\t6d6964",
+        "values\t616c696365",
+        "true",
+        "true",
+        "true",
+        "values\t746f70",
+        "values\t616c696365",
+        "true",
+        "false",
+        "true",
+        "false",
+        "true",
+        "rows\t616c696365,6d6964,6f6e65;6d6964,746f70,6f6e65;616c696365,746f70,",
+        "false"
+      ]
+    },
+    {
+      "name": "domain-unicode-control-management",
+      "model": "domain-example.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "add_policy",
+          "args": [
+            "reader",
+            "東京\u0000\t\n",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "café",
+            "reader",
+            "東京\u0000\t\n"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "café",
+            "東京\u0000\t\n"
+          ]
+        },
+        {
+          "op": "get_users_for_role_in_domain",
+          "args": [
+            "reader",
+            "東京\u0000\t\n"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "café",
+            "東京"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "café",
+            "東京\u0000\t\n",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "café",
+            "東京",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "café",
+            "reader",
+            "東京\u0000\t\n"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "café",
+            "東京\u0000\t\n",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "true",
+        "true",
+        "values\t726561646572",
+        "values\t636166c3a9",
+        "values\t",
+        "rows\t636166c3a9,726561646572,e69db1e4baac00090a",
+        "true",
+        "false",
+        "true",
+        "rows\t",
+        "false"
+      ]
+    },
+    {
+      "name": "domain-cycle-mutating-one-domain",
+      "model": "domain-example.conf",
+      "policy": "domain-cycle-permissions.csv",
+      "operations": [
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "a",
+            "b",
+            "one"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "b",
+            "a",
+            "two"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a",
+            "one",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "b",
+            "two",
+            "data",
+            "write"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "b",
+            "a",
+            "one"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "b",
+            "one"
+          ]
+        },
+        {
+          "op": "get_users_for_role_in_domain",
+          "args": [
+            "a",
+            "one"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "a",
+            "one",
+            "data",
+            "write"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "b",
+            "one",
+            "data",
+            "write"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "b",
+            "a",
+            "one"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "b",
+            "one"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "b",
+            "two",
+            "data",
+            "write"
+          ]
+        }
+      ],
+      "oracle_expected": [
+        "true",
+        "true",
+        "rows\t61,62,6f6e65;62,61,74776f",
+        "true",
+        "true",
+        "true",
+        "rows\t61,62,6f6e65;62,61,74776f;62,61,6f6e65",
+        "values\t61",
+        "values\t62",
+        "true",
+        "true",
+        "true",
+        "rows\t61,62,6f6e65;62,61,74776f",
+        "values\t",
+        "true"
+      ],
+      "boundary": "OCaml validates cycles independently per domain, accepting opposing edges in separate domains but rejecting a newly closed same-domain cycle. Go accepts the in-memory cycle.",
+      "expected": [
+        "true",
+        "true",
+        "rows\t61,62,6f6e65;62,61,74776f",
+        "true",
+        "true",
+        "error",
+        "rows\t61,62,6f6e65;62,61,74776f",
+        "values\t",
+        "values\t",
+        "true",
+        "false",
+        "false",
+        "rows\t61,62,6f6e65;62,61,74776f",
+        "values\t",
+        "true"
+      ]
+    },
+    {
+      "name": "domain-self-edge-atomic",
+      "model": "domain-example.conf",
+      "policy": "domain-self-permission.csv",
+      "operations": [
+        {
+          "op": "enforce",
+          "args": [
+            "a",
+            "one",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "a",
+            "one"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "a",
+            "a",
+            "one"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "a",
+            "one"
+          ]
+        },
+        {
+          "op": "get_users_for_role_in_domain",
+          "args": [
+            "a",
+            "one"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a",
+            "one",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "a",
+            "a",
+            "one"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        }
+      ],
+      "oracle_expected": [
+        "true",
+        "values\t",
+        "true",
+        "rows\t61,61,6f6e65",
+        "values\t61",
+        "values\t61",
+        "true",
+        "true",
+        "rows\t"
+      ],
+      "boundary": "OCaml rejects explicit domain self edges atomically, retaining implicit self membership; raw Go accepts and exposes the stored edge.",
+      "expected": [
+        "true",
+        "values\t",
+        "error",
+        "rows\t",
+        "values\t",
+        "values\t",
+        "true",
+        "false",
+        "rows\t"
+      ]
+    },
+    {
+      "name": "domain-collision-removal-stale-cache",
+      "model": "domain-example.conf",
+      "policy": "domain-collision.csv",
+      "operations": [
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "a",
+            "b,c",
+            "d"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "a",
+            "b,c",
+            "d"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "a",
+            "c,d"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "a",
+            "d"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "a",
+            "b,c",
+            "d"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "a",
+            "b",
+            "c,d"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "a",
+            "c,d"
+          ]
+        },
+        {
+          "op": "get_users_for_role_in_domain",
+          "args": [
+            "b",
+            "c,d"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a",
+            "c,d",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "a",
+            "b",
+            "c,d"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a",
+            "c,d",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "a",
+            "b",
+            "c,d"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "a",
+            "c,d"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a",
+            "c,d",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "oracle_expected": [
+        "true",
+        "false",
+        "values\t62",
+        "values\t",
+        "true",
+        "rows\t",
+        "false",
+        "values\t62",
+        "values\t61",
+        "true",
+        "true",
+        "true",
+        "true",
+        "values\t",
+        "false"
+      ],
+      "boundary": "Comma-joined grouping identity can collide across different domain tuples. Go removes the caller-domain link from its incremental cache, retaining the removed stored-domain edge; OCaml rebuilds from stored rows.",
+      "expected": [
+        "true",
+        "false",
+        "values\t62",
+        "values\t",
+        "true",
+        "rows\t",
+        "false",
+        "values\t",
+        "values\t",
+        "false",
+        "true",
+        "true",
+        "true",
+        "values\t",
+        "false"
+      ]
+    },
+    {
+      "name": "domain-duplicate-before-self-validation",
+      "model": "domain-example.conf",
+      "policy": "domain-duplicate-self-collision.csv",
+      "operations": [
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "a,b",
+            "a,b",
+            "one"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "a,b",
+            "a,b",
+            "one"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "a,b",
+            "one"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a",
+            "one",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a,b",
+            "one",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "true",
+        "false",
+        "rows\t61,622c612c62,6f6e65",
+        "values\t",
+        "true",
+        "false"
+      ]
+    },
+    {
+      "name": "domain-wrong-pair-arity-atomic",
+      "model": "domain-example.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "reader"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "alice",
+            "reader"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "alice",
+            ""
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "alice",
+            "reader"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "reader",
+            "one"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "alice",
+            "one"
+          ]
+        }
+      ],
+      "oracle_expected": [
+        "error",
+        "rows\t616c696365,726561646572",
+        "true",
+        "values\t",
+        "error",
+        "rows\t",
+        "true",
+        "rows\t616c696365,726561646572,6f6e65",
+        "values\t726561646572"
+      ],
+      "boundary": "Go reports an add error for a short domain grouping row but leaves it stored until removal. OCaml rejects arity before mutation and rejects pair operations on a domain model.",
+      "expected": [
+        "error",
+        "rows\t",
+        "error",
+        "values\t",
+        "error",
+        "rows\t",
+        "true",
+        "rows\t616c696365,726561646572,6f6e65",
+        "values\t726561646572"
+      ]
+    },
+    {
+      "name": "domain-explicit-query-requires-domain-model",
+      "model": "rbac.conf",
+      "policy": "rbac.csv",
+      "operations": [
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "alice",
+            "unknown"
+          ]
+        },
+        {
+          "op": "get_users_for_role_in_domain",
+          "args": [
+            "data2_admin",
+            "unknown"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "alice",
+            ""
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data2",
+            "read"
+          ]
+        }
+      ],
+      "oracle_expected": [
+        "values\t64617461325f61646d696e",
+        "values\t616c696365",
+        "values\t64617461325f61646d696e",
+        "values\t64617461325f61646d696e",
+        "true"
+      ],
+      "boundary": "Explicit OCaml domain queries require a three-field g definition. Pinned two-field Go role managers ignore extra domain arguments and return ordinary links.",
+      "expected": [
+        "error",
+        "error",
+        "error",
+        "values\t64617461325f61646d696e",
+        "true"
+      ]
+    },
+    {
+      "name": "domain-queries-without-role-definition",
+      "model": "basic.conf",
+      "policy": "basic.csv",
+      "operations": [
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "alice",
+            "one"
+          ]
+        },
+        {
+          "op": "get_users_for_role_in_domain",
+          "args": [
+            "reader",
+            "one"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "get_users_for_role_in_domain",
+          "args": [
+            "reader",
+            "one",
+            "extra"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data1",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "error",
+        "error",
+        "error",
+        "error",
+        "true"
+      ]
+    },
+    {
+      "name": "domain-nul-memo-key-collision",
+      "model": "domain-nul-memo-collision.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "add_policy",
+          "args": [
+            "a\u0000b",
+            "c",
+            "d",
+            "UNKNOWN"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "a",
+            "b\u0000c",
+            "d",
+            "allow"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "a\u0000b",
+            "c",
+            "d"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "a\u0000b",
+            "d"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "a",
+            "d"
+          ]
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "a",
+            "b\u0000c",
+            "d"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "unused"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "a\u0000b",
+            "c",
+            "d",
+            "UNKNOWN"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "unused"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "a\u0000b",
+            "c",
+            "d"
+          ]
+        },
+        {
+          "op": "get_roles_for_user_in_domain",
+          "args": [
+            "a\u0000b",
+            "d"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "unused"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "a",
+            "b\u0000c",
+            "d"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "unused"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "a",
+            "b\u0000c",
+            "d"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "unused"
+          ]
+        }
+      ],
+      "expected": [
+        "true",
+        "true",
+        "true",
+        "rows\t610062,63,64,554e4b4e4f574e;61,620063,64,616c6c6f77",
+        "rows\t610062,63,64",
+        "values\t63",
+        "values\t",
+        "false",
+        "false",
+        "true",
+        "false",
+        "true",
+        "values\t",
+        "false",
+        "true",
+        "true",
+        "true",
+        "false"
+      ],
+      "oracle_expected": [
+        "true",
+        "true",
+        "true",
+        "rows\t610062,63,64,554e4b4e4f574e;61,620063,64,616c6c6f77",
+        "rows\t610062,63,64",
+        "values\t63",
+        "values\t",
+        "false",
+        "true",
+        "true",
+        "true",
+        "true",
+        "values\t",
+        "false",
+        "true",
+        "true",
+        "true",
+        "false"
+      ],
+      "boundary": "Pinned GenerateGFunction concatenates NUL-separated arguments without escaping NUL bytes inside values. Distinct domain tuples can share a memo key and incorrectly reuse membership. OCaml evaluates the consistent exact-byte graph and does not emulate the cached incorrect grant."
     }
   ]
 }

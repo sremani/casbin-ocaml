@@ -4777,6 +4777,929 @@
         "/foo*"
       ],
       "expected": false
+    },
+    {
+      "name": "domain-upstream-0",
+      "model": "domain-example.conf",
+      "policy": "domain-example.csv",
+      "request": [
+        "alice",
+        "domain1",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-upstream-1",
+      "model": "domain-example.conf",
+      "policy": "domain-example.csv",
+      "request": [
+        "alice",
+        "domain2",
+        "data2",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-upstream-2",
+      "model": "domain-example.conf",
+      "policy": "domain-example.csv",
+      "request": [
+        "bob",
+        "domain1",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-upstream-3",
+      "model": "domain-example.conf",
+      "policy": "domain-example.csv",
+      "request": [
+        "bob",
+        "domain2",
+        "data2",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-upstream-4",
+      "model": "domain-example.conf",
+      "policy": "domain-example.csv",
+      "request": [
+        "admin",
+        "domain1",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-upstream-5",
+      "model": "domain-example.conf",
+      "policy": "domain-example.csv",
+      "request": [
+        "admin",
+        "unknown",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-upstream-6",
+      "model": "domain-example.conf",
+      "policy": "domain-example.csv",
+      "request": [
+        "alice",
+        "domain1",
+        "data2",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-upstream-7",
+      "model": "domain-example.conf",
+      "policy": "domain-example.csv",
+      "request": [
+        "bob",
+        "domain3",
+        "data2",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-upstream-8",
+      "model": "domain-example.conf",
+      "policy": "domain-example2.csv",
+      "request": [
+        "alice",
+        "domain1",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-upstream-9",
+      "model": "domain-example.conf",
+      "policy": "domain-example2.csv",
+      "request": [
+        "alice",
+        "domain2",
+        "data2",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-upstream-10",
+      "model": "domain-example.conf",
+      "policy": "domain-example2.csv",
+      "request": [
+        "bob",
+        "domain1",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-upstream-11",
+      "model": "domain-example.conf",
+      "policy": "domain-example2.csv",
+      "request": [
+        "bob",
+        "domain2",
+        "data2",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-upstream-12",
+      "model": "domain-example.conf",
+      "policy": "domain-example2.csv",
+      "request": [
+        "admin",
+        "domain1",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-upstream-13",
+      "model": "domain-example.conf",
+      "policy": "domain-example2.csv",
+      "request": [
+        "admin",
+        "unknown",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-upstream-14",
+      "model": "domain-example.conf",
+      "policy": "domain-example2.csv",
+      "request": [
+        "alice",
+        "domain1",
+        "data2",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-upstream-15",
+      "model": "domain-example.conf",
+      "policy": "domain-example2.csv",
+      "request": [
+        "bob",
+        "domain3",
+        "data2",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-upstream-hierarchy-16",
+      "model": "domain-example.conf",
+      "policy": "domain-upstream-hierarchy.csv",
+      "request": [
+        "alice",
+        "domain1",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-upstream-hierarchy-17",
+      "model": "domain-example.conf",
+      "policy": "domain-upstream-hierarchy.csv",
+      "request": [
+        "alice",
+        "domain2",
+        "data2",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-upstream-hierarchy-18",
+      "model": "domain-example.conf",
+      "policy": "domain-upstream-hierarchy.csv",
+      "request": [
+        "bob",
+        "domain2",
+        "data2",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-depth-self-19",
+      "model": "domain-g-only.conf",
+      "policy": "domain-chain.csv",
+      "request": [
+        "role0",
+        "role10",
+        "tenant"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-depth-self-20",
+      "model": "domain-g-only.conf",
+      "policy": "domain-chain.csv",
+      "request": [
+        "role0",
+        "role11",
+        "tenant"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-depth-self-21",
+      "model": "domain-g-only.conf",
+      "policy": "domain-chain.csv",
+      "request": [
+        "role1",
+        "role11",
+        "tenant"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-depth-self-22",
+      "model": "domain-g-only.conf",
+      "policy": "domain-chain.csv",
+      "request": [
+        "role0",
+        "role10",
+        "other"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-depth-self-23",
+      "model": "domain-g-only.conf",
+      "policy": "domain-chain.csv",
+      "request": [
+        "role0",
+        "role0",
+        "unknown"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-depth-self-24",
+      "model": "domain-g-only.conf",
+      "policy": "domain-chain.csv",
+      "request": [
+        "ghost",
+        "ghost",
+        "absent"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-depth-self-25",
+      "model": "domain-g-only.conf",
+      "policy": "domain-chain.csv",
+      "request": [
+        "ghost",
+        "other",
+        "absent"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-separation-26",
+      "model": "domain-g-only.conf",
+      "policy": "domain-cross.csv",
+      "request": [
+        "a",
+        "b",
+        "one"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-separation-27",
+      "model": "domain-g-only.conf",
+      "policy": "domain-cross.csv",
+      "request": [
+        "a",
+        "c",
+        "one"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-separation-28",
+      "model": "domain-g-only.conf",
+      "policy": "domain-cross.csv",
+      "request": [
+        "a",
+        "c",
+        "two"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-separation-29",
+      "model": "domain-g-only.conf",
+      "policy": "domain-cross.csv",
+      "request": [
+        "b",
+        "c",
+        "two"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-separation-30",
+      "model": "domain-g-only.conf",
+      "policy": "domain-cross.csv",
+      "request": [
+        "b",
+        "a",
+        "two"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-separation-31",
+      "model": "domain-g-only.conf",
+      "policy": "domain-cross.csv",
+      "request": [
+        "b",
+        "a",
+        "one"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-empty-unicode-values-32",
+      "model": "domain-g-only.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "alice",
+        "reader",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-empty-unicode-values-33",
+      "model": "domain-g-only.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "alice",
+        "reader",
+        "other"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-empty-unicode-values-34",
+      "model": "domain-g-only.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "café",
+        "reader",
+        "東京"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-empty-unicode-values-35",
+      "model": "domain-g-only.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "café",
+        "reader",
+        "东京"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-empty-unicode-values-36",
+      "model": "domain-g-only.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "alice",
+        "reader",
+        "a,b"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-empty-unicode-values-37",
+      "model": "domain-g-only.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "alice",
+        "reader",
+        " x "
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-empty-unicode-values-38",
+      "model": "domain-g-only.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "alice",
+        "reader",
+        "x"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-empty-unicode-values-39",
+      "model": "domain-g-only.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "alice",
+        "reader",
+        "a\tb"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-renamed-position-one",
+      "model": "domain-renamed-position.conf",
+      "policy": "domain-renamed-position.csv",
+      "request": [
+        "alice",
+        "data",
+        "read",
+        "one"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-renamed-position-two",
+      "model": "domain-renamed-position.conf",
+      "policy": "domain-renamed-position.csv",
+      "request": [
+        "alice",
+        "data",
+        "read",
+        "two"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-third-literal",
+      "model": "domain-literal.conf",
+      "policy": "domain-literal.csv",
+      "request": [
+        "alice",
+        "ignored",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-third-policy-dependency",
+      "model": "domain-policy-dependency.conf",
+      "policy": "domain-policy-dependency.csv",
+      "request": [
+        "unused",
+        "unused",
+        "unused",
+        "unused"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-initial-cycle-rejected-44",
+      "model": "domain-g-only.conf",
+      "policy": "domain-cycle.csv",
+      "request": [
+        "a",
+        "b",
+        "one"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Pinned DomainManager lacks Range and initial cycle detection is skipped; OCaml rejects cyclic/self-edge domain graphs on load."
+    },
+    {
+      "name": "domain-initial-cycle-rejected-45",
+      "model": "domain-g-only.conf",
+      "policy": "domain-cycle.csv",
+      "request": [
+        "a",
+        "other",
+        "one"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Pinned DomainManager lacks Range and initial cycle detection is skipped; OCaml rejects cyclic/self-edge domain graphs on load."
+    },
+    {
+      "name": "domain-initial-cycle-rejected-46",
+      "model": "domain-g-only.conf",
+      "policy": "domain-self.csv",
+      "request": [
+        "a",
+        "a",
+        "one"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Pinned DomainManager lacks Range and initial cycle detection is skipped; OCaml rejects cyclic/self-edge domain graphs on load."
+    },
+    {
+      "name": "domain-short-csv-error",
+      "model": "domain-g-only.conf",
+      "policy": "domain-short-g.csv",
+      "request": [
+        "alice",
+        "reader",
+        "one"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "domain-long-csv-rejection",
+      "model": "domain-g-only.conf",
+      "policy": "domain-long-g.csv",
+      "request": [
+        "alice",
+        "reader",
+        "one"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Pinned Go truncates extra grouping fields when building links; OCaml requires declared CSV arity."
+    },
+    {
+      "name": "domain-g-two-call-rejection-49",
+      "model": "domain-g-two-call.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "alice",
+        "reader",
+        "ignored"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "A two-argument g call queries the default empty Go domain; OCaml requires exactly three operands for a three-field role declaration."
+    },
+    {
+      "name": "domain-g-two-call-rejection-50",
+      "model": "domain-g-two-call.conf",
+      "policy": "domain-cross.csv",
+      "request": [
+        "alice",
+        "reader",
+        "one"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "A two-argument g call queries the default empty Go domain; OCaml requires exactly three operands for a three-field role declaration."
+    },
+    {
+      "name": "domain-invalid-boolean-third",
+      "model": "domain-invalid-boolean-third.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "alice",
+        "reader",
+        ""
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "domain-invalid-four-operands",
+      "model": "domain-invalid-four-operands.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "alice",
+        "reader",
+        ""
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Exact-domain OCaml validates declared arity and acyclic snapshots; pinned Go accepts this boundary."
+    },
+    {
+      "name": "domain-invalid-unknown-third",
+      "model": "domain-invalid-unknown-third.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "alice",
+        "reader",
+        ""
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "domain-invalid-unreachable-bool",
+      "model": "domain-invalid-unreachable-bool.conf",
+      "policy": "domain-values.csv",
+      "request": [
+        "alice",
+        "reader",
+        ""
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Exact-domain OCaml validates declared arity and acyclic snapshots; pinned Go accepts this boundary."
+    },
+    {
+      "name": "domain-g-three-in-pair",
+      "model": "domain-g-three-in-pair.conf",
+      "policy": "domain-pair.csv",
+      "request": [
+        "alice",
+        "reader",
+        "ignored"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Exact-domain OCaml validates declared arity and acyclic snapshots; pinned Go accepts this boundary."
+    },
+    {
+      "name": "domain-auto-keymatch-rejection",
+      "model": "domain-auto-keymatch.conf",
+      "policy": "domain-auto-keymatch.csv",
+      "request": [
+        "alice",
+        "tenant1",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Pinned Go auto-registers domain pattern matching for this exact matcher shape; exact-domain OCaml explicitly rejects it."
+    },
+    {
+      "name": "domain-effect-allow-57",
+      "model": "domain-effects-allow.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "one",
+        "/foo/report",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effect-allow-58",
+      "model": "domain-effects-allow.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "one",
+        "/foo/admin",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effect-allow-59",
+      "model": "domain-effects-allow.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "two",
+        "/foo/report",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effect-allow-60",
+      "model": "domain-effects-allow.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "unknown",
+        "/foo",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effect-allow-61",
+      "model": "domain-effects-allow.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "reader",
+        "one",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-synthetic-allow-62",
+      "model": "domain-effects-allow.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-synthetic-allow-63",
+      "model": "domain-effects-allow.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "",
+        "",
+        ""
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effect-deny-64",
+      "model": "domain-effects-deny.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "one",
+        "/foo/report",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effect-deny-65",
+      "model": "domain-effects-deny.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "one",
+        "/foo/admin",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effect-deny-66",
+      "model": "domain-effects-deny.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "two",
+        "/foo/report",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effect-deny-67",
+      "model": "domain-effects-deny.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "unknown",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effect-deny-68",
+      "model": "domain-effects-deny.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "reader",
+        "one",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-synthetic-deny-69",
+      "model": "domain-effects-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-synthetic-deny-70",
+      "model": "domain-effects-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effect-allow-deny-71",
+      "model": "domain-effects-allow-deny.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "one",
+        "/foo/report",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effect-allow-deny-72",
+      "model": "domain-effects-allow-deny.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "one",
+        "/foo/admin",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effect-allow-deny-73",
+      "model": "domain-effects-allow-deny.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "two",
+        "/foo/report",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effect-allow-deny-74",
+      "model": "domain-effects-allow-deny.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "alice",
+        "unknown",
+        "/foo",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effect-allow-deny-75",
+      "model": "domain-effects-allow-deny.conf",
+      "policy": "domain-effects.csv",
+      "request": [
+        "reader",
+        "one",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-synthetic-allow-deny-76",
+      "model": "domain-effects-allow-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-synthetic-allow-deny-77",
+      "model": "domain-effects-allow-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "",
+        "",
+        ""
+      ],
+      "expected": false
     }
   ]
 }

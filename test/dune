@@ -22,3 +22,7 @@
  (name key_match_test)
  (modules key_match_test)
  (libraries casbin))
+(test
+ (name domain_test)
+ (modules domain_test)
+ (libraries casbin))

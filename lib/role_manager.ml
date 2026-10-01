@@ -46,3 +46,23 @@ let has_link graph subject target =
       search (remaining - 1) visited (Names.diff next visited)
   in
   search 10 Names.empty (Names.singleton subject)
+
+module Domains = Map.Make (String)
+type domains = t Domains.t
+
+let of_domain_links links =
+  let grouped = List.fold_left (fun grouped (child, parent, domain) ->
+      let existing = match Domains.find_opt domain grouped with None -> [] | Some links -> links in
+      Domains.add domain ((child, parent) :: existing) grouped) Domains.empty links in
+  Domains.fold (fun domain links result ->
+      match result with
+      | Error _ -> result
+      | Ok graphs ->
+          match of_links links with
+          | Error message -> Error (Printf.sprintf "domain %S: %s" domain message)
+          | Ok graph -> Ok (Domains.add domain graph graphs)) grouped (Ok Domains.empty)
+
+let has_domain_link graphs subject target domain =
+  match Domains.find_opt domain graphs with
+  | Some graph -> has_link graph subject target
+  | None -> String.equal subject target

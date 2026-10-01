@@ -100,6 +100,16 @@ func operation(e *casbin.Enforcer, line string) (result string) {
 			return "error"
 		}
 		return values(e.GetRolesForUser(stringsArgs[0]))
+	case "get_roles_for_user_in_domain":
+		if len(arguments) != 2 {
+			return "error"
+		}
+		return values(e.GetRolesForUser(stringsArgs[0], stringsArgs[1]))
+	case "get_users_for_role_in_domain":
+		if len(arguments) != 2 {
+			return "error"
+		}
+		return values(e.GetUsersForRole(stringsArgs[0], stringsArgs[1]))
 	case "get_users_for_role":
 		if len(arguments) != 1 {
 			return "error"

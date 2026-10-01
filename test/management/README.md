@@ -5,7 +5,7 @@ Reference: [Apache Casbin](https://github.com/apache/casbin), unmodified commit
 and enforcement APIs with autosave disabled. Each case initializes a fresh
 model/policy, then executes its complete operation sequence in one process.
 
-The corpus contains 26 cases, 313 operation steps, and 7 explicit boundary
+The corpus contains 37 cases, 444 operation steps, and 13 explicit boundary
 traces. Three cases require initialization failure rather than an operation
 trace. The remaining cases cover duplicate/no-op flags, exact policy/grouping
 row order, additions/removals, enforcement after mutation, transitive role
@@ -97,3 +97,42 @@ values travel through the hex stdin protocol because an ordinary command argv
 cannot carry embedded NUL. The first-star suffix remains ignored and the prefix
 bytes must match exactly. All three new management traces require complete Go
 and OCaml parity; no new management exceptions were introduced.
+
+## Milestone 5 domain management
+
+Ten new domain traces add 113 operation steps. `domain-example.conf` and
+`domain-example.csv` were copied byte-for-byte from upstream
+`examples/rbac_with_domains_model.conf` and
+`examples/rbac_with_domains_policy.csv`; the existing copied LICENSE and NOTICE
+apply. Other domain policies were authored for this port.
+
+Generic grouping operations now accept the declared pair or domain triple.
+`get_roles_for_user_in_domain` and `get_users_for_role_in_domain` take name and
+domain arguments. The Go driver uses the upstream variadic query APIs, which
+preserve errors, rather than convenience wrappers that discard errors.
+Unscoped queries in a domain model query the default empty-string domain.
+
+Parity traces cover upstream data, direct versus transitive membership,
+independent domains, empty domains, sorted queries, generic triple row order,
+duplicate-before-self-validation no-ops, and embedded NUL/tab/newline plus
+Unicode domain strings transported through hex stdin.
+
+Five additional explicit boundary traces cover same-domain cycle rejection
+while accepting opposing edges in separate domains; atomic self-edge
+rejection; cross-domain comma-key collision removal and stale upstream role
+cache; wrong two-field operations against a three-field grouping declaration;
+and explicit domain queries against a two-field model (Go ignores the supplied
+domain, while the typed OCaml domain API rejects the model). Queries on a model
+without any role declaration error on both sides. All divergent post-error
+snapshots, later queries, and enforcement results are checked in full.
+
+A sixth domain boundary trace adds 18 steps for the pinned Go g-function memo
+key's NUL delimiter collision. Distinct tuples `(a\0b, c, d)` and
+`(a, b\0c, d)` share a memo key when raw values contain NUL. The first matched
+row has an unknown effect, while the key-colliding second row has Allow but no
+actual role link. Go incorrectly reuses true membership and grants; OCaml's
+exact graph denies. The trace checks actual role/policy queries, the divergent
+decisions, and later convergence after removing the original link and adding
+or removing the correct second link. The source model was authored for this
+port; `empty.csv` is also port-authored. This exception is explicitly recorded
+in the full Go and OCaml traces, and no cached incorrect grant is emulated.

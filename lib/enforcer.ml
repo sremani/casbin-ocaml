@@ -3,6 +3,7 @@ type t = {
   policy : Policy.t;
   matcher : Expr.t;
   roles : Role_manager.t;
+  domain_roles : Role_manager.domains;
 }
 
 let ( let* ) = Result.bind
@@ -11,9 +12,10 @@ let prepare model policy =
   let* matcher = Expr.compile
       ~request_fields:model.Model.request_fields
       ~policy_fields:model.Model.policy_fields
-      ~roles_enabled:model.Model.roles_enabled model.Model.matcher in
+      ~roles_enabled:model.Model.roles_enabled ~role_arity:model.Model.role_arity model.Model.matcher in
   let* roles = Role_manager.of_links policy.Policy.roles in
-  Ok { model; policy; matcher; roles }
+  let* domain_roles = Role_manager.of_domain_links policy.Policy.domain_roles in
+  Ok { model; policy; matcher; roles; domain_roles }
 
 let of_strings ~model ~policy =
   let* model = Model.of_string model in
@@ -40,7 +42,8 @@ let enforce t request =
         | Some value -> Ok value
         | None -> Error ("unknown matcher field: " ^ name)
       in
-      Expr.eval ~resolve ~has_role:(Role_manager.has_link t.roles) t.matcher
+      Expr.eval ~resolve ~has_role:(Role_manager.has_link t.roles)
+        ~has_role_in_domain:(Role_manager.has_domain_link t.domain_roles) t.matcher
     in
     let decide rows = Ok (Effector.decide t.model.Model.policy_effect rows) in
     (* Go Casbin evaluates one empty policy row if none exist, or when the
@@ -70,6 +73,7 @@ let enforce t request =
 let policy_key = String.concat ","
 
 let grouping_key (subject, role) = policy_key [subject; role]
+let domain_grouping_key (subject, role, domain) = policy_key [subject; role; domain]
 
 let validate_policy_rule t rule =
   let expected = List.length t.model.Model.policy_fields in
@@ -80,6 +84,11 @@ let validate_policy_rule t rule =
 let require_grouping t =
   if t.model.Model.roles_enabled then Ok ()
   else Error "grouping operations require a role definition"
+
+let require_role_arity t arity =
+  let* () = require_grouping t in
+  if t.model.Model.role_arity = arity then Ok ()
+  else Error (Printf.sprintf "grouping operation requires a %d-field role definition" arity)
 
 let get_policy t = t.policy.Policy.rules
 
@@ -106,10 +115,12 @@ let remove_policy t rule =
 
 let get_grouping_policy t =
   let* () = require_grouping t in
-  Ok (List.map (fun (subject, role) -> [subject; role]) t.policy.Policy.roles)
+  if t.model.Model.role_arity = 3 then
+    Ok (List.map (fun (subject, role, domain) -> [subject; role; domain]) t.policy.Policy.domain_roles)
+  else Ok (List.map (fun (subject, role) -> [subject; role]) t.policy.Policy.roles)
 
 let has_grouping_policy t pair =
-  let* () = require_grouping t in
+  let* () = require_role_arity t 2 in
   let key = grouping_key pair in
   Ok (List.exists (fun existing -> grouping_key existing = key) t.policy.Policy.roles)
 
@@ -131,14 +142,60 @@ let remove_grouping_policy t pair =
     let links = List.filter (fun existing -> grouping_key existing <> key) t.policy.Policy.roles in
     with_grouping t links
 
+let has_grouping_policy_in_domain t triple =
+  let* () = require_role_arity t 3 in
+  let key = domain_grouping_key triple in
+  Ok (List.exists (fun existing -> domain_grouping_key existing = key) t.policy.Policy.domain_roles)
+
+let with_domain_grouping t links =
+  let* domain_roles = Role_manager.of_domain_links links in
+  let policy = { t.policy with Policy.domain_roles = links } in
+  Ok ({ t with policy; domain_roles }, true)
+
+let add_grouping_policy_in_domain t triple =
+  let* present = has_grouping_policy_in_domain t triple in
+  if present then Ok (t, false)
+  else with_domain_grouping t (t.policy.Policy.domain_roles @ [triple])
+
+let remove_grouping_policy_in_domain t triple =
+  let* present = has_grouping_policy_in_domain t triple in
+  if not present then Ok (t, false)
+  else
+    let key = domain_grouping_key triple in
+    let links = List.filter (fun existing -> domain_grouping_key existing <> key)
+        t.policy.Policy.domain_roles in
+    with_domain_grouping t links
+
+let direct_roles t domain subject =
+  t.policy.Policy.domain_roles
+  |> List.filter_map (fun (user, role, stored_domain) ->
+      if user = subject && stored_domain = domain then Some role else None)
+  |> List.sort_uniq String.compare
+
+let direct_users t domain role =
+  t.policy.Policy.domain_roles
+  |> List.filter_map (fun (user, parent, stored_domain) ->
+      if parent = role && stored_domain = domain then Some user else None)
+  |> List.sort_uniq String.compare
+
+let get_roles_for_user_in_domain t ~domain subject =
+  let* () = require_role_arity t 3 in
+  Ok (direct_roles t domain subject)
+
+let get_users_for_role_in_domain t ~domain role =
+  let* () = require_role_arity t 3 in
+  Ok (direct_users t domain role)
+
 let get_roles_for_user t subject =
   let* () = require_grouping t in
-  Ok (t.policy.Policy.roles
+  if t.model.Model.role_arity = 3 then Ok (direct_roles t "" subject)
+  else Ok (t.policy.Policy.roles
       |> List.filter_map (fun (user, role) -> if user = subject then Some role else None)
       |> List.sort_uniq String.compare)
 
 let get_users_for_role t role =
   let* () = require_grouping t in
-  Ok (t.policy.Policy.roles
+  if t.model.Model.role_arity = 3 then Ok (direct_users t "" role)
+  else Ok (t.policy.Policy.roles
       |> List.filter_map (fun (user, parent) -> if parent = role then Some user else None)
       |> List.sort_uniq String.compare)

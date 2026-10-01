@@ -16,3 +16,11 @@ val add_grouping_policy : t -> string * string -> (t * bool, string) result
 val remove_grouping_policy : t -> string * string -> (t * bool, string) result
 val get_roles_for_user : t -> string -> (string list, string) result
 val get_users_for_role : t -> string -> (string list, string) result
+
+(** Domain grouping mutations require a three-field g definition. Queries use
+    exact domains; old snapshots remain valid after updates. *)
+val has_grouping_policy_in_domain : t -> string * string * string -> (bool, string) result
+val add_grouping_policy_in_domain : t -> string * string * string -> (t * bool, string) result
+val remove_grouping_policy_in_domain : t -> string * string * string -> (t * bool, string) result
+val get_roles_for_user_in_domain : t -> domain:string -> string -> (string list, string) result
+val get_users_for_role_in_domain : t -> domain:string -> string -> (string list, string) result

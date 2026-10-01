@@ -1,0 +1,2 @@
+p, reader, tenant*, data, read
+g, alice, reader, tenant*

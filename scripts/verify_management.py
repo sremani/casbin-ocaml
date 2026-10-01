@@ -12,6 +12,7 @@ OPERATIONS = {
     "enforce", "get_policy", "has_policy", "add_policy", "remove_policy",
     "get_grouping_policy", "has_grouping_policy", "add_grouping_policy",
     "remove_grouping_policy", "get_roles_for_user", "get_users_for_role",
+    "get_roles_for_user_in_domain", "get_users_for_role_in_domain",
 }
 
 

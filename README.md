@@ -1,6 +1,6 @@
 # Casbin → OCaml
 
-An OCaml learning port of a bounded ACL/basic RBAC subset of Apache Casbin (Incubating). PitBoss coordinates the design, integration, and verification; PitCrew members implement assigned components. The project board is [PITBOARD.md](PITBOARD.md).
+An OCaml learning port of a bounded ACL/basic and exact-domain RBAC subset of Apache Casbin (Incubating). PitBoss coordinates the design, integration, and verification; PitCrew members implement assigned components. The project board is [PITBOARD.md](PITBOARD.md).
 
 The implemented core is an immutable library and command-line enforcer, checked against Go Casbin at commit `524f3f2dc9baef696d748db491d49b3055d359d1`. The library uses only the OCaml standard library. PitBoss drives tickets and verification gates from PITBOARD.md and commits completed milestones locally.
 
@@ -46,14 +46,14 @@ The local package is `casbin_ocaml`; applications link it with `(libraries casbi
 
 | Surface | Implemented contract |
 | --- | --- |
-| Model | One `r`, `p`, `e`, `m`; optional two-argument `g = _, _` |
+| Model | One `r`, `p`, `e`, `m`; optional `g = _, _` or domain `g = _, _, _` |
 | Values | Strings; validated named `r.field` and `p.field` references |
-| Matchers | String `==` and `!=`, `&&`, `||`, `!`, parentheses, `true`, `false`, two-argument `g` and `keyMatch` |
+| Matchers | String `==` and `!=`, `&&`, `||`, `!`, parentheses, `true`, `false`, declared two- or three-argument `g` and two-argument `keyMatch` |
 | Policy effect | Allow override, deny override, and combined allow-and-deny; optional explicit `p.eft` at any position |
 | Role graph | Self membership, directed transitive membership, at most ten edges; cyclic/self-edge policies rejected at load |
 | Policy input | Physical-line CSV; quoted commas/doubled quotes; comments and duplicate records |
 | Model input | Whitespace/comments and backslash line continuation within the declared subset |
-| Management | Immutable policy/grouping get, has, add, remove; direct role/user queries |
+| Management | Immutable policy/grouping get, has, add, remove; exact-domain variants; direct role/user queries |
 | Errors | Unsupported models/functions/fields, malformed input, wrong arity, missing files |
 
 An empty policy is evaluated using an empty-string policy row, matching Go Casbin. A matcher independent of policy fields is evaluated once. This means `m = true` allows even without policy records; absence of records alone is not a guarantee of denial.
@@ -76,9 +76,11 @@ Input whitespace support is ASCII. Unicode whitespace trimming and Go's file-sca
 
 Duplicate policy and role keys use comma-joined field values, reproducing Go Casbin's key behavior. Distinct quoted field tuples can collide; the first row is retained. For example, `p, "a,b", c, read` and `p, a, "b,c", read` share a duplicate key. The oracle corpus covers the resulting decisions.
 
+Domain RBAC uses `g(subject, role, domain)` with exact byte-string domains. Graphs are isolated by domain, including the empty domain; implicit self membership and the ten-edge bound apply within each graph. The application matcher supplies domain equality when permission rows must share the request domain. Domain tuple mutations and `~domain` direct role queries preserve immutable snapshots. Unscoped direct queries use the empty domain. Newly stored self edges and cycles fail atomically; domain cycles also fail at load, an explicit difference from the pinned Go detector. Models that activate upstream automatic domain `keyMatch` registration are rejected. See the [domain contract](docs/domain-contract.md).
+
 `keyMatch(key, pattern)` compares strings exactly when the pattern has no `*`. With a star it requires the byte prefix before the first star, which may match zero remaining bytes; later pattern text is ignored. `/foo*` matches `/foo` and `/foobar`, while `/foo/*` requires `/foo/`. No path normalization, regex or escaping is applied. See the [keyMatch contract](docs/key-match-contract.md).
 
-Deferred: priority/subject-priority and custom effect rules, multiple assertions, domains, ABAC, reflection, numeric coercion, `eval`, regex and other path-matching functions, custom functions, adapters, watchers, caching, filtered/batch/update management operations, and the full Casbin public API.
+Deferred: priority/subject-priority and custom effect rules, multiple assertions, domain patterns, ABAC, reflection, numeric coercion, `eval`, regex and other path-matching functions, custom functions, adapters, watchers, caching, filtered/batch/update management operations, and the full Casbin public API.
 
 ## Verification and provenance
 

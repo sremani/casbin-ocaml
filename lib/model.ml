@@ -4,6 +4,7 @@ type t = {
   policy_effect : Effector.policy_effect;
   matcher : string;
   roles_enabled : bool;
+  role_arity : int;
 }
 
 exception Parse_error of string
@@ -60,6 +61,26 @@ let parse_effect line value =
   else if matches_effect value (allow @ ["&&"] @ deny) then Effector.Allow_and_deny
   else fail line
     "unsupported policy effect; expected allow override, deny override, or allow-and-deny"
+
+let contains_substring source target =
+  let count = String.length target in
+  let rec search index =
+    index + count <= String.length source
+    && (String.sub source index count = target || search (index + 1))
+  in
+  search 0
+
+let activates_domain_matching matcher request_fields policy_fields =
+  match request_fields, policy_fields with
+  | _ :: request_domain :: _, _ :: policy_domain :: _ ->
+      (* Upstream's registration checks this exact, comma-and-space substring
+         after replacing assertion dots with underscores. Keep its whitespace
+         sensitivity, including matches appearing inside literal text. *)
+      List.exists (contains_substring matcher) [
+        Printf.sprintf "keyMatch(r.%s, p.%s)" request_domain policy_domain;
+        Printf.sprintf "keyMatch(r_%s, p_%s)" request_domain policy_domain;
+      ]
+  | _ -> false
 
 let of_string text =
   try
@@ -141,21 +162,26 @@ let of_string text =
     let request, request_line = get "r" "request_definition" in
     let policy, policy_line = get "p" "policy_definition" in
     let policy_effect, effect_line = get "e" "policy_effect" in
-    let matcher, _ = get "m" "matchers" in
+    let matcher, matcher_line = get "m" "matchers" in
     let request_fields = fields request_line request in
     let policy_fields = fields policy_line policy in
     let policy_effect = parse_effect effect_line policy_effect in
-    let roles_enabled = match Hashtbl.find_opt definitions "g" with
+    let role_arity = match Hashtbl.find_opt definitions "g" with
       | None ->
           if Hashtbl.mem sections "role_definition" then
             raise (Parse_error "model: missing g definition in [role_definition]");
-          false
+          0
       | Some (value, line) ->
-          if List.map String.trim (String.split_on_char ',' value) <> ["_"; "_"] then
-            fail line "unsupported role definition; expected g = _, _";
-          true
+          begin match List.map String.trim (String.split_on_char ',' value) with
+          | ["_"; "_"] -> 2
+          | ["_"; "_"; "_"] -> 3
+          | _ -> fail line "unsupported role definition; expected g = _, _ or g = _, _, _"
+          end
     in
-    Ok { request_fields; policy_fields; policy_effect; matcher; roles_enabled }
+    if role_arity = 3 && activates_domain_matching matcher request_fields policy_fields then
+      fail matcher_line "automatic domain keyMatch registration is unsupported; domains must match exactly";
+    let roles_enabled = role_arity <> 0 in
+    Ok { request_fields; policy_fields; policy_effect; matcher; roles_enabled; role_arity }
   with Parse_error message -> Error message
 
 let of_file path =

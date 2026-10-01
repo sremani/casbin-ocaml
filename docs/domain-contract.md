@@ -1,0 +1,15 @@
+# M5 exact-domain RBAC contract
+
+CB-302 delivers implementation, management and Go golden cases for single `g = _, _, _`, alongside existing `g = _, _`. The model records role arity (0, 2 or 3). Matcher g calls take exactly the declared number of string operands. Domain arguments may be any declared string field or supported literal; no hard-coded field positions. Requests and policies still use declared arity and string values.
+
+Graphs are partitioned by exact byte-string domain. Self membership holds in any domain, including an absent one. Transitive membership uses at most ten edges inside one domain; edges in another domain cannot complete a path. Every graph is acyclic and rejects newly stored explicit self edges. These validations also apply on load; pinned Go skips initial domain cycle detection because DomainManager does not expose Range, so load/mutation cycle differences are explicit oracle boundaries.
+
+Policy storage keeps two-field links in `roles` and three-field links in `domain_roles`. Only the declared arity may be loaded. Comma-joined duplicate identity uses all fields, and a duplicate remains a no-op before graph validation. Domain mutations rebuild validated graphs atomically, preserving input snapshots; stale upstream incremental-cache behavior under colliding removal is recorded rather than emulated. Generic get_grouping_policy returns the stored two- or three-field rows in order. Existing pair mutation/has APIs require two-field g; domain tuple APIs require three-field g.
+
+A separate pinned Go boundary is g memoization: NUL-delimited tuple keys can collide across different argument tuples containing NUL. OCaml evaluates the actual graph tuple and does not reproduce a cached wrong grant. The operation corpus checks both traces, while ordinary NUL-containing domains remain supported.
+
+Direct domain role/user queries accept `~domain` and return sorted direct links. Existing unscoped direct queries use the empty domain on three-field g, matching upstream's default domain; two-field g continues unchanged. Explicit domain queries require a three-field role definition. No domain pattern matching, multiple role assertions, conditional role rules or custom role managers. Models that activate upstream automatic domain keyMatch registration are rejected explicitly rather than evaluated with an incorrect exact-domain graph.
+
+Expr.compile gains optional role_arity (default 2 for existing enabled callers). Expr.eval gains an optional three-string has_role_in_domain resolver; a compiled domain call without that resolver returns an error. Enforcer supplies the validated graph resolver. All branches and all three operand types remain compile-time validated, and every operand contributes to policy dependency detection.
+
+Acceptance: upstream domain example matches; isolation, self/depth, transitivity, empty/Unicode domains, effects/keyMatch, malformed calls/CSV and management snapshot/error boundaries are tested. Both oracle corpora and all existing OCaml suites pass; packaging and independent review pass; PitBoss commits M5 locally.

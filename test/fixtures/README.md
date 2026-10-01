@@ -51,7 +51,7 @@ Observed reference behaviors captured by the corpus:
   characters inside a literal cause an upstream parse error. Unsupported
   function and priority-effect models are explicit OCaml rejection cases even when Go allows.
 
-The manifest currently contains 433 cases: 406 parity cases and 27 explicit
+The manifest currently contains 511 cases: 474 parity cases and 37 explicit
 unsupported-model rejections. Literal preprocessing boundaries also include
 terminal `r.`/`p.`, numeric assertion prefixes such as `r2.`, and brackets in a
 matcher containing `in`. An unreachable role cycle still causes a load error.
@@ -136,3 +136,40 @@ are represented by separate `oracle_expected` values, never by skipped calls.
 `unsupported-function.conf` retains its historical filename but now contains a
 supported basic `keyMatch` model tested as ordinary parity. No oracle exception
 remains for it.
+
+## Milestone 5: exact-domain RBAC
+
+The new domain fixtures add 78 independently observed pinned-Go cases.
+`domain-example.conf`, `domain-example.csv`, `domain-example2.csv`, and
+`domain-upstream-hierarchy.csv` are byte-identical copies of upstream examples
+`rbac_with_domains_model.conf`, `rbac_with_domains_policy.csv`,
+`rbac_with_domains_policy2.csv`, and
+`rbac_with_hierarchy_with_domains_policy.csv` respectively. The preserved
+upstream LICENSE and NOTICE apply to these copied fixtures. Other `domain-*`
+models and policies were authored for this port.
+
+Three-field `g` relationships are isolated by exact domain bytes. Cases cover
+upstream examples, transitivity, ten-edge depth, absent-domain self membership,
+cross-domain paths and opposing edges, empty/Unicode/comma/space/tab domains,
+renamed and reordered fields, literal domain operands, and policy dependencies
+present only in the third operand. Effects, object keyMatch, and empty-policy
+synthetic rows compose with domain membership.
+
+The strict boundaries are checked explicitly against observed Go results:
+
+- OCaml rejects initial same-domain cycles and explicit self edges. Pinned Go
+  skips its default initial detector for DomainManager, which lacks Range.
+- A declared three-field role model requires three string operands in every
+  matcher branch. Go can query its default empty domain with a two-argument g,
+  ignore a fourth operand, or short-circuit a Boolean third operand. A
+  three-argument g called against a two-field role declaration also receives a
+  strict OCaml compile error even though raw Go ignores that domain.
+- A short domain CSV grouping row errors on both sides; an oversized row is
+  truncated by Go while OCaml rejects it.
+- A matcher shape that activates upstream automatic domain keyMatch
+  registration is explicitly rejected by exact-domain OCaml. Object keyMatch
+  remains supported when it does not activate that implicit domain matcher.
+
+No divergent initial domain management case is silently skipped: initialization
+cycle/self-edge differences are covered in this CLI corpus using explicit
+`oracle_expected` values. Management traces start from valid snapshots.

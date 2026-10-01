@@ -2,7 +2,7 @@
 
 The OCaml enforcer is an immutable validated snapshot. Add/remove functions return `(new_snapshot, changed)`; callers adopt the returned snapshot. A no-op returns the original snapshot and false. Errors return no candidate snapshot, so the original remains valid.
 
-Support one `p` and optional two-argument `g`: get, has, add and remove policies and grouping links; direct roles for a user and direct users for a role. No persistence, adapters, filtered/batch/update operations, arbitrary role managers, domains, or priority ordering in this wave.
+Support one `p` and optional two-argument `g` in M3; M5 adds three-argument exact-domain `g` per [domain contract](domain-contract.md). The shared operations are: get, has, add and remove policies and grouping links; direct roles for a user and direct users for a role. No persistence, adapters, filtered/batch/update operations, arbitrary role managers, domain patterns, or priority ordering in this wave.
 
 Policy rules must have the declared field count, including `eft` if present. Grouping operations require a role definition. Policy/grouping duplicate identities follow upstream's comma-joined keys, including collisions across distinct quoted tuples. Removal retains the order of remaining rows. Policy additions append within the supported models; models with a `priority` policy field are outside the management parity contract.
 
@@ -16,7 +16,7 @@ Another explicit boundary is grouping-key collision removal. Raw Go removes the 
 
 Both probe programs take `MODEL POLICY` and read operation lines from stdin. Each line is an operation name followed by tab-separated hexadecimal UTF-8/byte string arguments. No arguments means just the operation name; an empty string is an empty hex field after a tab.
 
-Operations: `enforce`, `get_policy`, `has_policy`, `add_policy`, `remove_policy`, `get_grouping_policy`, `has_grouping_policy`, `add_grouping_policy`, `remove_grouping_policy`, `get_roles_for_user`, `get_users_for_role`.
+Operations: `enforce`, `get_policy`, `has_policy`, `add_policy`, `remove_policy`, `get_grouping_policy`, `has_grouping_policy`, `add_grouping_policy`, `remove_grouping_policy`, `get_roles_for_user`, `get_users_for_role`, and M5 `get_roles_for_user_in_domain`/`get_users_for_role_in_domain` with name and domain arguments. Grouping trace operations route two or three arguments to the corresponding typed API.
 
 Each operation emits one line: `true`/`false` for decisions and changed/has flags; `rows\t` followed by semicolon-separated rows with comma-separated hex fields for policy/grouping queries; `values\t` followed by comma-separated sorted hex values for role queries; or `error` for an operation error. A failed operation must not terminate the trace. Invalid initial model/policy terminates with exit 2 and stderr. The probes are verification tools; application callers use the typed library result for diagnostics.
 

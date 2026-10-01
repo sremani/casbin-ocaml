@@ -1,6 +1,7 @@
 type t = {
   rules : string list list;
   roles : (string * string) list;
+  domain_roles : (string * string * string) list;
 }
 
 exception Parse_error of string
@@ -45,6 +46,7 @@ let of_string ~(model : Model.t) text =
   try
     let rules = ref [] in
     let roles = ref [] in
+    let domain_roles = ref [] in
     let seen_rules = Hashtbl.create 16 in
     let seen_roles = Hashtbl.create 16 in
     String.split_on_char '\n' text |> List.iteri (fun index physical ->
@@ -65,20 +67,21 @@ let of_string ~(model : Model.t) text =
             end
         | "g" :: values ->
             if not model.roles_enabled then fail line "g row requires a role_definition model";
-            begin match values with
-            | [child; parent] ->
-                let pair = child, parent in
-                let key = String.concat "," values in
-                if not (Hashtbl.mem seen_roles key) then begin
-                  Hashtbl.add seen_roles key ();
-                  roles := pair :: !roles
-                end
-            | _ -> fail line (Printf.sprintf "g row has %d fields; expected 2" (List.length values))
+            if List.length values <> model.role_arity then fail line
+              (Printf.sprintf "g row has %d fields; expected %d" (List.length values) model.role_arity);
+            let key = String.concat "," values in
+            if not (Hashtbl.mem seen_roles key) then begin
+              begin match model.role_arity, values with
+              | 2, [child; parent] -> roles := (child, parent) :: !roles
+              | 3, [child; parent; domain] -> domain_roles := (child, parent, domain) :: !domain_roles
+              | _ -> fail line "invalid model role arity; expected 2 or 3"
+              end;
+              Hashtbl.add seen_roles key ()
             end
         | kind :: _ -> fail line (Printf.sprintf "unsupported policy record type %S; expected p or g" kind)
         | [] -> fail line "missing policy record type"
       end);
-    Ok { rules = List.rev !rules; roles = List.rev !roles }
+    Ok { rules = List.rev !rules; roles = List.rev !roles; domain_roles = List.rev !domain_roles }
   with Parse_error message -> Error message
 
 let of_file ~model path =

@@ -50,7 +50,11 @@ M2 supports allow override, deny override, and allow-and-deny. Missing `eft` mea
 
 | Ticket | Work and acceptance gate | Owner | Depends on | Status |
 | --- | --- | --- | --- | --- |
-| CB-302 | Domain-aware RBAC contract and golden cases; next selected ticket | PitBoss + crew | CB-315 | Ready |
+| CB-302 | Implement exact-domain RBAC, immutable domain management and golden cases | PitBoss + crew | CB-315 | Done |
+| CB-321 | Domain model/policy parsing and three-string g expressions | PitCrew Intake | CB-302 contract | Done |
+| CB-322 | 166 domain semantic, parser and snapshot checks pass | PitCrew Matcher | CB-302 contract | Done |
+| CB-323 | Independently observed domain enforcement/management Go corpus | PitCrew Oracle | CB-302 contract | Done |
+| CB-324 | Domain graph/enforcer integration, strict atomic management, full gates and local commit | PitBoss | CB-321–323 | Done |
 | CB-303 | Explicit OCaml ABAC value model and supported evaluation boundary | PitBoss + crew | CB-206 | Backlog |
 | CB-304 | Priority-effect semantics and policy-order tests | PitBoss + crew | CB-206 | Backlog |
 | CB-401 | Port coverage inventory, performance evidence, release-quality review | PitBoss + crew | Feature scope selected | Backlog |
@@ -82,3 +86,5 @@ Upstream: https://github.com/apache/casbin at 524f3f2dc9baef696d748db491d49b3055
 - M3 local commit: `ba5e10a`. M4 implements only basic `keyMatch`; its first-asterisk byte-prefix contract was fixed before dispatch.
 
 - M4 gate: 244 keyMatch checks plus all existing suites pass. Enforcement corpus: 433 cases (406 parity, 27 explicit rejections); management: 26 sequences, 313 steps, seven explicit boundaries. OCaml 5.5.0, install build and independent source/implementation/test cross-review pass. Next selected ticket is CB-302: scope domains before implementation.
+
+- M5 gate: 166 domain checks and all prior suites pass on OCaml 5.5.0. Enforcement: 511 cases (474 parity, 37 explicit rejections); management: 37 sequences, 444 steps, 13 explicit boundaries including Go NUL cache-key collisions. Package build, provenance and crew implementation/test reviews pass. Exact-domain feature and immutable management are implemented; ABAC is next.
