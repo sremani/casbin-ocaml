@@ -134,4 +134,6 @@ The human authorized publication of this project to GitHub on 2026-10-01.
 | Ticket | Work and acceptance gate | Owner | Depends on | Status |
 | --- | --- | --- | --- | --- |
 | CB-601 | Review tracked files and licensing; add repository/issue metadata and validate the package | PitBoss + PitCrew Intake | M9 | Done |
-| CB-602 | Create public sremani/casbin-ocaml, push verified history to main, confirm visibility/default branch/HEAD | PitBoss | CB-601 | In progress |
+| CB-602 | Create public sremani/casbin-ocaml, push verified history to main, confirm visibility/default branch/HEAD | PitBoss | CB-601 | Done |
+
+- M10 gate: the human authorized publication; PitCrew audited all tracked files and historical blobs, licensing/provenance passed, opam metadata lint and installed package/CLI checks passed. Public repository https://github.com/sremani/casbin-ocaml contains the complete verified milestone history on default branch main. Remote visibility/default branch/commit equality were checked before closure, and the closure commit is pushed and rechecked. Public package registry publication remains separate scope.
