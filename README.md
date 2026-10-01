@@ -112,9 +112,10 @@ The Go oracle is an independent runner around the actual upstream library, not a
 
 Copied upstream material retains Apache license and notice files. This is an independent learning project; the name describes its source compatibility target. See [LICENSE](LICENSE), [NOTICE](NOTICE), and the project’s compatibility limitations above.
 
-## Next milestones
+## Local release evidence
 
-1. Finish the coverage inventory, performance evidence and release review.
-2. Select future extensions through new tickets and compatibility contracts.
+The current board delivers the bounded feature set above. See the [coverage inventory](docs/coverage.md), [measured performance](docs/performance.md) and [release review](docs/release-review.md) for implementation mapping, deferred API families and acceptance evidence. `scripts/check_package.sh` builds and installs into a temporary prefix, then tests an independent consumer and the installed CLI; `examples/installed_consumer.ml` is the checked usage example.
 
-Each extension gets its own contract and comparison cases. The first release establishes a tested core before widening coverage.
+Performance evidence is reproduced with `python3 scripts/benchmark.py` after preparing the pinned source. The benchmark requires a POSIX monotonic clock and C compiler; it adds no production-library dependency. Timings are workload evidence rather than pass/fail speed targets.
+
+Local commits record completed milestones. GitHub, public package publication and future feature extensions remain later user-requested work; each extension gets a new contract and comparison cases.

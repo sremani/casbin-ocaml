@@ -8,3 +8,5 @@ oracle/casbin-abac-oracle
 __pycache__/
 *.py[cod]
 .DS_Store
+oracle/casbin-benchmark
+/casbin_ocaml.install

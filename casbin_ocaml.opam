@@ -1,4 +1,6 @@
 opam-version: "2.0"
+maintainer: "Casbin OCaml contributors"
+authors: "Casbin OCaml contributors"
 synopsis: "A verified ACL, RBAC and typed ABAC learning port of Casbin"
 description: "An immutable OCaml enforcer and CLI for a declared subset of pinned Go Casbin behavior, with differential compatibility checks."
 license: "Apache-2.0"

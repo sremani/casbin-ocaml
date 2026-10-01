@@ -1,0 +1,419 @@
+{
+  "schema_version": 1,
+  "upstream_commit": "524f3f2dc9baef696d748db491d49b3055d359d1",
+  "machine": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "versions": {
+    "ocamlc": "5.5.0",
+    "ocamlopt": "5.5.0",
+    "dune": "3.1.1",
+    "go": "go version go1.27.0 darwin/arm64"
+  },
+  "repeats": 3,
+  "warmup_operations": 100,
+  "results": [
+    {
+      "scenario": "acl-first",
+      "language": "ocaml",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.002777,
+        0.002873,
+        0.002918
+      ],
+      "allocated_bytes": [
+        8800128.0,
+        8800128.0,
+        8800128.0
+      ],
+      "median_allocated_bytes_per_operation": 1760.0256,
+      "median_seconds": 0.002873,
+      "median_us_per_operation": 0.5746
+    },
+    {
+      "scenario": "acl-first",
+      "language": "go",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.016040166,
+        0.014464041,
+        0.012619709
+      ],
+      "allocated_bytes": [
+        16237616.0,
+        16163520.0,
+        16200576.0
+      ],
+      "median_allocated_bytes_per_operation": 3240.1152,
+      "median_seconds": 0.014464041,
+      "median_us_per_operation": 2.8928082
+    },
+    {
+      "scenario": "acl-last",
+      "language": "ocaml",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.093582,
+        0.094723,
+        0.093314
+      ],
+      "allocated_bytes": [
+        499840128.0,
+        499840128.0,
+        499840128.0
+      ],
+      "median_allocated_bytes_per_operation": 99968.0256,
+      "median_seconds": 0.093582,
+      "median_us_per_operation": 18.7164
+    },
+    {
+      "scenario": "acl-last",
+      "language": "go",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.093659666,
+        0.091343125,
+        0.093635833
+      ],
+      "allocated_bytes": [
+        64116424.0,
+        64190264.0,
+        64190712.0
+      ],
+      "median_allocated_bytes_per_operation": 12838.0528,
+      "median_seconds": 0.093635833,
+      "median_us_per_operation": 18.7271666
+    },
+    {
+      "scenario": "acl-miss",
+      "language": "ocaml",
+      "iterations": 5000,
+      "checksum": 0,
+      "seconds": [
+        0.093645,
+        0.096724,
+        0.093718
+      ],
+      "allocated_bytes": [
+        511400128.0,
+        511400128.0,
+        511400128.0
+      ],
+      "median_allocated_bytes_per_operation": 102280.0256,
+      "median_seconds": 0.093718,
+      "median_us_per_operation": 18.7436
+    },
+    {
+      "scenario": "acl-miss",
+      "language": "go",
+      "iterations": 5000,
+      "checksum": 0,
+      "seconds": [
+        0.090110417,
+        0.097423125,
+        0.087975208
+      ],
+      "allocated_bytes": [
+        63993768.0,
+        64067608.0,
+        64147040.0
+      ],
+      "median_allocated_bytes_per_operation": 12813.5216,
+      "median_seconds": 0.090110417,
+      "median_us_per_operation": 18.0220834
+    },
+    {
+      "scenario": "rbac",
+      "language": "ocaml",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.009091,
+        0.009063,
+        0.009236
+      ],
+      "allocated_bytes": [
+        36520128.0,
+        36520128.0,
+        36520128.0
+      ],
+      "median_allocated_bytes_per_operation": 7304.0256,
+      "median_seconds": 0.009091,
+      "median_us_per_operation": 1.8182
+    },
+    {
+      "scenario": "rbac",
+      "language": "go",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.010613625,
+        0.01079375,
+        0.010966959
+      ],
+      "allocated_bytes": [
+        8078328.0,
+        8194768.0,
+        8078328.0
+      ],
+      "median_allocated_bytes_per_operation": 1615.6656,
+      "median_seconds": 0.01079375,
+      "median_us_per_operation": 2.15875
+    },
+    {
+      "scenario": "domain",
+      "language": "ocaml",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.011185,
+        0.011111,
+        0.010567
+      ],
+      "allocated_bytes": [
+        38680128.0,
+        38680128.0,
+        38680128.0
+      ],
+      "median_allocated_bytes_per_operation": 7736.0256,
+      "median_seconds": 0.011111,
+      "median_us_per_operation": 2.2222
+    },
+    {
+      "scenario": "domain",
+      "language": "go",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.013564292,
+        0.013345292,
+        0.013537875
+      ],
+      "allocated_bytes": [
+        8717728.0,
+        8717728.0,
+        8680688.0
+      ],
+      "median_allocated_bytes_per_operation": 1743.5456,
+      "median_seconds": 0.013537875,
+      "median_us_per_operation": 2.707575
+    },
+    {
+      "scenario": "abac",
+      "language": "ocaml",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.005828,
+        0.005847,
+        0.006073
+      ],
+      "allocated_bytes": [
+        26280128.0,
+        26280128.0,
+        26280128.0
+      ],
+      "median_allocated_bytes_per_operation": 5256.0256,
+      "median_seconds": 0.005847,
+      "median_us_per_operation": 1.1694
+    },
+    {
+      "scenario": "abac",
+      "language": "go",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.011139333,
+        0.011171416,
+        0.010742583
+      ],
+      "allocated_bytes": [
+        7446120.0,
+        7440688.0,
+        7403760.0
+      ],
+      "median_allocated_bytes_per_operation": 1488.1376,
+      "median_seconds": 0.011139333,
+      "median_us_per_operation": 2.2278665999999996
+    },
+    {
+      "scenario": "priority",
+      "language": "ocaml",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.135183,
+        0.133879,
+        0.136623
+      ],
+      "allocated_bytes": [
+        639840128.0,
+        639840128.0,
+        639840128.0
+      ],
+      "median_allocated_bytes_per_operation": 127968.0256,
+      "median_seconds": 0.135183,
+      "median_us_per_operation": 27.0366
+    },
+    {
+      "scenario": "priority",
+      "language": "go",
+      "iterations": 5000,
+      "checksum": 5000,
+      "seconds": [
+        0.115455916,
+        0.116277833,
+        0.114959042
+      ],
+      "allocated_bytes": [
+        64185504.0,
+        64301480.0,
+        64307472.0
+      ],
+      "median_allocated_bytes_per_operation": 12860.296,
+      "median_seconds": 0.115455916,
+      "median_us_per_operation": 23.091183200000003
+    },
+    {
+      "scenario": "management",
+      "language": "ocaml",
+      "iterations": 5000,
+      "checksum": 10000,
+      "seconds": [
+        0.056689,
+        0.056576,
+        0.057414
+      ],
+      "allocated_bytes": [
+        63800128.0,
+        63800128.0,
+        63800128.0
+      ],
+      "median_allocated_bytes_per_operation": 12760.0256,
+      "median_seconds": 0.056689,
+      "median_us_per_operation": 11.3378
+    },
+    {
+      "scenario": "management",
+      "language": "go",
+      "iterations": 5000,
+      "checksum": 10000,
+      "seconds": [
+        0.002099958,
+        0.002206334,
+        0.002213375
+      ],
+      "allocated_bytes": [
+        1480000.0,
+        1480000.0,
+        1480000.0
+      ],
+      "median_allocated_bytes_per_operation": 296.0,
+      "median_seconds": 0.002206334,
+      "median_us_per_operation": 0.44126679999999996
+    },
+    {
+      "scenario": "load",
+      "language": "ocaml",
+      "iterations": 100,
+      "checksum": 10000,
+      "seconds": [
+        0.005723,
+        0.005949,
+        0.00599
+      ],
+      "allocated_bytes": [
+        7324128.0,
+        7324128.0,
+        7324128.0
+      ],
+      "median_allocated_bytes_per_operation": 73241.28,
+      "median_seconds": 0.005949,
+      "median_us_per_operation": 59.49
+    },
+    {
+      "scenario": "load",
+      "language": "go",
+      "iterations": 100,
+      "checksum": 10000,
+      "seconds": [
+        0.01469025,
+        0.014876125,
+        0.015723875
+      ],
+      "allocated_bytes": [
+        49222048.0,
+        49221952.0,
+        49259888.0
+      ],
+      "median_allocated_bytes_per_operation": 492220.48,
+      "median_seconds": 0.014876125,
+      "median_us_per_operation": 148.76125
+    }
+  ],
+  "provenance": {
+    "project_revision": "c0794707913aab4f038e4ffa95af953f225e4d38",
+    "project_status": "M .gitignore\n M PITBOARD.md\n M bin/dune\n M casbin_ocaml.opam\n?? bin/benchmark.ml\n?? bin/benchmark_clock.c\n?? docs/coverage.md\n?? examples/\n?? oracle/benchmark/\n?? scripts/benchmark.py\n?? scripts/check_package.sh",
+    "source_sha256": {
+      "bin/benchmark.ml": "47b4a5b64ef22cf33133510d840071f6cafe253602cd3ad419ca3584a496592d",
+      "bin/benchmark_clock.c": "fc7122cf4a3ebcb90426c1a6f1e64b3ca44a10177e3e888de59d82d251c26a0b",
+      "bin/dune": "804b06cda7a41a9b9e91c50863725481e1e69afbb88206f8c07a56c0fe860601",
+      "dune-project": "a6c16931fb3bcc37181fa1edac32905b42e2823c16627a690a7b47162d739245",
+      "lib/abac_expr.ml": "906796c6641f5d0a5f2229223beae7be64296d1a2d3ab4214229fa4e2f2a6812",
+      "lib/abac_expr.mli": "7c37a81d826f91d87e30eb21696275052c761ef9fe023e8af2e40d3f91725632",
+      "lib/dune": "e0893a0f0948f8b11ca80760590d9f61895a44d8a2e8cd71a549c967ccb102e4",
+      "lib/effector.ml": "e557968c8a908012f0cf14e1a175d8e615ec2cf8fb95c4e54710b0e7b8e9ae17",
+      "lib/effector.mli": "4a0100ecd53d8f0d6f44ba2304458c3c248f780e8a81ed6abb2b00a51fc8fb37",
+      "lib/enforcer.ml": "95cf3f99b1c6489a5dabdc5f7371f061ed29be530c267a8d90f0ab700e3b7819",
+      "lib/enforcer.mli": "00469c0692728906b5bb80db547eff3b1fe131fca2d2404719ecc54e6bc8bf9e",
+      "lib/expr.ml": "54f1890c1f154c482c647c7c3f14724b5ed7df02eb06a38c1b385ab3bca03530",
+      "lib/expr.mli": "e097a394095962fde3a4b2ad527013fbb964df017a2b20df50e0f344b078aa82",
+      "lib/model.ml": "563e5f89c8c94305b935471717fc0708556604cab7c25816dd309db0e269ef52",
+      "lib/model.mli": "96eb30795f5202725dee0df3f67f3eee597bc2e21930889b04399a0bd78932ce",
+      "lib/policy.ml": "fc8acc9e2ef3fc5b1a537cb23abfab5bc5227c4e4221e63b9f616efa7018f10b",
+      "lib/policy.mli": "a1e86172be9d3dacec5361162ee91d4412ce83be2efe9d2d4d798bae7e2920dd",
+      "lib/priority.ml": "aa3a26f84bb512dac4050beb144c39b7fdabe8d7efdee45347f2088027961945",
+      "lib/priority.mli": "33d30b9e48ab9b83fa0726aa39ccdf9aea58dd91069f3092fa088b6289c9c5c1",
+      "lib/role_manager.ml": "3970a12001f5cc4de7901d153b16dfab539e7a0230e7160dfb3fa16ad6ddc1d6",
+      "lib/role_manager.mli": "9c793b708e9e63ab288166f860fc945ca6e1eaf2b722553a16144f938dc75383",
+      "lib/value.ml": "06b941a0101fec755aa99c23d8be6ce80d0758ed5558a302af91e8f0a8367e10",
+      "lib/value.mli": "876f154268f23f497eb9239f55ced06eec80b8a554c684480e7edbf2bc4ff5ae",
+      "oracle/benchmark/main.go": "999450f7b8f0f927cbbc969313c7053fca25e8612671acc6211b4c0e6c12226c",
+      "oracle/go.mod": "1ce28224dc5cb1035838cff9b5e5928482d1bcb8bf2150450879fdb4de493bf9",
+      "oracle/go.sum": "6ce17b46d710210b14fbd41727a1188b29a0ffadf0f988853ac73c4b8efc1e95",
+      "scripts/benchmark.py": "484e87581d72da2aea1d0f2dbab7d2a2745dfa8fd80f838e274772e675eea018"
+    },
+    "binary_sha256": {
+      "ocaml": "454e64a6aca3cd36956e8419b262ab9c8d4e725b318f2a603a8f8754853e07d8",
+      "go": "b38190adfbc11fb63ac7e221bb69cf61c95276b73a1ece03d77d7bee503936c9"
+    },
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "scripts/benchmark.py",
+      "--output",
+      "docs/performance-evidence.json"
+    ],
+    "build_commands": [
+      [
+        "dune",
+        "build",
+        "bin/benchmark.exe"
+      ],
+      [
+        "go",
+        "build",
+        "-mod=readonly",
+        "-o",
+        "casbin-benchmark",
+        "./benchmark"
+      ]
+    ]
+  }
+}

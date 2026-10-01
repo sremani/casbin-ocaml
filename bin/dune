@@ -12,3 +12,9 @@
  (name abac_probe)
  (modules abac_probe)
  (libraries casbin))
+
+(executable
+ (name benchmark)
+ (modules benchmark)
+ (libraries casbin)
+ (foreign_stubs (language c) (names benchmark_clock)))

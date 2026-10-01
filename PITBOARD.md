@@ -65,7 +65,11 @@ M2 supports allow override, deny override, and allow-and-deny. Missing `eft` mea
 | CB-342 | Priority ordering, first-decision, typed/domain and snapshot regression tests | PitCrew Matcher | CB-304 contract | Done |
 | CB-343 | Independently observed priority enforcement/management/ABAC Go corpus | PitCrew Oracle | CB-304 contract | Done |
 | CB-344 | Enforcer insertion/short circuit, cross-review, full gates and local M7 commit | PitBoss | CB-341–343 | Done |
-| CB-401 | Port coverage inventory, performance evidence, release-quality review | PitBoss + crew | Feature scope selected | Backlog |
+| CB-401 | Close declared-subset coverage, measured performance and local release gate | PitBoss + crew | CB-344 | Done |
+| CB-411 | API/source coverage and unsupported-boundary inventory agrees with delivered code | PitCrew Intake + PitBoss | CB-344 | Done |
+| CB-412 | Fresh-built Go/OCaml benchmarks, checked workloads, repeated timing/allocation evidence | PitBoss + reviewers | CB-344 | Done |
+| CB-413 | Isolated installed-package consumer/CLI checks, metadata lint and provenance audit | PitBoss + PitCrew Oracle | CB-344 | Done |
+| CB-414 | Independent release audit, final complete gates, local commit and clean tree | PitBoss + crew | CB-411–413 | Done |
 
 The current contract supports legacy string requests and schema-checked typed ABAC requests; policies remain strings within the documented matcher subset. Each extension gets scoped acceptance criteria before dispatch; backlog entries are not claims of implemented parity.
 
@@ -104,3 +108,7 @@ Upstream: https://github.com/apache/casbin at 524f3f2dc9baef696d748db491d49b3055
 - M6 local commit: `9118d1b`. M7 follows docs/priority-contract.md: normal priority, stable signed64 numeric ordering and immutable insertion; subjectPriority stays outside this bounded port.
 
 - M7 gate: 1,685 priority checks and all prior suites pass on OCaml 5.5.0. Enforcement: 684 cases (635 parity, 49 strict rejections); management: 53 sequences, 787 steps, 14 boundary traces; native ABAC: 270 cases (246 parity, 24 boundaries). All three runners, install build, fixture byte provenance and independent source/test reviews pass. Normal priority and stable signed64 load/insertion ordering are implemented; subjectPriority remains explicitly deferred. Installed consumer/CLI smoke checks also pass. Next wave is CB-401 coverage, measured performance and final local release review.
+
+- M7 local commit: `c079470`. M8 closes the current board for the declared bounded subset: API inventory, reproducible timing/allocation evidence, isolated package consumption, provenance and independent release review. Future extensions and GitHub publication are separate user-requested work.
+
+- M8 final gate: all current tickets are Done for the declared subset. OCaml 5.5.0 unit suites, 684 enforcement cases, 53 management sequences/787 steps, 270 native ABAC cases, package build/test/install commands and isolated installed consumer/CLI checks pass. Metadata lint has no errors (public URLs deferred with GitHub). Thirty copied-file provenance mappings, all performance source/binary hashes and independent Intake/Matcher/Oracle release reviews pass. Nine workloads have three timing/allocation samples per implementation with checked checksums and explicit limits. Final local release commit is recorded in Git history; closure requires the post-commit clean-tree and no-remote checks. No current-board work remains; future API expansion and GitHub publication require new scope.
