@@ -8,4 +8,6 @@ dune build @all
 dune runtest
 mkdir -p .cache/go-build .cache/go-mod
 (cd oracle && GOCACHE="$project_dir/.cache/go-build" GOMODCACHE="$project_dir/.cache/go-mod" go build -mod=readonly -o casbin-oracle .)
+(cd oracle && GOCACHE="$project_dir/.cache/go-build" GOMODCACHE="$project_dir/.cache/go-mod" go build -mod=readonly -o casbin-management-oracle ./management)
 python3 scripts/verify_oracle.py
+python3 scripts/verify_management.py

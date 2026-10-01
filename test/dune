@@ -14,3 +14,7 @@
  (name effect_test)
  (modules effect_test)
  (libraries casbin))
+(test
+ (name management_test)
+ (modules management_test)
+ (libraries casbin))

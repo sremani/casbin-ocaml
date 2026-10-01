@@ -24,16 +24,16 @@ Milestone commits are recorded in local Git history. GitHub repository creation 
 
 M2 supports allow override, deny override, and allow-and-deny. Missing `eft` means allow; unknown explicit effects are indeterminate. Priority, subject-priority, and arbitrary effect languages remain separate scope decisions.
 
-## Active wave: M3 — immutable policy management
+## M3 — immutable policy management
 
 | Ticket | Work and acceptance gate | Owner | Depends on | Status |
 | --- | --- | --- | --- | --- |
-| CB-201 | Specify immutable policy/role-management API and observable Go contract | PitBoss | CB-106 | In progress |
-| CB-202 | Add/remove policy and role links; duplicate/no-op semantics; snapshot remains valid | PitCrew Intake | CB-201 | Ready |
-| CB-203 | Management regression and snapshot-isolation tests | PitCrew Matcher | CB-201 | Ready |
-| CB-204 | Go operation-sequence oracle and management corpus | PitCrew Oracle | CB-201 | Ready |
-| CB-205 | Integrate management, check error atomicity and role-cycle rejection; all gates pass | PitBoss + crew | CB-202–204 | Backlog |
-| CB-206 | Document and locally commit M3 | PitBoss | CB-205 | Backlog |
+| CB-201 | Immutable API and operation-trace contract in docs/management-contract.md | PitBoss | CB-106 | Done |
+| CB-202 | Add/remove policy and role links; duplicate/no-op semantics; snapshot remains valid | PitCrew Intake | CB-201 | Done |
+| CB-203 | 191 management regression and snapshot-isolation checks pass | PitCrew Matcher | CB-201 | Done |
+| CB-204 | Go operation-sequence oracle: 23 cases, 261 steps, seven explicit boundaries | PitCrew Oracle | CB-201 | Done |
+| CB-205 | Integrate management, check error atomicity and role-cycle rejection; all gates pass | PitBoss + crew | CB-202–204 | Done |
+| CB-206 | Document and locally commit M3; see local Git history | PitBoss | CB-205 | Done |
 | CB-301 | Specify a small matching-function extension, then implement and compare to Go | PitBoss + crew | CB-206 | Backlog |
 | CB-302 | Domain-aware RBAC contract and golden cases | PitBoss + crew | CB-206 | Backlog |
 | CB-303 | Explicit OCaml ABAC value model and supported evaluation boundary | PitBoss + crew | CB-206 | Backlog |
@@ -60,3 +60,6 @@ Upstream: https://github.com/apache/casbin at 524f3f2dc9baef696d748db491d49b3055
 - Build and oracle evidence precede a local milestone commit. GitHub remains a later user-requested stage.
 - Compatibility follows pinned Go behavior where declared; unsupported features produce errors. Detailed syntax and differences live in README.md and test/fixtures/README.md.
 - M2 gate: 317 corpus cases pass (293 parity, 24 explicit rejections), 111,447 exhaustive effect checks plus parser/matcher/enforcer tests, install build and cross-review pass. M3 is the next dispatched wave.
+- M2 local commit: `1b68831`. M3 uses immutable snapshots and preserves the original on failed updates; raw Go mutation cycle/arity behavior is recorded as an explicit boundary rather than silently emulated.
+
+- M3 gate: 191 stateful checks, 317 enforcement cases, and 23 management sequences (261 steps, seven explicit boundaries) pass on OCaml 5.5.0. Install build and independent management/API/runner reviews pass. Immutable snapshots retain previous state on invalid updates.

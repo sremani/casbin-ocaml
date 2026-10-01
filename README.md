@@ -29,7 +29,16 @@ match Casbin.Enforcer.of_files ~model:"model.conf" ~policy:"policy.csv" with
 | Ok enforcer -> Casbin.Enforcer.enforce enforcer ["alice"; "data2"; "read"]
 ```
 
-`Enforcer.of_strings` supports in-memory model and policy text. The number of request arguments is determined by the declared request fields. Snapshots are immutable; reload by constructing a new one.
+`Enforcer.of_strings` supports in-memory model and policy text. The number of request arguments is determined by the declared request fields. Snapshots are immutable; management operations return a new snapshot and a changed flag. Adopt the returned snapshot to use the update; earlier snapshots remain valid.
+
+```ocaml
+match Casbin.Enforcer.add_policy enforcer ["bob"; "data2"; "read"] with
+| Error message -> Error message
+| Ok (updated, changed) ->
+    Casbin.Enforcer.enforce updated ["bob"; "data2"; "read"]
+```
+
+Policy and two-argument grouping operations support get, has, add and remove, plus direct roles for a user and users for a role. No-ops return the original snapshot and false. Invalid policy arities and newly inserted cyclic role graphs fail atomically. See the [management contract](docs/management-contract.md) for signatures, operation traces and explicit differences from raw Go mutation behavior.
 
 The local package is `casbin_ocaml`; applications link it with `(libraries casbin_ocaml)` and use the `Casbin` module. `dune build @install` prepares the library and `casbin-ocaml` executable for installation. Package metadata is included in `casbin_ocaml.opam`.
 
@@ -44,6 +53,7 @@ The local package is `casbin_ocaml`; applications link it with `(libraries casbi
 | Role graph | Self membership, directed transitive membership, at most ten edges; cyclic/self-edge policies rejected at load |
 | Policy input | Physical-line CSV; quoted commas/doubled quotes; comments and duplicate records |
 | Model input | Whitespace/comments and backslash line continuation within the declared subset |
+| Management | Immutable policy/grouping get, has, add, remove; direct role/user queries |
 | Errors | Unsupported models/functions/fields, malformed input, wrong arity, missing files |
 
 An empty policy is evaluated using an empty-string policy row, matching Go Casbin. A matcher independent of policy fields is evaluated once. This means `m = true` allows even without policy records; absence of records alone is not a guarantee of denial.
@@ -66,11 +76,11 @@ Input whitespace support is ASCII. Unicode whitespace trimming and Go's file-sca
 
 Duplicate policy and role keys use comma-joined field values, reproducing Go Casbin's key behavior. Distinct quoted field tuples can collide; the first row is retained. For example, `p, "a,b", c, read` and `p, a, "b,c", read` share a duplicate key. The oracle corpus covers the resulting decisions.
 
-Deferred: priority/subject-priority and custom effect rules, multiple assertions, domains, ABAC, reflection, numeric coercion, `eval`, regex/path matching, custom functions, adapters, watchers, caching, policy-management operations, and the full Casbin public API.
+Deferred: priority/subject-priority and custom effect rules, multiple assertions, domains, ABAC, reflection, numeric coercion, `eval`, regex/path matching, custom functions, adapters, watchers, caching, filtered/batch/update management operations, and the full Casbin public API.
 
 ## Verification and provenance
 
-`scripts/verify.sh` first checks the active OCaml 5.5 compiler tools, checks the pinned clean upstream checkout, builds both implementations, runs OCaml boundary tests, then runs the differential corpus. It fails on an unsupported toolchain, mismatched verdicts, unexpected errors, or missing inputs. `scripts/prepare_upstream.sh` restores a fresh pinned source checkout if needed and refuses to certify an existing modified checkout. A changed upstream revision requires reviewing the contract and regenerating evidence.
+`scripts/verify.sh` first checks the active OCaml 5.5 compiler tools, checks the pinned clean upstream checkout, builds both implementations, runs OCaml boundary tests, then runs the enforcement and management differential corpora. It fails on an unsupported toolchain, mismatched verdicts, unexpected errors, or missing inputs. `scripts/prepare_upstream.sh` restores a fresh pinned source checkout if needed and refuses to certify an existing modified checkout. A changed upstream revision requires reviewing the contract and regenerating evidence.
 
 The Go oracle is an independent runner around the actual upstream library, not a second implementation of the OCaml logic. Fixtures include upstream examples and custom cases; see [fixture provenance](test/fixtures/README.md). Unit tests cover parser failures, matcher typing/precedence, request errors, and role-depth boundaries.
 
@@ -78,8 +88,8 @@ Copied upstream material retains Apache license and notice files. This is an ind
 
 ## Next milestones
 
-1. Add selected policy-management operations while keeping role graphs and model validation consistent.
-2. Choose one matching-function feature and specify its compatibility boundary.
-3. Scope domain-aware RBAC, ABAC values, and priority effects through the ticket board.
+1. Choose one matching-function feature and specify its compatibility boundary.
+2. Scope domain-aware RBAC, ABAC values, and priority effects through the ticket board.
+3. Review the coverage inventory, performance and release requirements.
 
 Each extension gets its own contract and comparison cases. The first release establishes a tested core before widening coverage.

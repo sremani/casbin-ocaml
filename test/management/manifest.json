@@ -1,0 +1,2345 @@
+{
+  "schema_version": 1,
+  "upstream": {
+    "repository": "https://github.com/apache/casbin",
+    "commit": "524f3f2dc9baef696d748db491d49b3055d359d1"
+  },
+  "cases": [
+    {
+      "name": "acl-add-remove-order",
+      "model": "basic.conf",
+      "policy": "basic.csv",
+      "operations": [
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "has_policy",
+          "args": [
+            "alice",
+            "data1",
+            "read"
+          ]
+        },
+        {
+          "op": "has_policy",
+          "args": [
+            "nobody",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "data1",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "carol",
+            "data3",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "carol",
+            "data3",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "data1",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "data1",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data1",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "bob",
+            "data2",
+            "write"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "data1",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "bob",
+            "data2",
+            "write"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "has_policy",
+          "args": [
+            "carol",
+            "data3",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "carol",
+            "data3",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data1",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "rows\t616c696365,6461746131,72656164;626f62,6461746132,7772697465",
+        "true",
+        "false",
+        "false",
+        "true",
+        "rows\t616c696365,6461746131,72656164;626f62,6461746132,7772697465;6361726f6c,6461746133,72656164",
+        "true",
+        "true",
+        "false",
+        "rows\t626f62,6461746132,7772697465;6361726f6c,6461746133,72656164",
+        "false",
+        "true",
+        "true",
+        "rows\t626f62,6461746132,7772697465;6361726f6c,6461746133,72656164;616c696365,6461746131,72656164",
+        "true",
+        "rows\t6361726f6c,6461746133,72656164;616c696365,6461746131,72656164",
+        "true",
+        "true",
+        "rows\t616c696365,6461746131,72656164",
+        "true"
+      ]
+    },
+    {
+      "name": "policy-empty-unicode-control",
+      "model": "basic.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "",
+            "data,\tnewline\n",
+            "👁"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "",
+            "data,\tnewline\n",
+            "👁"
+          ]
+        },
+        {
+          "op": "has_policy",
+          "args": [
+            "",
+            "data,\tnewline\n",
+            "👁"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "café",
+            "東京",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "café",
+            "東京",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "café",
+            "東京",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "",
+            "data,\tnewline\n",
+            "👁"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "",
+            "data,\tnewline\n",
+            "👁"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "café",
+            "東京",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "",
+            "",
+            ""
+          ]
+        }
+      ],
+      "expected": [
+        "rows\t",
+        "true",
+        "true",
+        "true",
+        "true",
+        "true",
+        "false",
+        "rows\t,646174612c096e65776c696e650a,f09f9181;636166c3a9,e69db1e4baac,72656164",
+        "true",
+        "true",
+        "rows\t636166c3a9,e69db1e4baac,72656164",
+        "false",
+        "true",
+        "rows\t",
+        "true"
+      ]
+    },
+    {
+      "name": "acl-no-role-definition",
+      "model": "basic.conf",
+      "policy": "basic.csv",
+      "operations": [
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "alice",
+            "reader"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "reader"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "alice",
+            "reader"
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "get_users_for_role",
+          "args": [
+            "reader"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data1",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "error",
+        "error",
+        "error",
+        "error",
+        "error",
+        "error",
+        "rows\t616c696365,6461746131,72656164;626f62,6461746132,7772697465",
+        "true"
+      ]
+    },
+    {
+      "name": "grouping-transitive-queries-removal",
+      "model": "rbac.conf",
+      "policy": "role-permission.csv",
+      "operations": [
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "top"
+          ]
+        },
+        {
+          "op": "get_users_for_role",
+          "args": [
+            "top"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "top",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "mid"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "mid",
+            "top"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "get_users_for_role",
+          "args": [
+            "top"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "alice",
+            "mid"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "mid"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "zeta"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "zeta",
+            "top"
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "get_users_for_role",
+          "args": [
+            "top"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "mid",
+            "top"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "zeta",
+            "top"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "get_users_for_role",
+          "args": [
+            "top"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "nobody",
+            "top"
+          ]
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "mid",
+            "top"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "top",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "rows\t",
+        "values\t",
+        "values\t",
+        "true",
+        "true",
+        "true",
+        "rows\t616c696365,6d6964;6d6964,746f70",
+        "values\t6d6964",
+        "values\t6d6964",
+        "true",
+        "true",
+        "false",
+        "true",
+        "true",
+        "values\t6d6964,7a657461",
+        "values\t6d6964,7a657461",
+        "true",
+        "true",
+        "true",
+        "false",
+        "rows\t616c696365,6d6964;616c696365,7a657461",
+        "values\t6d6964,7a657461",
+        "values\t",
+        "false",
+        "false",
+        "true"
+      ]
+    },
+    {
+      "name": "grouping-unicode-sorted-direct",
+      "model": "rbac.conf",
+      "policy": "role-permission.csv",
+      "operations": [
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "東京",
+            "top"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "café",
+            "top"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "",
+            "top"
+          ]
+        },
+        {
+          "op": "get_users_for_role",
+          "args": [
+            "top"
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "東京"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "東京",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "東京",
+            "another"
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "東京"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "東京",
+            "top"
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "東京"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "東京",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "true",
+        "true",
+        "true",
+        "values\t,636166c3a9,e69db1e4baac",
+        "values\t746f70",
+        "true",
+        "true",
+        "values\t616e6f74686572,746f70",
+        "rows\te69db1e4baac,746f70;636166c3a9,746f70;,746f70;e69db1e4baac,616e6f74686572",
+        "true",
+        "values\t616e6f74686572",
+        "false"
+      ]
+    },
+    {
+      "name": "effects-management-allow",
+      "model": "effects-allow.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "deny",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "has_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "deny",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "UNKNOWN",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "UNKNOWN",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "rows\t",
+        "false",
+        "true",
+        "true",
+        "true",
+        "true",
+        "true",
+        "rows\t616c696365,616c6c6f77,64617461,72656164;616c696365,64656e79,64617461,72656164",
+        "false",
+        "true",
+        "true",
+        "true",
+        "true",
+        "false",
+        "rows\t616c696365,554e4b4e4f574e,64617461,72656164",
+        "true",
+        "false",
+        "true",
+        "true",
+        "rows\t",
+        "false"
+      ]
+    },
+    {
+      "name": "effects-management-deny",
+      "model": "effects-deny.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "deny",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "has_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "deny",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "UNKNOWN",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "UNKNOWN",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "rows\t",
+        "true",
+        "true",
+        "true",
+        "true",
+        "false",
+        "true",
+        "rows\t616c696365,616c6c6f77,64617461,72656164;616c696365,64656e79,64617461,72656164",
+        "false",
+        "true",
+        "true",
+        "true",
+        "true",
+        "true",
+        "rows\t616c696365,554e4b4e4f574e,64617461,72656164",
+        "true",
+        "true",
+        "true",
+        "true",
+        "rows\t",
+        "true"
+      ]
+    },
+    {
+      "name": "effects-management-allow-deny",
+      "model": "effects-allow-deny.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "deny",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "has_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "deny",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "UNKNOWN",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "allow",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "UNKNOWN",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "rows\t",
+        "false",
+        "true",
+        "true",
+        "true",
+        "false",
+        "true",
+        "rows\t616c696365,616c6c6f77,64617461,72656164;616c696365,64656e79,64617461,72656164",
+        "false",
+        "true",
+        "true",
+        "true",
+        "true",
+        "false",
+        "rows\t616c696365,554e4b4e4f574e,64617461,72656164",
+        "true",
+        "false",
+        "true",
+        "true",
+        "rows\t",
+        "false"
+      ]
+    },
+    {
+      "name": "policy-key-collision-removal",
+      "model": "basic.conf",
+      "policy": "collision-p.csv",
+      "operations": [
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "has_policy",
+          "args": [
+            "a",
+            "b,c",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "a",
+            "b,c",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a,b",
+            "c",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a",
+            "b,c",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "a",
+            "b,c",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "has_policy",
+          "args": [
+            "a,b",
+            "c",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a,b",
+            "c",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "a",
+            "b,c",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a",
+            "b,c",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a,b",
+            "c",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "a,b",
+            "c",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        }
+      ],
+      "expected": [
+        "rows\t612c62,63,72656164;6f74686572,64617461,72656164",
+        "true",
+        "false",
+        "true",
+        "false",
+        "true",
+        "rows\t6f74686572,64617461,72656164",
+        "false",
+        "false",
+        "true",
+        "rows\t6f74686572,64617461,72656164;61,622c63,72656164",
+        "true",
+        "false",
+        "true",
+        "rows\t6f74686572,64617461,72656164"
+      ]
+    },
+    {
+      "name": "grouping-key-collision-stale-upstream-cache",
+      "model": "rbac.conf",
+      "policy": "collision-g.csv",
+      "operations": [
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "a",
+            "b,c"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "a",
+            "b,c"
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "a,b"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "a",
+            "b,c"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "a,b",
+            "c"
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "a,b"
+          ]
+        },
+        {
+          "op": "get_users_for_role",
+          "args": [
+            "c"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a,b",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "a,b",
+            "c"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "a,b"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a,b",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "a,b",
+            "c"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "a,b"
+          ]
+        },
+        {
+          "op": "get_users_for_role",
+          "args": [
+            "c"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a,b",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "oracle_expected": [
+        "rows\t612c62,63",
+        "true",
+        "false",
+        "values\t63",
+        "true",
+        "rows\t",
+        "false",
+        "values\t63",
+        "values\t612c62",
+        "true",
+        "true",
+        "rows\t612c62,63",
+        "values\t63",
+        "true",
+        "true",
+        "rows\t",
+        "values\t",
+        "values\t",
+        "false"
+      ],
+      "boundary": "OCaml rebuilds roles after joined-key collision removal; Go removes the caller tuple from the role cache and leaves the removed stored tuple active.",
+      "expected": [
+        "rows\t612c62,63",
+        "true",
+        "false",
+        "values\t63",
+        "true",
+        "rows\t",
+        "false",
+        "values\t",
+        "values\t",
+        "false",
+        "true",
+        "rows\t612c62,63",
+        "values\t63",
+        "true",
+        "true",
+        "rows\t",
+        "values\t",
+        "values\t",
+        "false"
+      ]
+    },
+    {
+      "name": "policy-independent-request-only",
+      "model": "request-only.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "bob",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "data",
+            "read",
+            "deny"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "bob",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "data",
+            "read",
+            "deny"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "true",
+        "false",
+        "true",
+        "rows\t616c696365,64617461,72656164,64656e79",
+        "true",
+        "false",
+        "true",
+        "rows\t",
+        "true"
+      ]
+    },
+    {
+      "name": "policy-independent-deny-request-only",
+      "model": "deny-request-only.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "bob",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "data",
+            "read",
+            "deny"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "bob",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "data",
+            "read",
+            "deny"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "true",
+        "true",
+        "true",
+        "rows\t616c696365,64617461,72656164,64656e79",
+        "true",
+        "true",
+        "true",
+        "rows\t",
+        "true"
+      ]
+    },
+    {
+      "name": "strict-policy-arity-two-fields",
+      "model": "basic.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "add_policy",
+          "args": [
+            "broken",
+            "data"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "has_policy",
+          "args": [
+            "broken",
+            "data"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "broken",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "broken",
+            "data"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "good",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "good",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "oracle_expected": [
+        "true",
+        "rows\t62726f6b656e,64617461",
+        "true",
+        "error",
+        "true",
+        "rows\t",
+        "true",
+        "rows\t676f6f64,64617461,72656164",
+        "true"
+      ],
+      "boundary": "OCaml rejects wrong-arity p operations atomically; Go stores the short row, exposes it in queries, and fails later enforcement until it is removed.",
+      "expected": [
+        "error",
+        "rows\t",
+        "error",
+        "false",
+        "error",
+        "rows\t",
+        "true",
+        "rows\t676f6f64,64617461,72656164",
+        "true"
+      ]
+    },
+    {
+      "name": "strict-policy-arity-four-fields",
+      "model": "basic.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "add_policy",
+          "args": [
+            "broken",
+            "data",
+            "read",
+            "extra"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "broken",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "broken",
+            "data",
+            "read",
+            "extra"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "",
+            "",
+            ""
+          ]
+        }
+      ],
+      "oracle_expected": [
+        "true",
+        "rows\t62726f6b656e,64617461,72656164,6578747261",
+        "error",
+        "true",
+        "rows\t",
+        "true"
+      ],
+      "boundary": "OCaml rejects oversized p rules before mutation; Go stores them and reports an enforcement size error.",
+      "expected": [
+        "error",
+        "rows\t",
+        "false",
+        "error",
+        "rows\t",
+        "true"
+      ]
+    },
+    {
+      "name": "strict-grouping-short-row",
+      "model": "rbac.conf",
+      "policy": "role-permission.csv",
+      "operations": [
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "broken"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "broken"
+          ]
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "broken"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "broken"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "top"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "oracle_expected": [
+        "error",
+        "rows\t62726f6b656e",
+        "values\t",
+        "true",
+        "error",
+        "rows\t",
+        "true",
+        "rows\t616c696365,746f70",
+        "true"
+      ],
+      "boundary": "Go returns an error for a short g add but leaves the malformed row stored until removal; OCaml rejects before mutation. Wrong-arity query/remove calls are also rejected by OCaml.",
+      "expected": [
+        "error",
+        "rows\t",
+        "values\t",
+        "error",
+        "error",
+        "rows\t",
+        "true",
+        "rows\t616c696365,746f70",
+        "true"
+      ]
+    },
+    {
+      "name": "strict-grouping-extra-field",
+      "model": "rbac.conf",
+      "policy": "role-permission.csv",
+      "operations": [
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "top",
+            "extra"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "alice",
+            "top",
+            "extra"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "alice",
+            "top",
+            "extra"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        }
+      ],
+      "oracle_expected": [
+        "true",
+        "rows\t616c696365,746f70,6578747261",
+        "values\t746f70",
+        "true",
+        "true",
+        "true",
+        "rows\t",
+        "values\t"
+      ],
+      "boundary": "OCaml requires exactly two grouping fields. Go stores extra fields but builds a role link using only the first two.",
+      "expected": [
+        "error",
+        "rows\t",
+        "values\t",
+        "false",
+        "error",
+        "error",
+        "rows\t",
+        "values\t"
+      ]
+    },
+    {
+      "name": "strict-grouping-cycle-preserves-state",
+      "model": "rbac.conf",
+      "policy": "cycle-permission.csv",
+      "operations": [
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "b"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "b",
+            "alice"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "b"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "data",
+            "write"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "b",
+            "data",
+            "write"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "b",
+            "alice"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "b"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "b",
+            "data",
+            "write"
+          ]
+        }
+      ],
+      "oracle_expected": [
+        "true",
+        "true",
+        "rows\t616c696365,62;62,616c696365",
+        "values\t616c696365",
+        "true",
+        "true",
+        "true",
+        "true",
+        "rows\t616c696365,62",
+        "values\t",
+        "false"
+      ],
+      "boundary": "Raw Go grouping mutations accept cycles. OCaml validates the candidate graph and retains the previous snapshot on rejection.",
+      "expected": [
+        "true",
+        "error",
+        "rows\t616c696365,62",
+        "values\t",
+        "true",
+        "false",
+        "true",
+        "false",
+        "rows\t616c696365,62",
+        "values\t",
+        "false"
+      ]
+    },
+    {
+      "name": "strict-self-edge-preserves-state",
+      "model": "rbac.conf",
+      "policy": "self-permission.csv",
+      "operations": [
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "alice"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "get_users_for_role",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "alice",
+            "alice"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "oracle_expected": [
+        "true",
+        "rows\t616c696365,616c696365",
+        "values\t616c696365",
+        "values\t616c696365",
+        "true",
+        "true",
+        "rows\t",
+        "true"
+      ],
+      "boundary": "OCaml rejects explicit self edges while preserving implicit self membership. Raw Go mutations store the edge.",
+      "expected": [
+        "error",
+        "rows\t",
+        "values\t",
+        "values\t",
+        "true",
+        "false",
+        "rows\t",
+        "true"
+      ]
+    },
+    {
+      "name": "operation-errors-continue-trace",
+      "model": "basic.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "add_policy",
+          "args": []
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "only-one"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": []
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        }
+      ],
+      "expected": [
+        "error",
+        "rows\t",
+        "error",
+        "rows\t",
+        "error",
+        "rows\t"
+      ]
+    },
+    {
+      "name": "initial-model-error",
+      "model": "invalid-model.conf",
+      "policy": "empty.csv",
+      "operations": [],
+      "initial_error": true,
+      "expected": []
+    },
+    {
+      "name": "initial-csv-error",
+      "model": "basic.conf",
+      "policy": "invalid-csv.csv",
+      "operations": [],
+      "initial_error": true,
+      "expected": []
+    },
+    {
+      "name": "initial-cycle-error",
+      "model": "rbac.conf",
+      "policy": "initial-cycle.csv",
+      "operations": [],
+      "initial_error": true,
+      "expected": []
+    },
+    {
+      "name": "duplicate-before-self-cycle-validation",
+      "model": "rbac.conf",
+      "policy": "duplicate-self-collision.csv",
+      "operations": [
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "has_grouping_policy",
+          "args": [
+            "a,b",
+            "a,b"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "a,b",
+            "a,b"
+          ]
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "a,b"
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "a"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a",
+            "data",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "a,b",
+            "data",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "rows\t61,622c612c62",
+        "true",
+        "false",
+        "rows\t61,622c612c62",
+        "values\t",
+        "values\t622c612c62",
+        "true",
+        "false"
+      ],
+      "note": "The comma-key identity already exists under a distinct valid tuple. Adding a key-colliding self tuple is a no-op, so graph validation must occur only after the duplicate check."
+    }
+  ]
+}

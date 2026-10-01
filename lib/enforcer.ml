@@ -64,3 +64,81 @@ let enforce t request =
             | _ -> collect ((matched, row) :: acc) rest
       in
       collect [] t.policy.Policy.rules
+
+(* Management preserves Casbin's comma-joined identities, including collisions
+   across different field tuples. Snapshot records and their lists are immutable. *)
+let policy_key = String.concat ","
+
+let grouping_key (subject, role) = policy_key [subject; role]
+
+let validate_policy_rule t rule =
+  let expected = List.length t.model.Model.policy_fields in
+  let actual = List.length rule in
+  if actual = expected then Ok ()
+  else Error (Printf.sprintf "invalid policy size: expected %d, got %d" expected actual)
+
+let require_grouping t =
+  if t.model.Model.roles_enabled then Ok ()
+  else Error "grouping operations require a role definition"
+
+let get_policy t = t.policy.Policy.rules
+
+let has_policy t rule =
+  let* () = validate_policy_rule t rule in
+  let key = policy_key rule in
+  Ok (List.exists (fun existing -> policy_key existing = key) t.policy.Policy.rules)
+
+let add_policy t rule =
+  let* present = has_policy t rule in
+  if present then Ok (t, false)
+  else
+    let policy = { t.policy with Policy.rules = t.policy.Policy.rules @ [rule] } in
+    Ok ({ t with policy }, true)
+
+let remove_policy t rule =
+  let* present = has_policy t rule in
+  if not present then Ok (t, false)
+  else
+    let key = policy_key rule in
+    let rules = List.filter (fun existing -> policy_key existing <> key) t.policy.Policy.rules in
+    let policy = { t.policy with Policy.rules = rules } in
+    Ok ({ t with policy }, true)
+
+let get_grouping_policy t =
+  let* () = require_grouping t in
+  Ok (List.map (fun (subject, role) -> [subject; role]) t.policy.Policy.roles)
+
+let has_grouping_policy t pair =
+  let* () = require_grouping t in
+  let key = grouping_key pair in
+  Ok (List.exists (fun existing -> grouping_key existing = key) t.policy.Policy.roles)
+
+let with_grouping t links =
+  let* roles = Role_manager.of_links links in
+  let policy = { t.policy with Policy.roles = links } in
+  Ok ({ t with policy; roles }, true)
+
+let add_grouping_policy t pair =
+  let* present = has_grouping_policy t pair in
+  if present then Ok (t, false)
+  else with_grouping t (t.policy.Policy.roles @ [pair])
+
+let remove_grouping_policy t pair =
+  let* present = has_grouping_policy t pair in
+  if not present then Ok (t, false)
+  else
+    let key = grouping_key pair in
+    let links = List.filter (fun existing -> grouping_key existing <> key) t.policy.Policy.roles in
+    with_grouping t links
+
+let get_roles_for_user t subject =
+  let* () = require_grouping t in
+  Ok (t.policy.Policy.roles
+      |> List.filter_map (fun (user, role) -> if user = subject then Some role else None)
+      |> List.sort_uniq String.compare)
+
+let get_users_for_role t role =
+  let* () = require_grouping t in
+  Ok (t.policy.Policy.roles
+      |> List.filter_map (fun (user, parent) -> if parent = role then Some user else None)
+      |> List.sort_uniq String.compare)

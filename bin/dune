@@ -1,5 +1,10 @@
 (executable
  (name main)
+ (modules main)
  (public_name casbin-ocaml)
  (package casbin_ocaml)
+ (libraries casbin))
+(executable
+ (name management_probe)
+ (modules management_probe)
  (libraries casbin))

@@ -30,3 +30,24 @@ or `false` plus a newline to stdout. Input, model, policy, and enforcement error
 write a diagnostic to stderr and exit 2 with empty stdout. Panics are converted
 to the same error contract. The wrapper does not suppress source-model errors or
 substitute its own authorization result.
+
+## Management trace oracle
+
+`management/main.go` builds a second verification driver in the same pinned
+module:
+
+```sh
+(cd oracle && GOCACHE="$project_dir/.cache/go-build" GOMODCACHE="$project_dir/.cache/go-mod" go build -mod=readonly -o casbin-management-oracle ./management)
+python3 scripts/verify_management.py
+```
+
+Invocation is `casbin-management-oracle MODEL POLICY`. Operations arrive on
+stdin using the hexadecimal/tab protocol in `docs/management-contract.md`.
+The driver calls upstream `Enforce`, policy/grouping get/has/add/remove APIs,
+and direct role/user queries; autosave is disabled. It sorts direct role/user
+results for deterministic comparison and encodes all returned bytes as hex.
+Per-operation API errors or panics produce `error` and continue processing.
+Invalid initial model/policy or arguments produce stderr and exit 2. See
+`test/management/README.md` for observed raw Go mutation quirks and the explicit
+OCaml validation boundaries; the driver does not conceal or repair those Go
+states.
