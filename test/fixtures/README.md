@@ -51,7 +51,7 @@ Observed reference behaviors captured by the corpus:
   characters inside a literal cause an upstream parse error. Unsupported
   function and priority-effect models are explicit OCaml rejection cases even when Go allows.
 
-The manifest currently contains 317 cases: 293 parity cases and 24 explicit
+The manifest currently contains 433 cases: 406 parity cases and 27 explicit
 unsupported-model rejections. Literal preprocessing boundaries also include
 terminal `r.`/`p.`, numeric assertion prefixes such as `r2.`, and brackets in a
 matcher containing `in`. An unreachable role cycle still causes a load error.
@@ -101,3 +101,38 @@ the supported deny-override effect, with no oracle exception.
 `effects-unsupported-priority.conf` and
 `effects-unsupported-subject-priority.conf` remain explicit OCaml rejection
 fixtures. Their Go verdicts are checked rather than skipped.
+
+## Milestone 4: basic keyMatch
+
+The `keymatch-*.conf` and `keymatch-*.csv` fixtures were authored for this port.
+The 116 new expectations were independently observed with the pinned Go oracle;
+byte-prefix matrix results were also checked against the first-star semantics
+in upstream `util/builtin_operators.go`, lines 171–193.
+
+Without a star, `keyMatch` compares complete strings. With a star, it checks only
+the byte prefix preceding the first star, accepting zero or more following
+bytes. All suffix text and additional stars are ignored. The matrix covers
+exact mismatch/case, too-short prefixes, required slashes, empty keys/patterns,
+ignored suffixes, multiple stars, Unicode normalization/variation differences,
+and control/whitespace/backslash field values. It also confirms there is no
+path normalization or percent decoding. Date-, colon-, bracket-, and hash-shaped
+values remain supported when supplied as request/policy fields.
+
+Additional fixtures cover literals under the existing literal restrictions,
+parenthesized string operands, policy references in either operand, Boolean
+composition, transitive roles, explicit effects, empty-policy synthetic rows,
+and request-only matchers. In particular, policy references inside either
+`keyMatch` argument must participate in policy-row evaluation. Synthetic and
+request-only results retain the previously documented effect behavior.
+
+Invalid zero/one/three argument calls, Boolean/numeric arguments, and a nested
+Boolean result used as a string are checked as errors. OCaml compiles and
+validates every branch, so unreachable invalid arity/type calls are explicit
+rejection cases even when Go returns a short-circuited Boolean. `keyMatch2`
+remains unsupported, including in an unreachable branch; both its actual Go
+result and OCaml rejection are checked. These strict compile-time boundaries
+are represented by separate `oracle_expected` values, never by skipped calls.
+
+`unsupported-function.conf` retains its historical filename but now contains a
+supported basic `keyMatch` model tested as ordinary parity. No oracle exception
+remains for it.

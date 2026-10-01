@@ -18,3 +18,7 @@
  (name management_test)
  (modules management_test)
  (libraries casbin))
+(test
+ (name key_match_test)
+ (modules key_match_test)
+ (libraries casbin))

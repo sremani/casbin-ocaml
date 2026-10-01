@@ -1,0 +1,2 @@
+p, alice, /foo*ignored, read
+p, bob, /bar/*, write

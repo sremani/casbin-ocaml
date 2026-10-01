@@ -8,6 +8,7 @@ type t =
   | Or of t * t
   | Not of t
   | Role of string_expr * string_expr
+  | Key_match of string_expr * string_expr
 
 type value = String of string_expr | Bool of t
 
@@ -209,6 +210,15 @@ let compile ~request_fields ~policy_fields ~roles_enabled source =
       | True -> advance (); Bool (Boolean true)
       | False -> advance (); Bool (Boolean false)
       | Quoted literal -> advance (); String (Literal literal)
+      | Identifier "keyMatch" ->
+          advance ();
+          nested token.offset (fun () ->
+            expect Left "'(' after keyMatch";
+            let left = string (current ()).offset (disjunction ()) in
+            expect Comma "',' between keyMatch arguments";
+            let right = string (current ()).offset (disjunction ()) in
+            expect Right "')' after two keyMatch arguments";
+            Bool (Key_match (left, right)))
       | Identifier "g" ->
           if not roles_enabled then invalid token.offset "g requires a role definition";
           advance ();
@@ -236,7 +246,8 @@ let compile ~request_fields ~policy_fields ~roles_enabled source =
 
 let rec uses_policy = function
   | Boolean _ -> false
-  | Equal (left, right) | Not_equal (left, right) | Role (left, right) ->
+  | Equal (left, right) | Not_equal (left, right) | Role (left, right)
+  | Key_match (left, right) ->
       let policy = function
         | Literal _ -> false
         | Field name -> String.length name > 2 && String.sub name 0 2 = "p."
@@ -244,6 +255,18 @@ let rec uses_policy = function
       policy left || policy right
   | And (left, right) | Or (left, right) -> uses_policy left || uses_policy right
   | Not expression -> uses_policy expression
+
+(* Match the raw byte prefix before the first star. Upstream ignores everything
+   from that star onward; neither path syntax nor escape characters are special. *)
+let key_match key pattern =
+  match String.index_opt pattern '*' with
+  | None -> String.equal key pattern
+  | Some prefix_length ->
+      let rec prefix_matches index =
+        index = prefix_length
+        || (key.[index] = pattern.[index] && prefix_matches (index + 1))
+      in
+      String.length key >= prefix_length && prefix_matches 0
 
 let eval ~resolve ~has_role expression =
   let operand = function
@@ -263,6 +286,7 @@ let eval ~resolve ~has_role expression =
     | Equal (left, right) -> pair String.equal left right
     | Not_equal (left, right) -> pair (fun a b -> not (String.equal a b)) left right
     | Role (left, right) -> pair has_role left right
+    | Key_match (left, right) -> pair key_match left right
     | Not value -> Result.map not (boolean value)
     | And (left, right) ->
         (match boolean left with

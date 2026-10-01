@@ -5,7 +5,7 @@ Reference: [Apache Casbin](https://github.com/apache/casbin), unmodified commit
 and enforcement APIs with autosave disabled. Each case initializes a fresh
 model/policy, then executes its complete operation sequence in one process.
 
-The corpus contains 23 cases, 261 operation steps, and 7 explicit boundary
+The corpus contains 26 cases, 313 operation steps, and 7 explicit boundary
 traces. Three cases require initialization failure rather than an operation
 trace. The remaining cases cover duplicate/no-op flags, exact policy/grouping
 row order, additions/removals, enforcement after mutation, transitive role
@@ -80,3 +80,20 @@ comma key already exists under a distinct valid tuple is a no-op. Duplicate
 identity must be checked before candidate graph validation. The no-role model
 case confirms all grouping and direct role/user APIs return errors, while
 ordinary policy APIs and enforcement remain usable.
+
+## Milestone 4 pattern management
+
+`keymatch.conf`, `keymatch-effects.conf`, and `keymatch-rbac.conf` were authored
+for this port using its milestone 4 models from `test/fixtures`; they are not
+upstream copies. Three additional observed Go traces contain 52 operation
+steps. Pattern additions/removals change subsequent enforcement, duplicate
+pattern adds are no-ops, explicit allow/deny pattern rules combine correctly,
+and role link additions/removals control pattern permissions. Unicode prefixes
+are exercised through role-based patterns.
+
+The control-value trace adds a policy pattern containing embedded NUL, tab,
+and newline bytes, then queries, matches, duplicates, and removes it. These
+values travel through the hex stdin protocol because an ordinary command argv
+cannot carry embedded NUL. The first-star suffix remains ignored and the prefix
+bytes must match exactly. All three new management traces require complete Go
+and OCaml parity; no new management exceptions were introduced.

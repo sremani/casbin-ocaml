@@ -38,7 +38,7 @@ match Casbin.Enforcer.add_policy enforcer ["bob"; "data2"; "read"] with
     Casbin.Enforcer.enforce updated ["bob"; "data2"; "read"]
 ```
 
-Policy and two-argument grouping operations support get, has, add and remove, plus direct roles for a user and users for a role. No-ops return the original snapshot and false. Invalid policy arities and newly inserted cyclic role graphs fail atomically. See the [management contract](docs/management-contract.md) for signatures, operation traces and explicit differences from raw Go mutation behavior.
+Policy and two-argument grouping operations support get, has, add and remove, plus direct roles for a user and users for a role. No-ops return the original snapshot and false. Invalid policy arities and newly inserted cyclic role graphs fail atomically. See the [management contract](docs/management-contract.md) for validation, operation traces and explicit differences from raw Go mutation behavior.
 
 The local package is `casbin_ocaml`; applications link it with `(libraries casbin_ocaml)` and use the `Casbin` module. `dune build @install` prepares the library and `casbin-ocaml` executable for installation. Package metadata is included in `casbin_ocaml.opam`.
 
@@ -48,7 +48,7 @@ The local package is `casbin_ocaml`; applications link it with `(libraries casbi
 | --- | --- |
 | Model | One `r`, `p`, `e`, `m`; optional two-argument `g = _, _` |
 | Values | Strings; validated named `r.field` and `p.field` references |
-| Matchers | String `==` and `!=`, `&&`, `||`, `!`, parentheses, `true`, `false`, two-argument `g` |
+| Matchers | String `==` and `!=`, `&&`, `||`, `!`, parentheses, `true`, `false`, two-argument `g` and `keyMatch` |
 | Policy effect | Allow override, deny override, and combined allow-and-deny; optional explicit `p.eft` at any position |
 | Role graph | Self membership, directed transitive membership, at most ten edges; cyclic/self-edge policies rejected at load |
 | Policy input | Physical-line CSV; quoted commas/doubled quotes; comments and duplicate records |
@@ -76,7 +76,9 @@ Input whitespace support is ASCII. Unicode whitespace trimming and Go's file-sca
 
 Duplicate policy and role keys use comma-joined field values, reproducing Go Casbin's key behavior. Distinct quoted field tuples can collide; the first row is retained. For example, `p, "a,b", c, read` and `p, a, "b,c", read` share a duplicate key. The oracle corpus covers the resulting decisions.
 
-Deferred: priority/subject-priority and custom effect rules, multiple assertions, domains, ABAC, reflection, numeric coercion, `eval`, regex/path matching, custom functions, adapters, watchers, caching, filtered/batch/update management operations, and the full Casbin public API.
+`keyMatch(key, pattern)` compares strings exactly when the pattern has no `*`. With a star it requires the byte prefix before the first star, which may match zero remaining bytes; later pattern text is ignored. `/foo*` matches `/foo` and `/foobar`, while `/foo/*` requires `/foo/`. No path normalization, regex or escaping is applied. See the [keyMatch contract](docs/key-match-contract.md).
+
+Deferred: priority/subject-priority and custom effect rules, multiple assertions, domains, ABAC, reflection, numeric coercion, `eval`, regex and other path-matching functions, custom functions, adapters, watchers, caching, filtered/batch/update management operations, and the full Casbin public API.
 
 ## Verification and provenance
 
@@ -88,8 +90,8 @@ Copied upstream material retains Apache license and notice files. This is an ind
 
 ## Next milestones
 
-1. Choose one matching-function feature and specify its compatibility boundary.
-2. Scope domain-aware RBAC, ABAC values, and priority effects through the ticket board.
+1. Scope domain-aware RBAC, ABAC values, and priority effects through the ticket board.
+2. Select further matching functions with separate compatibility contracts.
 3. Review the coverage inventory, performance and release requirements.
 
 Each extension gets its own contract and comparison cases. The first release establishes a tested core before widening coverage.

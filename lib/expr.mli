@@ -2,7 +2,9 @@
 type t
 
 (** Supports string equality/inequality, Boolean logic, parentheses, and enabled
-    two-string [g] calls. Quoted literals preserve backslashes. Literal values
+    two-string [g] calls, plus two-string [keyMatch] byte-prefix matching.
+    [keyMatch] requires no role definition and ignores pattern text from the first
+    asterisk onward. Quoted literals preserve backslashes. Literal values
     containing quotes, brackets, [#], [:], assertion-like [r]/[p] names followed
     by optional digits and a dot, or a [YYYY-MM-DD] shaped substring are rejected
     to avoid upstream preprocessing and implicit date conversion. This does not

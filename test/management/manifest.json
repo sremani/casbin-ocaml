@@ -2340,6 +2340,473 @@
         "false"
       ],
       "note": "The comma-key identity already exists under a distinct valid tuple. Adding a key-colliding self tuple is a no-op, so graph validation must occur only after the duplicate check."
+    },
+    {
+      "name": "keymatch-pattern-add-remove-control",
+      "model": "keymatch.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "/foo*ignored",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foobar",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/fo",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "a\u0000\t\n*ignored",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "a\u0000\t\n",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "a\u0000\t\nsuffix",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "a\u0000\t",
+            "read"
+          ]
+        },
+        {
+          "op": "has_policy",
+          "args": [
+            "alice",
+            "a\u0000\t\n*ignored",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "a\u0000\t\n*ignored",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "a\u0000\t\n*ignored",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "a\u0000\t\nsuffix",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "/foo*ignored",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "",
+            "",
+            ""
+          ]
+        }
+      ],
+      "expected": [
+        "rows\t",
+        "false",
+        "true",
+        "true",
+        "true",
+        "false",
+        "true",
+        "rows\t616c696365,2f666f6f2a69676e6f726564,72656164;616c696365,6100090a2a69676e6f726564,72656164",
+        "true",
+        "true",
+        "false",
+        "true",
+        "false",
+        "true",
+        "rows\t616c696365,2f666f6f2a69676e6f726564,72656164",
+        "false",
+        "true",
+        "true",
+        "rows\t",
+        "false",
+        "true"
+      ]
+    },
+    {
+      "name": "keymatch-effect-pattern-changes",
+      "model": "keymatch-effects.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "/foo*",
+            "read",
+            "allow"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo/admin",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "/foo/admin*",
+            "read",
+            "deny"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo/admin",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo/report",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "/foo/admin*",
+            "read",
+            "deny"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo/admin",
+            "read"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "alice",
+            "*ignored",
+            "read",
+            "deny"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/unrelated",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "*ignored",
+            "read",
+            "deny"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "alice",
+            "/foo*",
+            "read",
+            "allow"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo/admin",
+            "read"
+          ]
+        }
+      ],
+      "expected": [
+        "true",
+        "true",
+        "true",
+        "rows\t616c696365,2f666f6f2a,72656164,616c6c6f77;616c696365,2f666f6f2f61646d696e2a,72656164,64656e79",
+        "false",
+        "true",
+        "true",
+        "true",
+        "true",
+        "false",
+        "true",
+        "true",
+        "rows\t",
+        "false"
+      ]
+    },
+    {
+      "name": "keymatch-grouping-pattern-changes",
+      "model": "keymatch-rbac.conf",
+      "policy": "empty.csv",
+      "operations": [
+        {
+          "op": "add_policy",
+          "args": [
+            "reader",
+            "東京*ignored",
+            "read",
+            "allow"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "東京/資料",
+            "read"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "reader"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "東京/資料",
+            "read"
+          ]
+        },
+        {
+          "op": "get_roles_for_user",
+          "args": [
+            "alice"
+          ]
+        },
+        {
+          "op": "add_policy",
+          "args": [
+            "reader",
+            "/foo/*",
+            "read",
+            "allow"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo/",
+            "read"
+          ]
+        },
+        {
+          "op": "remove_grouping_policy",
+          "args": [
+            "alice",
+            "reader"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "東京/資料",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "reader",
+            "東京/資料",
+            "read"
+          ]
+        },
+        {
+          "op": "add_grouping_policy",
+          "args": [
+            "alice",
+            "reader"
+          ]
+        },
+        {
+          "op": "remove_policy",
+          "args": [
+            "reader",
+            "東京*ignored",
+            "read",
+            "allow"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "東京/資料",
+            "read"
+          ]
+        },
+        {
+          "op": "enforce",
+          "args": [
+            "alice",
+            "/foo/x",
+            "read"
+          ]
+        },
+        {
+          "op": "get_policy",
+          "args": []
+        },
+        {
+          "op": "get_grouping_policy",
+          "args": []
+        }
+      ],
+      "expected": [
+        "true",
+        "false",
+        "true",
+        "true",
+        "values\t726561646572",
+        "true",
+        "false",
+        "true",
+        "true",
+        "false",
+        "true",
+        "true",
+        "true",
+        "false",
+        "true",
+        "rows\t726561646572,2f666f6f2f2a,72656164,616c6c6f77",
+        "rows\t616c696365,726561646572"
+      ]
     }
   ]
 }

@@ -34,8 +34,23 @@ M2 supports allow override, deny override, and allow-and-deny. Missing `eft` mea
 | CB-204 | Go operation-sequence oracle: 23 cases, 261 steps, seven explicit boundaries | PitCrew Oracle | CB-201 | Done |
 | CB-205 | Integrate management, check error atomicity and role-cycle rejection; all gates pass | PitBoss + crew | CB-202–204 | Done |
 | CB-206 | Document and locally commit M3; see local Git history | PitBoss | CB-205 | Done |
-| CB-301 | Specify a small matching-function extension, then implement and compare to Go | PitBoss + crew | CB-206 | Backlog |
-| CB-302 | Domain-aware RBAC contract and golden cases | PitBoss + crew | CB-206 | Backlog |
+
+## M4 — basic keyMatch
+
+| Ticket | Work and acceptance gate | Owner | Depends on | Status |
+| --- | --- | --- | --- | --- |
+| CB-301 | Specify basic keyMatch extension in docs/key-match-contract.md | PitBoss | CB-206 | Done |
+| CB-311 | Implement two-string keyMatch compilation/evaluation and policy dependencies | PitCrew Intake | CB-301 | Done |
+| CB-312 | 244 byte, typing, short-circuit and snapshot integration checks pass | PitCrew Matcher | CB-301 | Done |
+| CB-313 | 116 observed keyMatch cases and three management traces; provenance recorded | PitCrew Oracle | CB-301 | Done |
+| CB-314 | Integrate, cross-review, verify all corpora and install build | PitBoss + crew | CB-311–313 | Done |
+| CB-315 | Document and locally commit M4; see local Git history | PitBoss | CB-314 | Done |
+
+## Prioritized backlog
+
+| Ticket | Work and acceptance gate | Owner | Depends on | Status |
+| --- | --- | --- | --- | --- |
+| CB-302 | Domain-aware RBAC contract and golden cases; next selected ticket | PitBoss + crew | CB-315 | Ready |
 | CB-303 | Explicit OCaml ABAC value model and supported evaluation boundary | PitBoss + crew | CB-206 | Backlog |
 | CB-304 | Priority-effect semantics and policy-order tests | PitBoss + crew | CB-206 | Backlog |
 | CB-401 | Port coverage inventory, performance evidence, release-quality review | PitBoss + crew | Feature scope selected | Backlog |
@@ -63,3 +78,7 @@ Upstream: https://github.com/apache/casbin at 524f3f2dc9baef696d748db491d49b3055
 - M2 local commit: `1b68831`. M3 uses immutable snapshots and preserves the original on failed updates; raw Go mutation cycle/arity behavior is recorded as an explicit boundary rather than silently emulated.
 
 - M3 gate: 191 stateful checks, 317 enforcement cases, and 23 management sequences (261 steps, seven explicit boundaries) pass on OCaml 5.5.0. Install build and independent management/API/runner reviews pass. Immutable snapshots retain previous state on invalid updates.
+
+- M3 local commit: `ba5e10a`. M4 implements only basic `keyMatch`; its first-asterisk byte-prefix contract was fixed before dispatch.
+
+- M4 gate: 244 keyMatch checks plus all existing suites pass. Enforcement corpus: 433 cases (406 parity, 27 explicit rejections); management: 26 sequences, 313 steps, seven explicit boundaries. OCaml 5.5.0, install build and independent source/implementation/test cross-review pass. Next selected ticket is CB-302: scope domains before implementation.

@@ -696,7 +696,7 @@
       "expected": false
     },
     {
-      "name": "unsupported-keymatch",
+      "name": "supported-keymatch-historical-fixture",
       "model": "unsupported-function.conf",
       "policy": "basic_policy.csv",
       "request": [
@@ -704,8 +704,8 @@
         "data1",
         "read"
       ],
-      "expected": "error",
-      "oracle_expected": true
+      "expected": true,
+      "note": "Historical filename retained; basic keyMatch became supported in milestone 4."
     },
     {
       "name": "supported-deny-override",
@@ -3538,6 +3538,1243 @@
         "alice",
         "data",
         "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-exact",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foo",
+        "/foo"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-exact-miss",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foobar",
+        "/foo"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-exact-case",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/Foo",
+        "/foo"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-prefix-zero",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foo",
+        "/foo*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-prefix-more",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foobar",
+        "/foo*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-prefix-short",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/fo",
+        "/foo*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-prefix-other",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/bar",
+        "/foo*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-slash-required",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foo",
+        "/foo/*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-slash-zero",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foo/",
+        "/foo/*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-slash-more",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foo/bar",
+        "/foo/*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-ignore-suffix",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/fooXYZ",
+        "/foo*ignored/suffix"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-ignore-missing-suffix",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foo",
+        "/foo*required"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-first-star",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "abZZ",
+        "ab**ignored"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-first-star-zero",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "ab",
+        "ab**ignored"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-empty-key-star",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-empty-key-star-suffix",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "*ignored"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-all-keys-star",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "anything",
+        "*ignored"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-empty-exact",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-nonempty-empty-pattern",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "x",
+        ""
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-empty-key-prefix",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "x*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-star-as-key",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a*b",
+        "a*b"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-star-key-is-not-wildcard",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a*b",
+        "ab"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-slash-not-normalized",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foo//bar",
+        "/foo/bar*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-percent-not-decoded",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foo%2Fbar",
+        "/foo/bar*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-dotsegments-not-normalized",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foo/../bar",
+        "/bar*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-encoded-prefix",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "/foo%2Fbar",
+        "/foo%2F*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-unicode-exact",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "東京",
+        "東京"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-unicode-prefix",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "東京/資料",
+        "東京*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-unicode-prefix-short",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "東",
+        "東京*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-unicode-normalization",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "café/data",
+        "café*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-unicode-variation-prefix",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "☀️",
+        "☀*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-unicode-variation-required",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "☀",
+        "☀️*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-newline-prefix",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a\nb/path",
+        "a\nb*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-tab-prefix",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a\tb/path",
+        "a\tb*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-carriage-return-prefix",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a\rb",
+        "a\r*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-control-exact",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "\u0001\u0002",
+        "\u0001\u0002"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-field-hash",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a#b",
+        "a#*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-field-bracket",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a[b]",
+        "a[*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-field-colon",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "https://example.test/x",
+        "https:*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-field-date",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "2026-10-01/data",
+        "2026-10-01*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-space-prefix",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        " foo",
+        " foo*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-space-significant",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "foo",
+        " foo*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-suffix-newline-ignored",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a",
+        "a*\nignored"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-backslash-no-escape",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a\\value",
+        "a\\*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-backslash-required",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "avalue",
+        "a\\*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-leading-star-suffix-star",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "**required"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-trailing-space-exact",
+      "model": "keymatch-pairs.conf",
+      "policy": "empty.csv",
+      "request": [
+        "a ",
+        "a "
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-acl-47",
+      "model": "keymatch-acl.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-acl-48",
+      "model": "keymatch-acl.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "alice",
+        "/foo/report",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-acl-49",
+      "model": "keymatch-acl.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "alice",
+        "/bar",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-acl-50",
+      "model": "keymatch-acl.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "bob",
+        "/bar",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-acl-51",
+      "model": "keymatch-acl.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "bob",
+        "/bar/",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-acl-52",
+      "model": "keymatch-acl.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "bob",
+        "/bar/x",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-parenthesized-53",
+      "model": "keymatch-parenthesized.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-parenthesized-54",
+      "model": "keymatch-parenthesized.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "alice",
+        "/foo/report",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-parenthesized-55",
+      "model": "keymatch-parenthesized.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "alice",
+        "/bar",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-parenthesized-56",
+      "model": "keymatch-parenthesized.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "bob",
+        "/bar",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-parenthesized-57",
+      "model": "keymatch-parenthesized.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "bob",
+        "/bar/",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-parenthesized-58",
+      "model": "keymatch-parenthesized.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "bob",
+        "/bar/x",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-policy-first-59",
+      "model": "keymatch-policy-first.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "alice",
+        "/foo*",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-policy-first-60",
+      "model": "keymatch-policy-first.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "alice",
+        "/bar/*",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-policy-first-61",
+      "model": "keymatch-policy-first.conf",
+      "policy": "keymatch-policy.csv",
+      "request": [
+        "alice",
+        "/unknown*",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-literal-62",
+      "model": "keymatch-literal-prefix.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-literal-63",
+      "model": "keymatch-literal-prefix.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/foobar",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-literal-64",
+      "model": "keymatch-literal-prefix.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/fo",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-literal-65",
+      "model": "keymatch-literal-empty.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-literal-66",
+      "model": "keymatch-literal-empty.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "x",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-literal-67",
+      "model": "keymatch-literal-unicode.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "東京/資料",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-composition-68",
+      "model": "keymatch-composition.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/allowed",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-composition-69",
+      "model": "keymatch-composition.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/other",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-composition-70",
+      "model": "keymatch-composition.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/other",
+        "admin"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-composition-71",
+      "model": "keymatch-composition.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/blocked",
+        "admin"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-invalid-zero-args",
+      "model": "keymatch-invalid-zero-args.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "keymatch-invalid-one-arg",
+      "model": "keymatch-invalid-one-arg.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "keymatch-invalid-three-args",
+      "model": "keymatch-invalid-three-args.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "keymatch-invalid-bool-key",
+      "model": "keymatch-invalid-bool-key.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "keymatch-invalid-bool-pattern",
+      "model": "keymatch-invalid-bool-pattern.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "keymatch-invalid-nested-bool",
+      "model": "keymatch-invalid-nested-bool.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "keymatch-invalid-number-key",
+      "model": "keymatch-invalid-number-key.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "keymatch-rejected-unreachable-bool",
+      "model": "keymatch-rejected-unreachable-bool.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Only two-string-operand basic keyMatch is supported; rejected features are validated even in unreachable branches."
+    },
+    {
+      "name": "keymatch-rejected-unreachable-arity",
+      "model": "keymatch-rejected-unreachable-arity.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Only two-string-operand basic keyMatch is supported; rejected features are validated even in unreachable branches."
+    },
+    {
+      "name": "keymatch-rejected-unsupported-keymatch2",
+      "model": "keymatch-rejected-unsupported-keymatch2.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Only two-string-operand basic keyMatch is supported; rejected features are validated even in unreachable branches."
+    },
+    {
+      "name": "keymatch-rejected-unreachable-keymatch2",
+      "model": "keymatch-rejected-unreachable-keymatch2.conf",
+      "policy": "basic_policy.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Only two-string-operand basic keyMatch is supported; rejected features are validated even in unreachable branches."
+    },
+    {
+      "name": "keymatch-effects-allow-83",
+      "model": "keymatch-effects-allow.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "alice",
+        "/foo/report",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-effects-allow-84",
+      "model": "keymatch-effects-allow.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "alice",
+        "/foo/admin",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-effects-allow-85",
+      "model": "keymatch-effects-allow.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "reader",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-effects-allow-86",
+      "model": "keymatch-effects-allow.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "alice",
+        "/foo/unknown",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-effects-allow-87",
+      "model": "keymatch-effects-allow.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "outsider",
+        "/foo",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-synthetic-allow-88",
+      "model": "keymatch-synthetic-allow.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-synthetic-allow-89",
+      "model": "keymatch-synthetic-allow.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-request-only-allow-90",
+      "model": "keymatch-request-only-allow.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "/foo*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-request-only-allow-91",
+      "model": "keymatch-request-only-allow.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/bar",
+        "/foo*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-request-only-allow-92",
+      "model": "keymatch-request-only-allow.conf",
+      "policy": "keymatch-effects-p-only.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "/foo*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-request-only-allow-93",
+      "model": "keymatch-request-only-allow.conf",
+      "policy": "keymatch-effects-p-only.csv",
+      "request": [
+        "alice",
+        "/bar",
+        "/foo*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-effects-deny-94",
+      "model": "keymatch-effects-deny.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "alice",
+        "/foo/report",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-effects-deny-95",
+      "model": "keymatch-effects-deny.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "alice",
+        "/foo/admin",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-effects-deny-96",
+      "model": "keymatch-effects-deny.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "reader",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-effects-deny-97",
+      "model": "keymatch-effects-deny.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "alice",
+        "/foo/unknown",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-effects-deny-98",
+      "model": "keymatch-effects-deny.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "outsider",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-synthetic-deny-99",
+      "model": "keymatch-synthetic-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-synthetic-deny-100",
+      "model": "keymatch-synthetic-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-request-only-deny-101",
+      "model": "keymatch-request-only-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "/foo*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-request-only-deny-102",
+      "model": "keymatch-request-only-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/bar",
+        "/foo*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-request-only-deny-103",
+      "model": "keymatch-request-only-deny.conf",
+      "policy": "keymatch-effects-p-only.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "/foo*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-request-only-deny-104",
+      "model": "keymatch-request-only-deny.conf",
+      "policy": "keymatch-effects-p-only.csv",
+      "request": [
+        "alice",
+        "/bar",
+        "/foo*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-effects-allow-deny-105",
+      "model": "keymatch-effects-allow-deny.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "alice",
+        "/foo/report",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-effects-allow-deny-106",
+      "model": "keymatch-effects-allow-deny.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "alice",
+        "/foo/admin",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-effects-allow-deny-107",
+      "model": "keymatch-effects-allow-deny.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "reader",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-effects-allow-deny-108",
+      "model": "keymatch-effects-allow-deny.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "alice",
+        "/foo/unknown",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-effects-allow-deny-109",
+      "model": "keymatch-effects-allow-deny.conf",
+      "policy": "keymatch-effects.csv",
+      "request": [
+        "outsider",
+        "/foo",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-synthetic-allow-deny-110",
+      "model": "keymatch-synthetic-allow-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-synthetic-allow-deny-111",
+      "model": "keymatch-synthetic-allow-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-request-only-allow-deny-112",
+      "model": "keymatch-request-only-allow-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "/foo*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-request-only-allow-deny-113",
+      "model": "keymatch-request-only-allow-deny.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "/bar",
+        "/foo*"
+      ],
+      "expected": false
+    },
+    {
+      "name": "keymatch-request-only-allow-deny-114",
+      "model": "keymatch-request-only-allow-deny.conf",
+      "policy": "keymatch-effects-p-only.csv",
+      "request": [
+        "alice",
+        "/foo",
+        "/foo*"
+      ],
+      "expected": true
+    },
+    {
+      "name": "keymatch-request-only-allow-deny-115",
+      "model": "keymatch-request-only-allow-deny.conf",
+      "policy": "keymatch-effects-p-only.csv",
+      "request": [
+        "alice",
+        "/bar",
+        "/foo*"
       ],
       "expected": false
     }

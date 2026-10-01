@@ -100,7 +100,7 @@ let () =
      "(true"; "true)"; "()"; "true &&"; "|| false"; "!";
      "true & false"; "true | false"; "r.sub = 'alice'";
      "1 == 1"; "r.sub + p.sub == 'alice'"; "r.sub =~ 'alice'";
-     "eval('true')"; "keyMatch(r.obj, p.obj)"; "g2(r.sub, p.sub)";
+     "eval('true')"; "keyMatch2(r.obj, p.obj)"; "g2(r.sub, p.sub)";
      "g()"; "g('alice')"; "g('alice', 'admin', 'domain')";
      "g(true, 'admin')"; "g('alice', false)"; "g('alice', 'admin') == true";
      "g 'alice', 'admin'"; "g('alice' 'admin')";
