@@ -28,6 +28,43 @@ let () =
   let model = expect_ok "ACL" (Model.of_string acl) in
   check "fields parsed" (model.request_fields = ["sub"; "obj"; "act"]);
   check "ACL roles disabled" (not model.roles_enabled);
+  check "implicit allow override" (model.policy_effect = Effector.Allow_override);
+  let effect_models = [
+    "allow override", "some(where (p.eft == allow))", Effector.Allow_override;
+    "deny override", "!some(where (p.eft == deny))", Effector.Deny_override;
+    "allow and deny", "some(where (p.eft == allow)) && !some(where (p.eft == deny))", Effector.Allow_and_deny;
+    "compact deny override", "!some(where(p.eft==deny))", Effector.Deny_override;
+    "spaced deny override", "! some ( where ( p . eft == deny ) )", Effector.Deny_override;
+    "compact allow and deny", "some(where(p.eft==allow))&&!some(where(p.eft==deny))", Effector.Allow_and_deny;
+    "spaced allow and deny", "some ( where ( p . eft == allow ) ) && ! some ( where ( p . eft == deny ) )", Effector.Allow_and_deny;
+  ] in
+  List.iter (fun (label, expression, expected) ->
+    let parsed = expect_ok label (Model.of_string
+      (replace acl "some(where (p.eft == allow))" expression)) in
+    check (label ^ " parsed enum") (parsed.policy_effect = expected);
+    check (label ^ " eft remains optional") (parsed.policy_fields = ["sub"; "obj"; "act"])) effect_models;
+  List.iter (fun (label, definition, expected) ->
+    let parsed = expect_ok label (Model.of_string
+      (replace acl "p = sub, obj, act" definition)) in
+    check (label ^ " fields preserved") (parsed.policy_fields = expected)) [
+      "eft last", "p = sub, obj, act, eft", ["sub"; "obj"; "act"; "eft"];
+      "eft first", "p = eft, sub, obj, act", ["eft"; "sub"; "obj"; "act"];
+      "eft middle", "p = sub, eft, obj, act", ["sub"; "eft"; "obj"; "act"];
+      "eft alone", "p = eft", ["eft"];
+    ];
+  let explicit_model = expect_ok "explicit eft model" (Model.of_string
+    (replace acl "p = sub, obj, act" "p = sub, eft, obj, act")) in
+  let explicit_rows = expect_ok "explicit eft rows" (Policy.of_string ~model:explicit_model
+    "p, alice, allow, data1, read\np, alice, deny, data1, write\np, alice, unknown, data1, admin\n") in
+  check "effect values remain strings until enforcement"
+    (explicit_rows.rules = [["alice"; "allow"; "data1"; "read"];
+       ["alice"; "deny"; "data1"; "write"]; ["alice"; "unknown"; "data1"; "admin"]]);
+  expect_error "explicit eft participates in row arity"
+    (Policy.of_string ~model:explicit_model "p, alice, data1, read");
+  let continued_effect = expect_ok "continued allow-and-deny effect" (Model.of_string
+    (replace acl "some(where (p.eft == allow))"
+      ("some(where (p.eft == allow)) && " ^ "\\" ^ "\n!some(where (p.eft == deny))"))) in
+  check "effect continuation parsed enum" (continued_effect.policy_effect = Effector.Allow_and_deny);
   let multiline = replace acl "m = r.sub == p.sub && r.obj == p.obj && r.act == p.act"
       ("m = r.sub == p.sub && " ^ "\\" ^ "\n    r.obj == p.obj && " ^ "\\" ^ "\n    r.act == p.act") in
   let continued = expect_ok "continuation" (Model.of_string multiline) in
@@ -47,8 +84,20 @@ let () =
     "duplicate fields", replace acl "r = sub, obj, act" "r = sub, sub";
     "empty field", replace acl "r = sub, obj, act" "r = sub,,act";
     "invalid field", replace acl "r = sub, obj, act" "r = sub, 1obj, act";
-    "effect field", replace acl "p = sub, obj, act" "p = sub, obj, act, eft";
-    "deny effect", replace acl "some(where (p.eft == allow))" "!some(where (p.eft == deny))";
+    "priority effect", replace acl "some(where (p.eft == allow))" "priority(p.eft) || deny";
+    "subject priority effect", replace acl "some(where (p.eft == allow))" "subjectPriority(p.eft) || deny";
+    "custom effect", replace acl "some(where (p.eft == allow))" "custom(p.eft)";
+    "positive deny aggregation", replace acl "some(where (p.eft == allow))" "some(where (p.eft == deny))";
+    "negated allow aggregation", replace acl "some(where (p.eft == allow))" "!some(where (p.eft == allow))";
+    "effect disjunction", replace acl "some(where (p.eft == allow))"
+      "some(where (p.eft == allow)) || !some(where (p.eft == deny))";
+    "reversed effect conjunction", replace acl "some(where (p.eft == allow))"
+      "!some(where (p.eft == deny)) && some(where (p.eft == allow))";
+    "trailing effect token", replace acl "some(where (p.eft == allow))" "some(where (p.eft == allow)) false";
+    "parenthesized effect", replace acl "some(where (p.eft == allow))" "(some(where (p.eft == allow)))";
+    "duplicate effect field", replace acl "p = sub, obj, act" "p = sub, eft, eft";
+    "split effect conjunction", replace acl "some(where (p.eft == allow))"
+      "some(where (p.eft == allow)) & & !some(where (p.eft == deny))";
     "broken effect keyword", replace acl "some(where (p.eft == allow))" "s o m e(where (p.eft == allow))";
     "broken effect operator", replace acl "some(where (p.eft == allow))" "some(where (p.eft = = allow))";
     "empty matcher", replace acl "m = r.sub == p.sub && r.obj == p.obj && r.act == p.act" "m = ";

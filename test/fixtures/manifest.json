@@ -708,7 +708,7 @@
       "oracle_expected": true
     },
     {
-      "name": "unsupported-effect",
+      "name": "supported-deny-override",
       "model": "unsupported-effect.conf",
       "policy": "basic_policy.csv",
       "request": [
@@ -716,8 +716,8 @@
         "data1",
         "read"
       ],
-      "expected": "error",
-      "oracle_expected": true
+      "expected": true,
+      "note": "Historical fixture name retained; deny override became supported in milestone 2."
     },
     {
       "name": "undefined-field",
@@ -1027,6 +1027,2519 @@
       ],
       "expected": "error",
       "note": "An unreachable cycle still rejects the complete policy at load time."
+    },
+    {
+      "name": "eft-allow-last-allow-only",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-last-deny-only",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-last-unknown-only",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-last-capital-allow",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "capital-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-last-capital-deny",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "capital-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-last-empty-effect",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "empty-effect",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-last-allow-then-deny",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-last-deny-then-allow",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-then-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-last-allow-unknown",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-unknown",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-last-unknown-deny",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unknown-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-last-duplicate-allow",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "duplicate-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-last-duplicate-deny",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "duplicate-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-last-only-unknowns",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "only-unknowns",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-last-unmatched-deny",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-last-no-match",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-last-wrong-object",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-only",
+        "wrong",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-last-allow-only",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-last-deny-only",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-last-unknown-only",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-last-capital-allow",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "capital-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-last-capital-deny",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "capital-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-last-empty-effect",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "empty-effect",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-last-allow-then-deny",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-last-deny-then-allow",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-then-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-last-allow-unknown",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-unknown",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-last-unknown-deny",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unknown-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-last-duplicate-allow",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "duplicate-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-last-duplicate-deny",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "duplicate-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-last-only-unknowns",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "only-unknowns",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-last-unmatched-deny",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-last-no-match",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-last-wrong-object",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-only",
+        "wrong",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-last-allow-only",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-last-deny-only",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-last-unknown-only",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-last-capital-allow",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "capital-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-last-capital-deny",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "capital-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-last-empty-effect",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "empty-effect",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-last-allow-then-deny",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-last-deny-then-allow",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-then-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-last-allow-unknown",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-unknown",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-last-unknown-deny",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unknown-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-last-duplicate-allow",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "duplicate-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-last-duplicate-deny",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "duplicate-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-last-only-unknowns",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "only-unknowns",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-last-unmatched-deny",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-last-no-match",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-last-wrong-object",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-only",
+        "wrong",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-first-allow-only",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-first-deny-only",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-first-unknown-only",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-first-capital-allow",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "capital-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-first-capital-deny",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "capital-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-first-empty-effect",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "empty-effect",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-first-allow-then-deny",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-first-deny-then-allow",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "deny-then-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-first-allow-unknown",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-unknown",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-first-unknown-deny",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "unknown-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-first-duplicate-allow",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "duplicate-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-first-duplicate-deny",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "duplicate-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-first-only-unknowns",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "only-unknowns",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-first-unmatched-deny",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-first-no-match",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-first-wrong-object",
+      "model": "effects-allow-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-only",
+        "wrong",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-first-allow-only",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-first-deny-only",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-first-unknown-only",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-first-capital-allow",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "capital-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-first-capital-deny",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "capital-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-first-empty-effect",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "empty-effect",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-first-allow-then-deny",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-first-deny-then-allow",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "deny-then-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-first-allow-unknown",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-unknown",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-first-unknown-deny",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "unknown-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-first-duplicate-allow",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "duplicate-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-first-duplicate-deny",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "duplicate-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-first-only-unknowns",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "only-unknowns",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-first-unmatched-deny",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-first-no-match",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-first-wrong-object",
+      "model": "effects-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-only",
+        "wrong",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-first-allow-only",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-first-deny-only",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-first-unknown-only",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-first-capital-allow",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "capital-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-first-capital-deny",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "capital-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-first-empty-effect",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "empty-effect",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-first-allow-then-deny",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-first-deny-then-allow",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "deny-then-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-first-allow-unknown",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-unknown",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-first-unknown-deny",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "unknown-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-first-duplicate-allow",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "duplicate-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-first-duplicate-deny",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "duplicate-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-first-only-unknowns",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "only-unknowns",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-first-unmatched-deny",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-first-no-match",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-first-wrong-object",
+      "model": "effects-allow-deny-first.conf",
+      "policy": "effects-matrix-first.csv",
+      "request": [
+        "allow-only",
+        "wrong",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-middle-allow-only",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-middle-deny-only",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-middle-unknown-only",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-middle-capital-allow",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "capital-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-middle-capital-deny",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "capital-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-middle-empty-effect",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "empty-effect",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-middle-allow-then-deny",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-middle-deny-then-allow",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "deny-then-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-middle-allow-unknown",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-unknown",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-middle-unknown-deny",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "unknown-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-middle-duplicate-allow",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "duplicate-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-middle-duplicate-deny",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "duplicate-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-middle-only-unknowns",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "only-unknowns",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-middle-unmatched-deny",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-middle-no-match",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-middle-wrong-object",
+      "model": "effects-allow-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-only",
+        "wrong",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-middle-allow-only",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-middle-deny-only",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-middle-unknown-only",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-middle-capital-allow",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "capital-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-middle-capital-deny",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "capital-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-middle-empty-effect",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "empty-effect",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-middle-allow-then-deny",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-middle-deny-then-allow",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "deny-then-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-middle-allow-unknown",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-unknown",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-middle-unknown-deny",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "unknown-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-middle-duplicate-allow",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "duplicate-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-middle-duplicate-deny",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "duplicate-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-middle-only-unknowns",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "only-unknowns",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-middle-unmatched-deny",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-middle-no-match",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-middle-wrong-object",
+      "model": "effects-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-only",
+        "wrong",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-middle-allow-only",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-middle-deny-only",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-middle-unknown-only",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-middle-capital-allow",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "capital-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-middle-capital-deny",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "capital-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-middle-empty-effect",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "empty-effect",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-middle-allow-then-deny",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-middle-deny-then-allow",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "deny-then-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-middle-allow-unknown",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-unknown",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-middle-unknown-deny",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "unknown-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-middle-duplicate-allow",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "duplicate-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-middle-duplicate-deny",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "duplicate-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-middle-only-unknowns",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "only-unknowns",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-middle-unmatched-deny",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-middle-no-match",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-middle-wrong-object",
+      "model": "effects-allow-deny-middle.conf",
+      "policy": "effects-matrix-middle.csv",
+      "request": [
+        "allow-only",
+        "wrong",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-missing-eft-matched",
+      "model": "effects-allow-no-eft.conf",
+      "policy": "effects-no-eft.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-missing-eft-unmatched",
+      "model": "effects-allow-no-eft.conf",
+      "policy": "effects-no-eft.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-missing-eft-matched",
+      "model": "effects-deny-no-eft.conf",
+      "policy": "effects-no-eft.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-missing-eft-unmatched",
+      "model": "effects-deny-no-eft.conf",
+      "policy": "effects-no-eft.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-missing-eft-matched",
+      "model": "effects-allow-deny-no-eft.conf",
+      "policy": "effects-no-eft.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-missing-eft-unmatched",
+      "model": "effects-allow-deny-no-eft.conf",
+      "policy": "effects-no-eft.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-empty-policy-empty-fields",
+      "model": "effects-allow-last.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-empty-policy-nonempty-fields",
+      "model": "effects-allow-last.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-true-empty-alice",
+      "model": "effects-allow-true.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-true-nonempty-alice",
+      "model": "effects-allow-true.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-false-empty-alice",
+      "model": "effects-allow-false.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-false-nonempty-alice",
+      "model": "effects-allow-false.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-request-only-empty-alice",
+      "model": "effects-allow-request-only.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-request-only-empty-bob",
+      "model": "effects-allow-request-only.conf",
+      "policy": "empty.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-request-only-nonempty-alice",
+      "model": "effects-allow-request-only.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-request-only-nonempty-bob",
+      "model": "effects-allow-request-only.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-empty-eft-empty-alice",
+      "model": "effects-allow-empty-eft.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-empty-policy-empty-fields",
+      "model": "effects-deny-last.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-empty-policy-nonempty-fields",
+      "model": "effects-deny-last.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-true-empty-alice",
+      "model": "effects-deny-true.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-true-nonempty-alice",
+      "model": "effects-deny-true.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-false-empty-alice",
+      "model": "effects-deny-false.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-false-nonempty-alice",
+      "model": "effects-deny-false.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-request-only-empty-alice",
+      "model": "effects-deny-request-only.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-request-only-empty-bob",
+      "model": "effects-deny-request-only.conf",
+      "policy": "empty.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-request-only-nonempty-alice",
+      "model": "effects-deny-request-only.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-request-only-nonempty-bob",
+      "model": "effects-deny-request-only.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-empty-eft-empty-alice",
+      "model": "effects-deny-empty-eft.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-empty-policy-empty-fields",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-empty-policy-nonempty-fields",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-true-empty-alice",
+      "model": "effects-allow-deny-true.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-true-nonempty-alice",
+      "model": "effects-allow-deny-true.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-false-empty-alice",
+      "model": "effects-allow-deny-false.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-false-nonempty-alice",
+      "model": "effects-allow-deny-false.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-request-only-empty-alice",
+      "model": "effects-allow-deny-request-only.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-request-only-empty-bob",
+      "model": "effects-allow-deny-request-only.conf",
+      "policy": "empty.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-request-only-nonempty-alice",
+      "model": "effects-allow-deny-request-only.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-request-only-nonempty-bob",
+      "model": "effects-allow-deny-request-only.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-empty-eft-empty-alice",
+      "model": "effects-allow-deny-empty-eft.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-rbac-alice",
+      "model": "effects-allow-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-rbac-allow_role",
+      "model": "effects-allow-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "allow_role",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-rbac-blocked",
+      "model": "effects-allow-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "blocked",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-rbac-indeterminate",
+      "model": "effects-allow-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "indeterminate",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-rbac-outsider",
+      "model": "effects-allow-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-rbac-alice",
+      "model": "effects-deny-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-rbac-allow_role",
+      "model": "effects-deny-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "allow_role",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-rbac-blocked",
+      "model": "effects-deny-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "blocked",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-rbac-indeterminate",
+      "model": "effects-deny-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "indeterminate",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-rbac-outsider",
+      "model": "effects-deny-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-rbac-alice",
+      "model": "effects-allow-deny-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-rbac-allow_role",
+      "model": "effects-allow-deny-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "allow_role",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-rbac-blocked",
+      "model": "effects-allow-deny-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "blocked",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-rbac-indeterminate",
+      "model": "effects-allow-deny-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "indeterminate",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-rbac-outsider",
+      "model": "effects-allow-deny-rbac.conf",
+      "policy": "effects-rbac.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-matcher-eft-allow-then-deny",
+      "model": "effects-allow-eft-matcher.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-matcher-eft-deny-only",
+      "model": "effects-allow-eft-matcher.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-matcher-eft-unknown-only",
+      "model": "effects-allow-eft-matcher.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-matcher-eft-allow-then-deny",
+      "model": "effects-deny-eft-matcher.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-matcher-eft-deny-only",
+      "model": "effects-deny-eft-matcher.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-matcher-eft-unknown-only",
+      "model": "effects-deny-eft-matcher.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-matcher-eft-allow-then-deny",
+      "model": "effects-allow-deny-eft-matcher.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-matcher-eft-deny-only",
+      "model": "effects-allow-deny-eft-matcher.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-matcher-eft-unknown-only",
+      "model": "effects-allow-deny-eft-matcher.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "unknown-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-unsupported-priority-allow-only",
+      "model": "effects-unsupported-priority.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-only",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+    },
+    {
+      "name": "eft-unsupported-priority-deny-only",
+      "model": "effects-unsupported-priority.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+    },
+    {
+      "name": "eft-unsupported-priority-allow-then-deny",
+      "model": "effects-unsupported-priority.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+    },
+    {
+      "name": "eft-unsupported-priority-deny-then-allow",
+      "model": "effects-unsupported-priority.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-then-allow",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+    },
+    {
+      "name": "eft-unsupported-subject-priority-allow-only",
+      "model": "effects-unsupported-subject-priority.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-only",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+    },
+    {
+      "name": "eft-unsupported-subject-priority-deny-only",
+      "model": "effects-unsupported-subject-priority.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-only",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+    },
+    {
+      "name": "eft-unsupported-subject-priority-allow-then-deny",
+      "model": "effects-unsupported-subject-priority.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "allow-then-deny",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+    },
+    {
+      "name": "eft-unsupported-subject-priority-deny-then-allow",
+      "model": "effects-unsupported-subject-priority.conf",
+      "policy": "effects-matrix-last.csv",
+      "request": [
+        "deny-then-allow",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+    },
+    {
+      "name": "eft-allow-leading-space-indeterminate",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-spaces.csv",
+      "request": [
+        "leading",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-trailing-space-indeterminate",
+      "model": "effects-allow-last.conf",
+      "policy": "effects-spaces.csv",
+      "request": [
+        "trailing",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-missing-eft-deny-action",
+      "model": "effects-allow-no-eft.conf",
+      "policy": "effects-no-eft-deny-action.csv",
+      "request": [
+        "alice",
+        "data",
+        "deny"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-synthetic-empty-eft-deny-check",
+      "model": "effects-allow-blank-eft-deny-check.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-deny-leading-space-indeterminate",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-spaces.csv",
+      "request": [
+        "leading",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-trailing-space-indeterminate",
+      "model": "effects-deny-last.conf",
+      "policy": "effects-spaces.csv",
+      "request": [
+        "trailing",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-missing-eft-deny-action",
+      "model": "effects-deny-no-eft.conf",
+      "policy": "effects-no-eft-deny-action.csv",
+      "request": [
+        "alice",
+        "data",
+        "deny"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-deny-synthetic-empty-eft-deny-check",
+      "model": "effects-deny-blank-eft-deny-check.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-leading-space-indeterminate",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-spaces.csv",
+      "request": [
+        "leading",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-trailing-space-indeterminate",
+      "model": "effects-allow-deny-last.conf",
+      "policy": "effects-spaces.csv",
+      "request": [
+        "trailing",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "eft-allow-deny-missing-eft-deny-action",
+      "model": "effects-allow-deny-no-eft.conf",
+      "policy": "effects-no-eft-deny-action.csv",
+      "request": [
+        "alice",
+        "data",
+        "deny"
+      ],
+      "expected": true
+    },
+    {
+      "name": "eft-allow-deny-synthetic-empty-eft-deny-check",
+      "model": "effects-allow-deny-blank-eft-deny-check.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": false
     }
   ]
 }

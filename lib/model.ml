@@ -1,6 +1,7 @@
 type t = {
   request_fields : string list;
   policy_fields : string list;
+  policy_effect : Effector.policy_effect;
   matcher : string;
   roles_enabled : bool;
 }
@@ -33,7 +34,7 @@ let fields line value =
     Hashtbl.add seen field ()) values;
   values
 
-let allow_effect value =
+let matches_effect value tokens =
   let length = String.length value in
   let rec skip position =
     if position < length && is_space value.[position] then skip (position + 1) else position
@@ -46,7 +47,19 @@ let allow_effect value =
         position + count <= length && String.sub value position count = token
         && consume (position + count) rest
   in
-  consume 0 ["some"; "("; "where"; "("; "p"; "."; "eft"; "=="; "allow"; ")"; ")"]
+  consume 0 tokens
+
+let parse_effect line value =
+  let some row_value =
+    ["some"; "("; "where"; "("; "p"; "."; "eft"; "=="; row_value; ")"; ")"]
+  in
+  let allow = some "allow" in
+  let deny = "!" :: some "deny" in
+  if matches_effect value allow then Effector.Allow_override
+  else if matches_effect value deny then Effector.Deny_override
+  else if matches_effect value (allow @ ["&&"] @ deny) then Effector.Allow_and_deny
+  else fail line
+    "unsupported policy effect; expected allow override, deny override, or allow-and-deny"
 
 let of_string text =
   try
@@ -131,9 +144,7 @@ let of_string text =
     let matcher, _ = get "m" "matchers" in
     let request_fields = fields request_line request in
     let policy_fields = fields policy_line policy in
-    if List.mem "eft" policy_fields then fail policy_line "explicit p.eft fields are unsupported; policies implicitly allow";
-    if not (allow_effect policy_effect) then fail effect_line
-      "unsupported policy effect; expected some(where (p.eft == allow))";
+    let policy_effect = parse_effect effect_line policy_effect in
     let roles_enabled = match Hashtbl.find_opt definitions "g" with
       | None ->
           if Hashtbl.mem sections "role_definition" then
@@ -144,7 +155,7 @@ let of_string text =
             fail line "unsupported role definition; expected g = _, _";
           true
     in
-    Ok { request_fields; policy_fields; matcher; roles_enabled }
+    Ok { request_fields; policy_fields; policy_effect; matcher; roles_enabled }
   with Parse_error message -> Error message
 
 let of_file path =

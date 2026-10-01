@@ -1,0 +1,23 @@
+p, allow-only, data, read, allow
+p, deny-only, data, read, deny
+p, unknown-only, data, read, unknown
+p, capital-allow, data, read, Allow
+p, capital-deny, data, read, DENY
+p, empty-effect, data, read, 
+p, allow-then-deny, data, read, allow
+p, allow-then-deny, data, read, deny
+p, deny-then-allow, data, read, deny
+p, deny-then-allow, data, read, allow
+p, allow-unknown, data, read, allow
+p, allow-unknown, data, read, unknown
+p, unknown-deny, data, read, unknown
+p, unknown-deny, data, read, deny
+p, duplicate-allow, data, read, allow
+p, duplicate-allow, data, read, allow
+p, duplicate-deny, data, read, deny
+p, duplicate-deny, data, read, deny
+p, only-unknowns, data, read, allowing
+p, only-unknowns, data, read, DENY
+p, only-unknowns, data, read, 
+p, unmatched-deny, data, read, allow
+p, unmatched-deny, other, read, deny

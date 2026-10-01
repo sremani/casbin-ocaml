@@ -49,12 +49,55 @@ Observed reference behaviors captured by the corpus:
   govaluate also infers date/time literal types. OCaml conservatively rejects
   these forms under its documented literal restrictions. Opposite quote
   characters inside a literal cause an upstream parse error. Unsupported
-  function/effect models are explicit OCaml rejection cases even when Go allows.
+  function and priority-effect models are explicit OCaml rejection cases even when Go allows.
 
-The manifest currently contains 90 cases: 73 parity cases and 17 explicit
+The manifest currently contains 317 cases: 293 parity cases and 24 explicit
 unsupported-model rejections. Literal preprocessing boundaries also include
 terminal `r.`/`p.`, numeric assertion prefixes such as `r2.`, and brackets in a
 matcher containing `in`. An unreachable role cycle still causes a load error.
 
 The cases contain both allowed and denied results. Boundary errors are checked
 through the same public command contract as successful requests.
+
+## Milestone 2: policy effects
+
+The `effects-*.conf` and `effects-*.csv` fixtures were authored for this port;
+they are not copies of upstream files. Every new manifest expectation was
+observed by invoking the pinned Go oracle independently. Matrix verdicts were
+also checked against the semantics of `effector/default_effector.go` and the
+policy/synthetic branches of `enforcer.go`.
+
+The three supported effects are:
+
+| Model effect | Authorization condition |
+| --- | --- |
+| `some(where (p.eft == allow))` | At least one matched Allow |
+| `!some(where (p.eft == deny))` | No matched Deny |
+| `some(where (p.eft == allow)) && !some(where (p.eft == deny))` | At least one matched Allow and no matched Deny |
+
+Fixtures place `eft` first, in the middle, and last. Exact lowercase `allow` and
+`deny` are the only recognized effect values; unknown, mixed-case, empty, and
+space-padded values are Indeterminate. Missing `eft` defaults to Allow. A field
+named `act` containing `deny` remains a normal action, not an effect.
+
+The matrix includes conflicting rows in either order, duplicate rows,
+unmatched denies, no matches, field-based matchers that reference `eft`, and
+transitive RBAC with conflicting role permissions. Allow override authorizes a
+matching Allow despite other matching Deny rows. Deny override authorizes even
+with no matching Allow and with only Indeterminate rows. Allow-and-deny requires
+an actual matching Allow.
+
+Empty-policy and policy-independent matchers use the pinned Go enforcer's
+synthetic row: a true matcher yields Allow, a false matcher Indeterminate,
+regardless of the explicit `eft` definition or actual nonempty policy effects.
+The synthetic policy values are empty strings; `p.eft == ''` therefore matches
+and produces Allow. Consequently deny override returns true even for a false
+constant matcher, a failed request-only matcher, or an empty-policy matcher
+checking `p.eft == 'deny'`. These counterintuitive results are intentional
+reference parity.
+
+`unsupported-effect.conf` retains its historical filename but is now tested as
+the supported deny-override effect, with no oracle exception.
+`effects-unsupported-priority.conf` and
+`effects-unsupported-subject-priority.conf` remain explicit OCaml rejection
+fixtures. Their Go verdicts are checked rather than skipped.

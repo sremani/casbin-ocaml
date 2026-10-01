@@ -10,3 +10,7 @@
  (name enforcer_test)
  (modules enforcer_test)
  (libraries casbin))
+(test
+ (name effect_test)
+ (modules effect_test)
+ (libraries casbin))

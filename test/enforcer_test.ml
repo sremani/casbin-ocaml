@@ -50,4 +50,23 @@ let () =
   check "missing files are errors" true
     (match Enforcer.of_files ~model:"/does/not/exist" ~policy:"/does/not/exist" with
      | Error _ -> true | Ok _ -> false);
-  print_endline "enforcer and role boundary tests passed"
+  let effect_model policy_effect =
+    "[request_definition]\nr = sub, obj, act\n[policy_definition]\np = sub, obj, act, eft\n" ^
+    "[policy_effect]\ne = " ^ policy_effect ^ "\n[matchers]\nm = r.sub == p.sub && r.obj == p.obj && r.act == p.act\n" in
+  let contradictory = "p, alice, data, read, allow\np, alice, data, read, deny\n" in
+  List.iter (fun (label, policy_effect, expected) ->
+      let e = ok (Enforcer.of_strings ~model:(effect_model policy_effect) ~policy:contradictory) in
+      check label expected (decision e ["alice"; "data"; "read"]))
+    ["allow overrides deny", "some(where (p.eft == allow))", true;
+     "deny overrides allow", "!some(where (p.eft == deny))", false;
+     "allow-and-deny veto", "some(where (p.eft == allow)) && !some(where (p.eft == deny))", false];
+  let deny_only = ok (Enforcer.of_strings
+      ~model:(effect_model "!some(where (p.eft == deny))") ~policy:contradictory) in
+  check "no matching deny defaults allow" true (decision deny_only ["bob"; "data"; "read"]);
+  let unknown = ok (Enforcer.of_strings ~model:(effect_model "some(where (p.eft == allow))")
+      ~policy:"p, alice, data, read, ALLOW\n") in
+  check "unknown explicit effect is indeterminate" false (decision unknown ["alice"; "data"; "read"]);
+  let empty_explicit = ok (Enforcer.of_strings
+      ~model:(effect_model "some(where (p.eft == allow))") ~policy:"") in
+  check "synthetic empty row has implicit allow" true (decision empty_explicit [""; ""; ""]);
+  print_endline "enforcer, effect and role boundary tests passed"

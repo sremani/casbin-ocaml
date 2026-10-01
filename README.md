@@ -2,7 +2,7 @@
 
 An OCaml learning port of a bounded ACL/basic RBAC subset of Apache Casbin (Incubating). PitBoss coordinates the design, integration, and verification; PitCrew members implement assigned components. The project board is [PITBOARD.md](PITBOARD.md).
 
-The first milestone is an immutable library and command-line enforcer, checked against Go Casbin at commit `524f3f2dc9baef696d748db491d49b3055d359d1`. The library uses only the OCaml standard library.
+The implemented core is an immutable library and command-line enforcer, checked against Go Casbin at commit `524f3f2dc9baef696d748db491d49b3055d359d1`. The library uses only the OCaml standard library. PitBoss drives tickets and verification gates from PITBOARD.md and commits completed milestones locally.
 
 ## Build and use
 
@@ -35,18 +35,28 @@ The local package is `casbin_ocaml`; applications link it with `(libraries casbi
 
 ## Compatibility contract
 
-| Surface | First milestone |
+| Surface | Implemented contract |
 | --- | --- |
 | Model | One `r`, `p`, `e`, `m`; optional two-argument `g = _, _` |
 | Values | Strings; validated named `r.field` and `p.field` references |
 | Matchers | String `==` and `!=`, `&&`, `||`, `!`, parentheses, `true`, `false`, two-argument `g` |
-| Policy effect | `some(where (p.eft == allow))`; implicit allow for matched `p` records |
+| Policy effect | Allow override, deny override, and combined allow-and-deny; optional explicit `p.eft` at any position |
 | Role graph | Self membership, directed transitive membership, at most ten edges; cyclic/self-edge policies rejected at load |
 | Policy input | Physical-line CSV; quoted commas/doubled quotes; comments and duplicate records |
 | Model input | Whitespace/comments and backslash line continuation within the declared subset |
 | Errors | Unsupported models/functions/fields, malformed input, wrong arity, missing files |
 
 An empty policy is evaluated using an empty-string policy row, matching Go Casbin. A matcher independent of policy fields is evaluated once. This means `m = true` allows even without policy records; absence of records alone is not a guarantee of denial.
+
+Supported effect rules are:
+
+| Expression | Decision |
+| --- | --- |
+| `some(where (p.eft == allow))` | Allow if any matching row allows |
+| `!some(where (p.eft == deny))` | Allow unless a matching row denies, including when no rows match |
+| `some(where (p.eft == allow)) && !some(where (p.eft == deny))` | Require a matching allow and no matching deny |
+
+Without an `eft` policy field, matching rows implicitly allow. Explicit values are case-sensitive: `allow` and `deny` have their named effects; other values, including empty strings, are indeterminate. The synthetic row used for empty policies or request-only matchers follows upstream's special effect behavior: a false synthetic matcher still allows under deny override. The differential corpus covers these cases.
 
 Quoted matcher strings preserve literal backslashes. Literal contents containing either quote character, brackets, `#`, `:`, assertion-like `r`/`p` prefixes followed by optional digits and a dot, or a `YYYY-MM-DD` shaped substring are excluded. These restrictions avoid Go preprocessing and implicit date conversion; ordinary literals such as `'alice'` are supported. Arbitrary dates, quotes, Unicode, and backslashes remain usable as request/policy field values.
 
@@ -56,7 +66,7 @@ Input whitespace support is ASCII. Unicode whitespace trimming and Go's file-sca
 
 Duplicate policy and role keys use comma-joined field values, reproducing Go Casbin's key behavior. Distinct quoted field tuples can collide; the first row is retained. For example, `p, "a,b", c, read` and `p, a, "b,c", read` share a duplicate key. The oracle corpus covers the resulting decisions.
 
-Deferred: explicit `p.eft` values and alternate effect rules, multiple assertions, domains, ABAC, reflection, numeric coercion, `eval`, regex/path matching, custom functions, adapters, watchers, caching, mutable management APIs, and the full Casbin public API.
+Deferred: priority/subject-priority and custom effect rules, multiple assertions, domains, ABAC, reflection, numeric coercion, `eval`, regex/path matching, custom functions, adapters, watchers, caching, policy-management operations, and the full Casbin public API.
 
 ## Verification and provenance
 
@@ -68,8 +78,8 @@ Copied upstream material retains Apache license and notice files. This is an ind
 
 ## Next milestones
 
-1. Extend the declared effect semantics with oracle fixtures for allow/deny behavior.
-2. Add selected policy-management operations while keeping role graphs and model validation consistent.
-3. Choose one ABAC or matching-function feature and specify its OCaml value model before implementation.
+1. Add selected policy-management operations while keeping role graphs and model validation consistent.
+2. Choose one matching-function feature and specify its compatibility boundary.
+3. Scope domain-aware RBAC, ABAC values, and priority effects through the ticket board.
 
 Each extension gets its own contract and comparison cases. The first release establishes a tested core before widening coverage.

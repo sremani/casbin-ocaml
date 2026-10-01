@@ -42,15 +42,25 @@ let enforce t request =
       in
       Expr.eval ~resolve ~has_role:(Role_manager.has_link t.roles) t.matcher
     in
+    let decide rows = Ok (Effector.decide t.model.Model.policy_effect rows) in
     (* Go Casbin evaluates one empty policy row if none exist, or when the
        matcher is independent of policy fields. This can intentionally allow. *)
     if t.policy.Policy.rules = [] || not (Expr.uses_policy t.matcher) then
-      evaluate (List.map (fun _ -> "") t.model.Model.policy_fields)
+      let* matched = evaluate (List.map (fun _ -> "") t.model.Model.policy_fields) in
+      decide [matched, Effector.Allow]
     else
-      let rec any = function
-        | [] -> Ok false
+      let row_effect rule =
+        let bindings = List.combine t.model.Model.policy_fields rule in
+        Effector.row_effect (List.assoc_opt "eft" bindings)
+      in
+      let rec collect acc = function
+        | [] -> decide (List.rev acc)
         | rule :: rest ->
             let* matched = evaluate rule in
-            if matched then Ok true else any rest
+            let row = row_effect rule in
+            match t.model.Model.policy_effect, matched, row with
+            | Effector.Allow_override, true, Effector.Allow -> Ok true
+            | (Effector.Deny_override | Effector.Allow_and_deny), true, Effector.Deny -> Ok false
+            | _ -> collect ((matched, row) :: acc) rest
       in
-      any t.policy.Policy.rules
+      collect [] t.policy.Policy.rules

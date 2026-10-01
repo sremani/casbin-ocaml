@@ -2,6 +2,8 @@
 
 The human has authorized a PitBoss-led team of PitCrew subagents. PitBoss owns scope, interfaces, integration, and final verification. PitCrew members own assigned files and report evidence and blockers.
 
+Operate proactively from PITBOARD.md: PitBoss keeps a prioritized ticket backlog, dispatches ready tickets, resolves routine decisions and dependencies, reviews crew evidence, integrates changes, runs gates, and commits verified milestones. A milestone completion is a checkpoint for selecting the next ready wave, not a reason to ask the user to repeat authorization. Ask only when a material user choice or external permission is truly missing. Update ticket owner/status/evidence as work progresses; never mark unfinished work done.
+
 All project work stays in this directory. Avoid unrelated workspace changes. Do not change another crew member's files without coordinating with PitBoss. Do not commit the surrounding workspace.
 
 The first few milestones use local Git commits in this project's isolated repository. PitBoss owns commits: each completed, verified milestone gets a local commit. PitCrew report completion and verification evidence; do not commit independently unless PitBoss explicitly assigns that work. The intended local branch is codex/casbin-ocaml. Commit only this project repository, never the surrounding workspace.

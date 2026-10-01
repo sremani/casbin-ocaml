@@ -1,0 +1,8 @@
+p, allow_role, allow, data, read
+p, deny_role, deny, data, read
+p, unknown_role, UNKNOWN, data, read
+g, alice, intermediate
+g, intermediate, allow_role
+g, blocked, allow_role
+g, blocked, deny_role
+g, indeterminate, unknown_role
