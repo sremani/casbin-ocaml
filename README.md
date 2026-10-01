@@ -2,7 +2,7 @@
 
 An OCaml learning port of a bounded ACL, basic/exact-domain RBAC and typed ABAC subset of Apache Casbin (Incubating). PitBoss coordinates the design, integration, and verification; PitCrew members implement assigned components. The project board is [PITBOARD.md](PITBOARD.md).
 
-The implemented core is an immutable library and command-line enforcer, checked against Go Casbin at commit `524f3f2dc9baef696d748db491d49b3055d359d1`. The library uses only the OCaml standard library. PitBoss drives tickets and verification gates from PITBOARD.md and commits completed milestones locally.
+The implemented core is an immutable library and command-line enforcer, checked against Go Casbin at commit `524f3f2dc9baef696d748db491d49b3055d359d1`. The library uses only the OCaml standard library. PitBoss drives tickets and verification gates from PITBOARD.md. The verified milestone history is published at [sremani/casbin-ocaml](https://github.com/sremani/casbin-ocaml).
 
 ## Build and use
 

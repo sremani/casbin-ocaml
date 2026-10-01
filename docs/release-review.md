@@ -1,6 +1,6 @@
-# Local release review
+# Historical M8 local release review
 
-This closes the current PitBoard for a bounded Casbin OCaml learning port, using OCaml 5.5.x and pinned Go Casbin `524f3f2dc9baef696d748db491d49b3055d359d1`. It is a local release candidate for the declared subset; the [coverage inventory](coverage.md) lists omitted APIs and strict boundaries. GitHub and public package publication remain a later user-requested stage.
+This records the M8 local release gate for a bounded Casbin OCaml learning port, using OCaml 5.5.x and pinned Go Casbin `524f3f2dc9baef696d748db491d49b3055d359d1`. The [coverage inventory](coverage.md) lists omitted APIs and strict boundaries. Subsequent [Luigi verification](luigi/2026-10-01/README.md) and user-authorized [GitHub publication](https://github.com/sremani/casbin-ocaml) retain this historical evidence. Public package registry publication remains separate scope.
 
 ## Delivered behavior
 
@@ -24,9 +24,11 @@ Supported behavior was compared against independently observed results from the 
 | Independent review | PitCrew Intake source/API/coverage review; PitCrew Matcher library/test/install/measurement review; PitCrew Oracle source/corpus/provenance/measurement review; no unresolved blocker |
 | Local closure | Feature commits recorded in PITBOARD.md and Git; final release ticket closes through the verified local M8 commit and clean-tree check |
 
-The remaining opam warnings are absent homepage and bug-reports URLs. This project intentionally has no remote; those URLs belong to the later GitHub/publication stage. They are metadata warnings, not build or installation failures.
+At M8, opam warned about absent homepage and bug-reports URLs because GitHub publication was deferred. Those fields and dev-repo were added at the subsequent user-authorized publication stage.
 
-## Reproduce the gates
+## Reproduce the historical gates
+
+Use the M8 harness at commit `ac5f546` with the recorded toolchain for the original performance method. The current benchmark driver uses the separately documented M9 release matrix and controls.
 
 ```sh
 ./scripts/verify.sh

@@ -126,3 +126,12 @@ User-authorized extension: transfer both pinned Casbin and Casbin-OCaml to Luigi
 | CB-505 | Audit failures, review receipts, report measured comparisons and record local commit | PitBoss + crew | CB-502–504 | Done |
 
 - M9 gate: Luigi OCaml 5.5.0/Dune 3.24.2 and Go 1.22.2; all 17 gauntlet stages pass. Go unit/race each 302 test/subtest runs, vet and shuffled concurrency pass; 174 native benchmark samples complete. Differential stress passes 9,000 cases/31,045 management steps and all 837 eligible anchors, with full JSONL evidence and 73 audit assertions. Release matrix plus longer first-match and same-graph request-reuse controls pass 826 samples and 529 benchmark audit assertions. Exact sources, binaries, runtime settings, raw receipts, archive hashes and limitations are in docs/luigi/2026-10-01/README.md. Production library is unchanged; no GitHub publication. All M9 tickets are Done; local results commit is recorded in Git history.
+
+## M10 — GitHub publication
+
+The human authorized publication of this project to GitHub on 2026-10-01.
+
+| Ticket | Work and acceptance gate | Owner | Depends on | Status |
+| --- | --- | --- | --- | --- |
+| CB-601 | Review tracked files and licensing; add repository/issue metadata and validate the package | PitBoss + PitCrew Intake | M9 | Done |
+| CB-602 | Create public sremani/casbin-ocaml, push verified history to main, confirm visibility/default branch/HEAD | PitBoss | CB-601 | In progress |

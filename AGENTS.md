@@ -8,7 +8,7 @@ All project work stays in this directory. Avoid unrelated workspace changes. Do 
 
 The first few milestones use local Git commits in this project's isolated repository. PitBoss owns commits: each completed, verified milestone gets a local commit. PitCrew report completion and verification evidence; do not commit independently unless PitBoss explicitly assigns that work. The intended local branch is codex/casbin-ocaml. Commit only this project repository, never the surrounding workspace.
 
-GitHub repository creation and pushing are a later stage that requires a new user request. Keep this project local with no remote for now.
+The human authorized GitHub publication on 2026-10-01. This project's repository is https://github.com/sremani/casbin-ocaml. PitBoss owns reviewed publication and Git integration; preserve the verified local milestone history. Public package registry publication is separate scope.
 
 First milestone: an idiomatic OCaml library and CLI implementing a declared string-valued ACL/basic RBAC subset of pinned Go Casbin behavior. Unsupported model/matcher features must produce errors, never silently authorize. Use the OCaml 5.5 series (>= 5.5 and < 5.6) and Dune 3.1 or later with the standard library; do not add dependencies without coordinating.
 

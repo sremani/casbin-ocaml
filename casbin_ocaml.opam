@@ -4,6 +4,9 @@ authors: "Casbin OCaml contributors"
 synopsis: "A verified ACL, RBAC and typed ABAC learning port of Casbin"
 description: "An immutable OCaml enforcer and CLI for a declared subset of pinned Go Casbin behavior, with differential compatibility checks."
 license: "Apache-2.0"
+homepage: "https://github.com/sremani/casbin-ocaml"
+bug-reports: "https://github.com/sremani/casbin-ocaml/issues"
+dev-repo: "git+https://github.com/sremani/casbin-ocaml.git"
 depends: [
   "ocaml" {>= "5.5" & < "5.6"}
   "dune" {>= "3.1"}
