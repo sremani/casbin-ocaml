@@ -1,0 +1,3693 @@
+{
+  "schema_version": 1,
+  "upstream": {
+    "repository": "https://github.com/apache/casbin",
+    "commit": "524f3f2dc9baef696d748db491d49b3055d359d1"
+  },
+  "cases": [
+    {
+      "name": "owner-0",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "owner-1",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "bob",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "owner-2",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "",
+        {
+          "Owner": ""
+        },
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "owner-3",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "café",
+        {
+          "Owner": "café"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "owner-4",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "a\u0000b",
+        {
+          "Owner": "a\u0000b"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "nested-5",
+      "model": "nested.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string",
+          "Active": "bool"
+        },
+        "obj": {
+          "Metadata": {
+            "Owner": "string",
+            "Level": "number"
+          }
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Active": true,
+          "Name": "alice"
+        },
+        {
+          "Metadata": {
+            "Level": 2,
+            "Owner": "alice"
+          }
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "nested-6",
+      "model": "nested.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string",
+          "Active": "bool"
+        },
+        "obj": {
+          "Metadata": {
+            "Owner": "string",
+            "Level": "number"
+          }
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Active": true,
+          "Name": "alice"
+        },
+        {
+          "Metadata": {
+            "Level": 1.9,
+            "Owner": "alice"
+          }
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "nested-7",
+      "model": "nested.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string",
+          "Active": "bool"
+        },
+        "obj": {
+          "Metadata": {
+            "Owner": "string",
+            "Level": "number"
+          }
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Active": false,
+          "Name": "alice"
+        },
+        {
+          "Metadata": {
+            "Level": 2,
+            "Owner": "alice"
+          }
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "nested-8",
+      "model": "nested.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string",
+          "Active": "bool"
+        },
+        "obj": {
+          "Metadata": {
+            "Owner": "string",
+            "Level": "number"
+          }
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Active": true,
+          "Name": "bob"
+        },
+        {
+          "Metadata": {
+            "Level": 3,
+            "Owner": "alice"
+          }
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "nested-9",
+      "model": "nested.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string",
+          "Active": "bool"
+        },
+        "obj": {
+          "Metadata": {
+            "Owner": "string",
+            "Level": "number"
+          }
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Active": true,
+          "Name": "alice"
+        },
+        {
+          "Metadata": {
+            "Level": 2.5,
+            "Owner": "alice"
+          }
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-eq-0",
+      "model": "number-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -2,
+        -1
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-eq-1",
+      "model": "number-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -1,
+        -1
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-eq-2",
+      "model": "number-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -0.0,
+        0.0
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-eq-3",
+      "model": "number-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.5,
+        0.25
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-eq-4",
+      "model": "number-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.25,
+        0.5
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-eq-5",
+      "model": "number-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e-200,
+        1e-100
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-eq-6",
+      "model": "number-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e+100,
+        1e+100
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-eq-7",
+      "model": "number-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        9007199254740993,
+        9007199254740992
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-ne-0",
+      "model": "number-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -2,
+        -1
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-ne-1",
+      "model": "number-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -1,
+        -1
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-ne-2",
+      "model": "number-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -0.0,
+        0.0
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-ne-3",
+      "model": "number-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.5,
+        0.25
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-ne-4",
+      "model": "number-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.25,
+        0.5
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-ne-5",
+      "model": "number-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e-200,
+        1e-100
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-ne-6",
+      "model": "number-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e+100,
+        1e+100
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-ne-7",
+      "model": "number-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        9007199254740993,
+        9007199254740992
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-lt-0",
+      "model": "number-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -2,
+        -1
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-lt-1",
+      "model": "number-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -1,
+        -1
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-lt-2",
+      "model": "number-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -0.0,
+        0.0
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-lt-3",
+      "model": "number-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.5,
+        0.25
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-lt-4",
+      "model": "number-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.25,
+        0.5
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-lt-5",
+      "model": "number-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e-200,
+        1e-100
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-lt-6",
+      "model": "number-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e+100,
+        1e+100
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-lt-7",
+      "model": "number-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        9007199254740993,
+        9007199254740992
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-le-0",
+      "model": "number-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -2,
+        -1
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-le-1",
+      "model": "number-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -1,
+        -1
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-le-2",
+      "model": "number-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -0.0,
+        0.0
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-le-3",
+      "model": "number-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.5,
+        0.25
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-le-4",
+      "model": "number-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.25,
+        0.5
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-le-5",
+      "model": "number-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e-200,
+        1e-100
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-le-6",
+      "model": "number-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e+100,
+        1e+100
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-le-7",
+      "model": "number-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        9007199254740993,
+        9007199254740992
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-gt-0",
+      "model": "number-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -2,
+        -1
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-gt-1",
+      "model": "number-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -1,
+        -1
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-gt-2",
+      "model": "number-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -0.0,
+        0.0
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-gt-3",
+      "model": "number-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.5,
+        0.25
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-gt-4",
+      "model": "number-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.25,
+        0.5
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-gt-5",
+      "model": "number-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e-200,
+        1e-100
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-gt-6",
+      "model": "number-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e+100,
+        1e+100
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-gt-7",
+      "model": "number-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        9007199254740993,
+        9007199254740992
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-ge-0",
+      "model": "number-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -2,
+        -1
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-ge-1",
+      "model": "number-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -1,
+        -1
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-ge-2",
+      "model": "number-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        -0.0,
+        0.0
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-ge-3",
+      "model": "number-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.5,
+        0.25
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-ge-4",
+      "model": "number-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        0.25,
+        0.5
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-ge-5",
+      "model": "number-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e-200,
+        1e-100
+      ],
+      "expected": false
+    },
+    {
+      "name": "number-ge-6",
+      "model": "number-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        1e+100,
+        1e+100
+      ],
+      "expected": true
+    },
+    {
+      "name": "number-ge-7",
+      "model": "number-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "number",
+        "left": "number"
+      },
+      "request": [
+        9007199254740993,
+        9007199254740992
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-eq-0",
+      "model": "string-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "b"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-eq-1",
+      "model": "string-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-eq-2",
+      "model": "string-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "b",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-eq-3",
+      "model": "string-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-eq-4",
+      "model": "string-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "Z",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-eq-5",
+      "model": "string-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "東京",
+        "東京"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-eq-6",
+      "model": "string-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a\u0000",
+        "a\u0001"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-eq-7",
+      "model": "string-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "café",
+        "café"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-ne-0",
+      "model": "string-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "b"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-ne-1",
+      "model": "string-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-ne-2",
+      "model": "string-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "b",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-ne-3",
+      "model": "string-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-ne-4",
+      "model": "string-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "Z",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-ne-5",
+      "model": "string-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "東京",
+        "東京"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-ne-6",
+      "model": "string-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a\u0000",
+        "a\u0001"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-ne-7",
+      "model": "string-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "café",
+        "café"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-lt-0",
+      "model": "string-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "b"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-lt-1",
+      "model": "string-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-lt-2",
+      "model": "string-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "b",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-lt-3",
+      "model": "string-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-lt-4",
+      "model": "string-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "Z",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-lt-5",
+      "model": "string-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "東京",
+        "東京"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-lt-6",
+      "model": "string-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a\u0000",
+        "a\u0001"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-lt-7",
+      "model": "string-lt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "café",
+        "café"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-le-0",
+      "model": "string-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "b"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-le-1",
+      "model": "string-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-le-2",
+      "model": "string-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "b",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-le-3",
+      "model": "string-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-le-4",
+      "model": "string-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "Z",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-le-5",
+      "model": "string-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "東京",
+        "東京"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-le-6",
+      "model": "string-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a\u0000",
+        "a\u0001"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-le-7",
+      "model": "string-le.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "café",
+        "café"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-gt-0",
+      "model": "string-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "b"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-gt-1",
+      "model": "string-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-gt-2",
+      "model": "string-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "b",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-gt-3",
+      "model": "string-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-gt-4",
+      "model": "string-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "Z",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-gt-5",
+      "model": "string-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "東京",
+        "東京"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-gt-6",
+      "model": "string-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a\u0000",
+        "a\u0001"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-gt-7",
+      "model": "string-gt.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "café",
+        "café"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-ge-0",
+      "model": "string-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "b"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-ge-1",
+      "model": "string-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-ge-2",
+      "model": "string-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "b",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-ge-3",
+      "model": "string-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-ge-4",
+      "model": "string-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "Z",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-ge-5",
+      "model": "string-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "東京",
+        "東京"
+      ],
+      "expected": true
+    },
+    {
+      "name": "string-ge-6",
+      "model": "string-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "a\u0000",
+        "a\u0001"
+      ],
+      "expected": false
+    },
+    {
+      "name": "string-ge-7",
+      "model": "string-ge.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "right": "string",
+        "left": "string"
+      },
+      "request": [
+        "café",
+        "café"
+      ],
+      "expected": true
+    },
+    {
+      "name": "bool-eq-106",
+      "model": "bool-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "bool",
+        "right": "bool"
+      },
+      "request": [
+        true,
+        true
+      ],
+      "expected": true
+    },
+    {
+      "name": "bool-eq-107",
+      "model": "bool-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "bool",
+        "right": "bool"
+      },
+      "request": [
+        true,
+        false
+      ],
+      "expected": false
+    },
+    {
+      "name": "bool-eq-108",
+      "model": "bool-eq.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "bool",
+        "right": "bool"
+      },
+      "request": [
+        false,
+        false
+      ],
+      "expected": true
+    },
+    {
+      "name": "bool-ne-109",
+      "model": "bool-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "bool",
+        "right": "bool"
+      },
+      "request": [
+        true,
+        true
+      ],
+      "expected": false
+    },
+    {
+      "name": "bool-ne-110",
+      "model": "bool-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "bool",
+        "right": "bool"
+      },
+      "request": [
+        true,
+        false
+      ],
+      "expected": true
+    },
+    {
+      "name": "bool-ne-111",
+      "model": "bool-ne.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "bool",
+        "right": "bool"
+      },
+      "request": [
+        false,
+        false
+      ],
+      "expected": false
+    },
+    {
+      "name": "bool-logic-112",
+      "model": "bool-logic.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "bool",
+        "right": "bool"
+      },
+      "request": [
+        true,
+        true
+      ],
+      "expected": false
+    },
+    {
+      "name": "bool-logic-113",
+      "model": "bool-logic.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "bool",
+        "right": "bool"
+      },
+      "request": [
+        true,
+        false
+      ],
+      "expected": true
+    },
+    {
+      "name": "bool-logic-114",
+      "model": "bool-logic.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "bool",
+        "right": "bool"
+      },
+      "request": [
+        false,
+        false
+      ],
+      "expected": false
+    },
+    {
+      "name": "numeric-negative",
+      "model": "numeric-negative.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        -1
+      ],
+      "expected": true
+    },
+    {
+      "name": "numeric-leading-dot",
+      "model": "numeric-leading-dot.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        0.5
+      ],
+      "expected": true
+    },
+    {
+      "name": "numeric-trailing-dot",
+      "model": "numeric-trailing-dot.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        1
+      ],
+      "expected": true
+    },
+    {
+      "name": "numeric-rounded-int",
+      "model": "numeric-rounded-int.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        9007199254740993
+      ],
+      "expected": true
+    },
+    {
+      "name": "numeric-underflow",
+      "model": "numeric-underflow.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        1e-300
+      ],
+      "expected": false
+    },
+    {
+      "name": "numeric-explicit-plus",
+      "model": "numeric-explicit-plus.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        1
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "numeric-scientific-literal",
+      "model": "numeric-scientific-literal.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        100
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "numeric-scientific-negative-literal",
+      "model": "numeric-scientific-negative-literal.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        0.01
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "numeric-hex-literal",
+      "model": "numeric-hex-literal.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        16
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed matcher numeric literals use finite negative/unsigned decimals only; Go also supports hex, while positive-sign and scientific forms are parse errors."
+    },
+    {
+      "name": "numeric-json-exponent-124",
+      "model": "numeric-positive.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        1e-300
+      ],
+      "expected": true
+    },
+    {
+      "name": "numeric-json-exponent-125",
+      "model": "numeric-positive.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        1e+300
+      ],
+      "expected": true
+    },
+    {
+      "name": "numeric-json-exponent-126",
+      "model": "numeric-positive.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        -0.0
+      ],
+      "expected": false
+    },
+    {
+      "name": "numeric-json-exponent-127",
+      "model": "numeric-positive.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        -0.5
+      ],
+      "expected": false
+    },
+    {
+      "name": "numeric-json-overflow-error",
+      "model": "numeric-positive.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "owner-extra-property",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice",
+          "Extra": "unused"
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "owner-missing-used-property",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {},
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "owner-missing-unused-property",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Unused": "number"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "owner-primitive-number",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": 1
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "owner-primitive-null",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": null
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "owner-map-null",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        null,
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "owner-json-string-opaque",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        "{\"Owner\":\"alice\"}",
+        "read"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "unused-array",
+      "model": "true.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        [
+          1,
+          2
+        ],
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "unused-null",
+      "model": "true.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        null,
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "unused-object-missing",
+      "model": "true.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {},
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "unused-object-extra",
+      "model": "true.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice",
+          "Extra": false
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "unused-primitive-type",
+      "model": "true.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        12
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "short-circuit-missing-property",
+      "model": "short-circuit.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {},
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "short-circuit-bad-object",
+      "model": "short-circuit.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        false,
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "schema-missing-field",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        }
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "schema-extra-field",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string",
+        "ghost": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "schema-invalid-property",
+      "model": "true.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "bad-key": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "bad-key": "anything"
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "schema-invalid-unicode-property",
+      "model": "true.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "東京": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "東京": "anything"
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "wrong-request-arity-0",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [],
+      "expected": "error"
+    },
+    {
+      "name": "wrong-request-arity-1",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "wrong-request-arity-2",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        }
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "wrong-request-arity-4",
+      "model": "owner-upstream.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        "read",
+        "extra"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "valid-empty-object",
+      "model": "schema-object-empty.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "obj": {}
+      },
+      "request": [
+        {}
+      ],
+      "expected": true
+    },
+    {
+      "name": "rejected-mixed-number-string",
+      "model": "rejected-mixed-number-string.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "number": "number",
+        "text": "string"
+      },
+      "request": [
+        1,
+        "1"
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "rejected-mixed-bool-number",
+      "model": "rejected-mixed-bool-number.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "flag": "bool",
+        "number": "number"
+      },
+      "request": [
+        true,
+        1
+      ],
+      "expected": "error",
+      "oracle_expected": false,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "rejected-mixed-order",
+      "model": "rejected-mixed-order.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "number": "number",
+        "text": "string"
+      },
+      "request": [
+        1,
+        "2"
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "rejected-object-equality",
+      "model": "rejected-object-equality.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "obj": {
+          "Owner": "string"
+        }
+      },
+      "request": [
+        {
+          "Owner": "alice"
+        }
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "rejected-bool-order",
+      "model": "rejected-bool-order.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "bool",
+        "right": "bool"
+      },
+      "request": [
+        false,
+        true
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "rejected-unknown-path",
+      "model": "rejected-unknown-path.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "obj": {
+          "Owner": "string"
+        }
+      },
+      "request": [
+        {
+          "Owner": "alice"
+        }
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "rejected-unknown-unused-path",
+      "model": "rejected-unknown-unused-path.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "obj": {
+          "Owner": "string"
+        }
+      },
+      "request": [
+        {
+          "Owner": "alice"
+        }
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "rejected-object-as-condition",
+      "model": "rejected-object-as-condition.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "obj": {
+          "Owner": "string"
+        }
+      },
+      "request": [
+        {
+          "Owner": "alice"
+        }
+      ],
+      "expected": "error"
+    },
+    {
+      "name": "rejected-arithmetic",
+      "model": "rejected-arithmetic.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "number": "number"
+      },
+      "request": [
+        1
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Typed OCaml statically validates schemas/types and the complete request; native Go uses dynamic values and short-circuit lookup."
+    },
+    {
+      "name": "opaque-json-string",
+      "model": "opaque-string.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "string",
+        "right": "string"
+      },
+      "request": [
+        "{\"Owner\":\"alice\"}",
+        "{\"Owner\":\"alice\"}"
+      ],
+      "expected": true
+    },
+    {
+      "name": "role-keymatch-162",
+      "model": "roles-keymatch.conf",
+      "policy": "roles.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Path": "/foo"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "role-keymatch-163",
+      "model": "roles-keymatch.conf",
+      "policy": "roles.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Path": "/foo/report"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "role-keymatch-164",
+      "model": "roles-keymatch.conf",
+      "policy": "roles.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "bob"
+        },
+        {
+          "Path": "/foo"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "role-keymatch-165",
+      "model": "roles-keymatch.conf",
+      "policy": "roles.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Path": "/bar"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effects-allow-166",
+      "model": "domains-effects-allow.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo/report"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effects-allow-167",
+      "model": "domains-effects-allow.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo/admin"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effects-allow-168",
+      "model": "domains-effects-allow.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "two"
+        },
+        {
+          "Path": "/foo/report"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effects-allow-169",
+      "model": "domains-effects-allow.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "other"
+        },
+        {
+          "Path": "/foo"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "synthetic-allow-170",
+      "model": "synthetic-allow.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "synthetic-allow-171",
+      "model": "synthetic-allow.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "bob",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "synthetic-allow-172",
+      "model": "synthetic-allow.conf",
+      "policy": "explicit-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "synthetic-allow-173",
+      "model": "synthetic-allow.conf",
+      "policy": "explicit-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "bob",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effects-deny-174",
+      "model": "domains-effects-deny.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo/report"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effects-deny-175",
+      "model": "domains-effects-deny.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo/admin"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effects-deny-176",
+      "model": "domains-effects-deny.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "two"
+        },
+        {
+          "Path": "/foo/report"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effects-deny-177",
+      "model": "domains-effects-deny.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "other"
+        },
+        {
+          "Path": "/foo"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "synthetic-deny-178",
+      "model": "synthetic-deny.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "synthetic-deny-179",
+      "model": "synthetic-deny.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "bob",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "synthetic-deny-180",
+      "model": "synthetic-deny.conf",
+      "policy": "explicit-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "synthetic-deny-181",
+      "model": "synthetic-deny.conf",
+      "policy": "explicit-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "bob",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effects-allow-deny-182",
+      "model": "domains-effects-allow-deny.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo/report"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "domain-effects-allow-deny-183",
+      "model": "domains-effects-allow-deny.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo/admin"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effects-allow-deny-184",
+      "model": "domains-effects-allow-deny.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "two"
+        },
+        {
+          "Path": "/foo/report"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "domain-effects-allow-deny-185",
+      "model": "domains-effects-allow-deny.conf",
+      "policy": "domains-effects.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "other"
+        },
+        {
+          "Path": "/foo"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "synthetic-allow-deny-186",
+      "model": "synthetic-allow-deny.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "synthetic-allow-deny-187",
+      "model": "synthetic-allow-deny.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "bob",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "synthetic-allow-deny-188",
+      "model": "synthetic-allow-deny.conf",
+      "policy": "explicit-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "synthetic-allow-deny-189",
+      "model": "synthetic-allow-deny.conf",
+      "policy": "explicit-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "bob",
+        {
+          "Owner": "alice"
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "policy-string-order-190",
+      "model": "policy-string-order.conf",
+      "policy": "string-policy.csv",
+      "request_schema": {
+        "value": "string"
+      },
+      "request": [
+        "alpha"
+      ],
+      "expected": true
+    },
+    {
+      "name": "policy-string-order-191",
+      "model": "policy-string-order.conf",
+      "policy": "string-policy.csv",
+      "request_schema": {
+        "value": "string"
+      },
+      "request": [
+        "reader"
+      ],
+      "expected": false
+    },
+    {
+      "name": "policy-string-order-192",
+      "model": "policy-string-order.conf",
+      "policy": "string-policy.csv",
+      "request_schema": {
+        "value": "string"
+      },
+      "request": [
+        "zulu"
+      ],
+      "expected": false
+    },
+    {
+      "name": "owner-lowercase-map",
+      "model": "owner-lowercase.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "owner": "alice"
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "empty-policy-domain-allow-empty",
+      "model": "domains-effects-allow.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": ""
+        },
+        {
+          "Tenant": ""
+        },
+        {
+          "Path": ""
+        },
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "empty-policy-domain-allow-nonempty",
+      "model": "domains-effects-allow.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": ""
+        },
+        {
+          "Path": ""
+        },
+        ""
+      ],
+      "expected": false
+    },
+    {
+      "name": "empty-policy-domain-deny-empty",
+      "model": "domains-effects-deny.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": ""
+        },
+        {
+          "Tenant": ""
+        },
+        {
+          "Path": ""
+        },
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "empty-policy-domain-deny-nonempty",
+      "model": "domains-effects-deny.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": ""
+        },
+        {
+          "Path": ""
+        },
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "empty-policy-domain-allow-deny-empty",
+      "model": "domains-effects-allow-deny.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": ""
+        },
+        {
+          "Tenant": ""
+        },
+        {
+          "Path": ""
+        },
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "empty-policy-domain-allow-deny-nonempty",
+      "model": "domains-effects-allow-deny.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": ""
+        },
+        {
+          "Path": ""
+        },
+        ""
+      ],
+      "expected": false
+    },
+    {
+      "name": "chain-number-bool",
+      "model": "comparison-chain-number-bool.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        0
+      ],
+      "expected": true
+    },
+    {
+      "name": "chain-bool-bool",
+      "model": "comparison-chain-bool-bool.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        0
+      ],
+      "expected": false
+    },
+    {
+      "name": "chain-string-bool",
+      "model": "comparison-chain-string-bool.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        0
+      ],
+      "expected": true
+    },
+    {
+      "name": "negative-space-half",
+      "model": "comparison-negative-space-half.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        -0.5
+      ],
+      "expected": true
+    },
+    {
+      "name": "negative-space-integer",
+      "model": "comparison-negative-space-integer.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "value": "number"
+      },
+      "request": [
+        -1
+      ],
+      "expected": true
+    },
+    {
+      "name": "comparison-chain-fields-0",
+      "model": "comparison-chain-fields.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "number",
+        "right": "number",
+        "flag": "bool"
+      },
+      "request": [
+        1,
+        2,
+        true
+      ],
+      "expected": true
+    },
+    {
+      "name": "comparison-chain-fields-1",
+      "model": "comparison-chain-fields.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "number",
+        "right": "number",
+        "flag": "bool"
+      },
+      "request": [
+        1,
+        2,
+        false
+      ],
+      "expected": false
+    },
+    {
+      "name": "comparison-chain-fields-2",
+      "model": "comparison-chain-fields.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "left": "number",
+        "right": "number",
+        "flag": "bool"
+      },
+      "request": [
+        2,
+        1,
+        false
+      ],
+      "expected": true
+    },
+    {
+      "name": "selector-literal-explicit-deny",
+      "model": "policy-selector-literal.conf",
+      "policy": "explicit-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "p_sub"
+        },
+        "read"
+      ],
+      "expected": false,
+      "note": "Pinned Go chooses real policy rows when the matcher text contains p_, even inside a literal or request property name; otherwise the request-only synthetic row ignores explicit deny."
+    },
+    {
+      "name": "selector-literal-empty",
+      "model": "policy-selector-literal.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "p_sub"
+        },
+        "read"
+      ],
+      "expected": true,
+      "note": "Pinned Go chooses real policy rows when the matcher text contains p_, even inside a literal or request property name; otherwise the request-only synthetic row ignores explicit deny."
+    },
+    {
+      "name": "selector-property-explicit-deny",
+      "model": "policy-selector-property.conf",
+      "policy": "explicit-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "p_sub": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "p_sub": "yes"
+        },
+        "read"
+      ],
+      "expected": false,
+      "note": "Pinned Go chooses real policy rows when the matcher text contains p_, even inside a literal or request property name; otherwise the request-only synthetic row ignores explicit deny."
+    },
+    {
+      "name": "selector-property-empty",
+      "model": "policy-selector-property.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "p_sub": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "p_sub": "yes"
+        },
+        "read"
+      ],
+      "expected": true,
+      "note": "Pinned Go chooses real policy rows when the matcher text contains p_, even inside a literal or request property name; otherwise the request-only synthetic row ignores explicit deny."
+    },
+    {
+      "name": "selector-control-explicit-deny",
+      "model": "policy-selector-control.conf",
+      "policy": "explicit-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "yes"
+        },
+        "read"
+      ],
+      "expected": true,
+      "note": "Pinned Go chooses real policy rows when the matcher text contains p_, even inside a literal or request property name; otherwise the request-only synthetic row ignores explicit deny."
+    },
+    {
+      "name": "selector-control-empty",
+      "model": "policy-selector-control.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "yes"
+        },
+        "read"
+      ],
+      "expected": true,
+      "note": "Pinned Go chooses real policy rows when the matcher text contains p_, even inside a literal or request property name; otherwise the request-only synthetic row ignores explicit deny."
+    }
+  ]
+}

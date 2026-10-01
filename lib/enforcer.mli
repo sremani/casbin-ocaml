@@ -24,3 +24,11 @@ val add_grouping_policy_in_domain : t -> string * string * string -> (t * bool, 
 val remove_grouping_policy_in_domain : t -> string * string * string -> (t * bool, string) result
 val get_roles_for_user_in_domain : t -> domain:string -> string -> (string list, string) result
 val get_users_for_role_in_domain : t -> domain:string -> string -> (string list, string) result
+
+(** Explicit typed ABAC construction. The schema names every request field,
+    including its recursively declared object properties. *)
+val of_strings_abac : request_schema:(string * Value.schema) list ->
+  model:string -> policy:string -> (t, string) result
+val of_files_abac : request_schema:(string * Value.schema) list ->
+  model:string -> policy:string -> (t, string) result
+val enforce_values : t -> Value.t list -> (bool, string) result

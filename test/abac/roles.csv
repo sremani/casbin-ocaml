@@ -1,0 +1,2 @@
+p, reader, /foo*, read
+g, alice, reader

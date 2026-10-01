@@ -7,3 +7,7 @@ test/management/*.csv whitespace=-blank-at-eol,cr-at-eol
 
 # Pinned hierarchy fixture intentionally ends with an extra blank physical line.
 test/fixtures/domain-upstream-hierarchy.csv whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+
+# Typed ABAC oracle fixtures retain their authored/copied bytes.
+test/abac/* -text
+test/abac/*.csv whitespace=-blank-at-eol,cr-at-eol

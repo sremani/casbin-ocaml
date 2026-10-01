@@ -26,3 +26,7 @@
  (name domain_test)
  (modules domain_test)
  (libraries casbin))
+(test
+ (name abac_test)
+ (modules abac_test)
+ (libraries casbin))

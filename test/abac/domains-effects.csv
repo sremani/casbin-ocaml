@@ -1,0 +1,5 @@
+p, reader, one, /foo*, read, allow
+p, reader, one, /foo/admin*, read, deny
+p, reader, two, /foo*, read, UNKNOWN
+g, alice, reader, one
+g, alice, reader, two

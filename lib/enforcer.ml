@@ -1,18 +1,35 @@
+type matcher = Plain of Expr.t | Typed of Abac_expr.t * (string * Value.schema) list
+
 type t = {
   model : Model.t;
   policy : Policy.t;
-  matcher : Expr.t;
+  matcher : matcher;
   roles : Role_manager.t;
   domain_roles : Role_manager.domains;
 }
 
 let ( let* ) = Result.bind
 
-let prepare model policy =
-  let* matcher = Expr.compile
-      ~request_fields:model.Model.request_fields
-      ~policy_fields:model.Model.policy_fields
-      ~roles_enabled:model.Model.roles_enabled ~role_arity:model.Model.role_arity model.Model.matcher in
+let normalize_schema model schema =
+  let names = List.map fst schema in
+  if List.length names <> List.length model.Model.request_fields
+     || List.sort String.compare names <> List.sort String.compare model.Model.request_fields then
+    Error "request schema must name every declared request field exactly once"
+  else Ok (List.map (fun field -> field, List.assoc field schema) model.Model.request_fields)
+
+let prepare ?request_schema model policy =
+  let* matcher = match request_schema with
+    | None ->
+        let* expression = Expr.compile ~request_fields:model.Model.request_fields
+            ~policy_fields:model.Model.policy_fields ~roles_enabled:model.Model.roles_enabled
+            ~role_arity:model.Model.role_arity model.Model.matcher in
+        Ok (Plain expression)
+    | Some schema ->
+        let* schema = normalize_schema model schema in
+        let* expression = Abac_expr.compile ~request_schema:schema
+            ~policy_fields:model.Model.policy_fields ~role_arity:model.Model.role_arity model.Model.matcher in
+        Ok (Typed (expression, schema))
+  in
   let* roles = Role_manager.of_links policy.Policy.roles in
   let* domain_roles = Role_manager.of_domain_links policy.Policy.domain_roles in
   Ok { model; policy; matcher; roles; domain_roles }
@@ -27,28 +44,75 @@ let of_files ~model ~policy =
   let* policy = Policy.of_file ~model policy in
   prepare model policy
 
-let enforce t request =
+let of_strings_abac ~request_schema ~model ~policy =
+  let* model = Model.of_string model in
+  let* policy = Policy.of_string ~model policy in
+  prepare ~request_schema model policy
+
+let of_files_abac ~request_schema ~model ~policy =
+  let* model = Model.of_file model in
+  let* policy = Policy.of_file ~model policy in
+  prepare ~request_schema model policy
+
+let validate_request matcher values =
+  match matcher with
+  | Plain _ ->
+      if List.for_all (function Value.String _ -> true | _ -> false) values then Ok ()
+      else Error "typed request values require an ABAC snapshot"
+  | Typed (_, schema) ->
+      let rec validate = function
+        | [] -> Ok ()
+        | ((field, schema), value) :: rest ->
+            match Value.validate ~schema value with
+            | Error message -> Error (Printf.sprintf "request field %s: %s" field message)
+            | Ok () -> validate rest
+      in
+      validate (List.combine schema values)
+
+let uses_policy = function
+  | Plain expression -> Expr.uses_policy expression
+  | Typed (expression, _) -> Abac_expr.uses_policy expression
+
+let upstream_uses_policy t =
+  (* Go selects real rows using a textual p_ search after preprocessing. This
+     includes literals and request property names, alongside actual p fields. *)
+  let source = t.model.Model.matcher in
+  let rec contains index =
+    index + 1 < String.length source
+    && ((source.[index] = 'p' && source.[index + 1] = '_') || contains (index + 1))
+  in
+  uses_policy t.matcher || contains 0
+
+let enforce_values t request =
   let fields = t.model.Model.request_fields in
   if List.length request <> List.length fields then
     Error (Printf.sprintf "invalid request size: expected %d, got %d"
              (List.length fields) (List.length request))
   else
+    let* () = validate_request t.matcher request in
     let rbindings = List.map2 (fun field value -> ("r." ^ field, value)) fields request in
     let evaluate rule =
-      let pbindings = List.map2 (fun field value -> ("p." ^ field, value))
+      let pbindings = List.map2 (fun field value -> ("p." ^ field, Value.String value))
           t.model.Model.policy_fields rule in
       let bindings = rbindings @ pbindings in
       let resolve name = match List.assoc_opt name bindings with
         | Some value -> Ok value
         | None -> Error ("unknown matcher field: " ^ name)
       in
-      Expr.eval ~resolve ~has_role:(Role_manager.has_link t.roles)
-        ~has_role_in_domain:(Role_manager.has_domain_link t.domain_roles) t.matcher
+      let has_role = Role_manager.has_link t.roles in
+      let has_role_in_domain = Role_manager.has_domain_link t.domain_roles in
+      match t.matcher with
+      | Plain expression ->
+          let resolve name =
+            let* value = resolve name in
+            match value with Value.String value -> Ok value | _ -> Error "string matcher resolved a typed value"
+          in
+          Expr.eval ~resolve ~has_role ~has_role_in_domain expression
+      | Typed (expression, _) -> Abac_expr.eval ~resolve ~has_role ~has_role_in_domain expression
     in
     let decide rows = Ok (Effector.decide t.model.Model.policy_effect rows) in
-    (* Go Casbin evaluates one empty policy row if none exist, or when the
-       matcher is independent of policy fields. This can intentionally allow. *)
-    if t.policy.Policy.rules = [] || not (Expr.uses_policy t.matcher) then
+    (* The same synthetic row and policy-effect path applies to typed matchers. *)
+    if t.policy.Policy.rules = [] || not (upstream_uses_policy t) then
       let* matched = evaluate (List.map (fun _ -> "") t.model.Model.policy_fields) in
       decide [matched, Effector.Allow]
     else
@@ -67,6 +131,8 @@ let enforce t request =
             | _ -> collect ((matched, row) :: acc) rest
       in
       collect [] t.policy.Policy.rules
+
+let enforce t request = enforce_values t (List.map (fun value -> Value.String value) request)
 
 (* Management preserves Casbin's comma-joined identities, including collisions
    across different field tuples. Snapshot records and their lists are immutable. *)

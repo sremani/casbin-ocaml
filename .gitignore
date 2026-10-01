@@ -4,6 +4,7 @@ upstream/
 .cache/
 oracle/casbin-oracle
 oracle/casbin-management-oracle
+oracle/casbin-abac-oracle
 __pycache__/
 *.py[cod]
 .DS_Store

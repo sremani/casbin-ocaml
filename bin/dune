@@ -8,3 +8,7 @@
  (name management_probe)
  (modules management_probe)
  (libraries casbin))
+(executable
+ (name abac_probe)
+ (modules abac_probe)
+ (libraries casbin))
