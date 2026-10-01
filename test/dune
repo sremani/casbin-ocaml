@@ -30,3 +30,8 @@
  (name abac_test)
  (modules abac_test)
  (libraries casbin))
+
+(test
+ (name priority_test)
+ (modules priority_test)
+ (libraries casbin))

@@ -59,8 +59,10 @@ let parse_effect line value =
   if matches_effect value allow then Effector.Allow_override
   else if matches_effect value deny then Effector.Deny_override
   else if matches_effect value (allow @ ["&&"] @ deny) then Effector.Allow_and_deny
+  else if matches_effect value ["priority"; "("; "p"; "."; "eft"; ")"; "||"; "deny"] then
+    Effector.Priority_override
   else fail line
-    "unsupported policy effect; expected allow override, deny override, or allow-and-deny"
+    "unsupported policy effect; expected allow override, deny override, allow-and-deny, or priority(p.eft) || deny"
 
 let contains_substring source target =
   let count = String.length target in

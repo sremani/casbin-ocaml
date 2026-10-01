@@ -1,0 +1,5 @@
+"p","reader","one","10","/foo*","read","deny"
+"p","reader","one","1","/foo*","read","allow"
+"p","reader","two","0","/foo*","read","deny"
+"g","alice","reader","one"
+"g","alice","reader","two"

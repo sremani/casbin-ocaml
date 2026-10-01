@@ -5,7 +5,9 @@ val of_files : model:string -> policy:string -> (t, string) result
 val enforce : t -> string list -> (bool, string) result
 
 (** Management returns a new snapshot and a changed flag. The input snapshot
-    remains usable. Policy arities are validated; role cycles are rejected. *)
+    remains usable. Policy arities are validated; role cycles are rejected.
+    A declared priority field stores valid signed64 decimals in stable ascending
+    order. Duplicate detection precedes numeric validation of new rows. *)
 val get_policy : t -> string list list
 val has_policy : t -> string list -> (bool, string) result
 val add_policy : t -> string list -> (t * bool, string) result

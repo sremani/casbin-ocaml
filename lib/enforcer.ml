@@ -128,6 +128,8 @@ let enforce_values t request =
             match t.model.Model.policy_effect, matched, row with
             | Effector.Allow_override, true, Effector.Allow -> Ok true
             | (Effector.Deny_override | Effector.Allow_and_deny), true, Effector.Deny -> Ok false
+            | Effector.Priority_override, true, Effector.Allow -> Ok true
+            | Effector.Priority_override, true, Effector.Deny -> Ok false
             | _ -> collect ((matched, row) :: acc) rest
       in
       collect [] t.policy.Policy.rules
@@ -167,7 +169,9 @@ let add_policy t rule =
   let* present = has_policy t rule in
   if present then Ok (t, false)
   else
-    let policy = { t.policy with Policy.rules = t.policy.Policy.rules @ [rule] } in
+    let* rules = Priority.insert ~policy_fields:t.model.Model.policy_fields
+        ~rule t.policy.Policy.rules in
+    let policy = { t.policy with Policy.rules = rules } in
     Ok ({ t with policy }, true)
 
 let remove_policy t rule =

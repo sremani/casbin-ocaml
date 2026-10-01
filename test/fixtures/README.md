@@ -1,15 +1,15 @@
 # Differential fixture corpus
 
 Reference: [Apache Casbin](https://github.com/apache/casbin), pinned commit
-`524f3f2dc9baef696d748db491d49b3055d359d1`. These fixtures exercise the first
-string-valued ACL/basic RBAC milestone against the actual Go enforcer and OCaml
-CLI. They are a declared subset, not a claim of full Casbin compatibility.
+`524f3f2dc9baef696d748db491d49b3055d359d1`. These fixtures exercise string-valued ACL, roles, exact domains, effects, and
+keyMatch against the actual Go enforcer and OCaml CLI. They are a declared subset, not a claim of full Casbin compatibility.
 
 `basic_model.conf`, `basic_policy.csv`, `rbac_model.conf`, and `rbac_policy.csv`
 were copied byte-for-byte from that checkout's `examples/` directory. `LICENSE`
 and `NOTICE` were copied byte-for-byte from its root and apply to those upstream
-fixtures. Other `.conf` and `.csv` files and `manifest.json` were created for this
-port's semantic boundary checks.
+fixtures. Domain and priority copies are listed in their milestone sections
+below; all remaining `.conf` and `.csv` files and `manifest.json` were created
+for this port's semantic boundary checks.
 
 The manifest records the pinned revision and an explicit expected OCaml result
 for every case: JSON `true`, `false`, or `"error"`. Errors require exit 2, nonempty
@@ -49,9 +49,10 @@ Observed reference behaviors captured by the corpus:
   govaluate also infers date/time literal types. OCaml conservatively rejects
   these forms under its documented literal restrictions. Opposite quote
   characters inside a literal cause an upstream parse error. Unsupported
-  function and priority-effect models are explicit OCaml rejection cases even when Go allows.
+  functions and subjectPriority effects remain explicit OCaml rejection
+  cases even when Go allows.
 
-The manifest currently contains 511 cases: 474 parity cases and 37 explicit
+The manifest currently contains 684 cases: 635 parity cases and 49 explicit
 unsupported-model rejections. Literal preprocessing boundaries also include
 terminal `r.`/`p.`, numeric assertion prefixes such as `r2.`, and brackets in a
 matcher containing `in`. An unreachable role cycle still causes a load error.
@@ -98,9 +99,10 @@ reference parity.
 
 `unsupported-effect.conf` retains its historical filename but is now tested as
 the supported deny-override effect, with no oracle exception.
-`effects-unsupported-priority.conf` and
-`effects-unsupported-subject-priority.conf` remain explicit OCaml rejection
-fixtures. Their Go verdicts are checked rather than skipped.
+`effects-unsupported-priority.conf` retains its historical filename but now
+uses the supported normal priority effect; its four cases require parity.
+`effects-unsupported-subject-priority.conf` remains an explicit rejection
+fixture. Its Go verdicts are checked rather than skipped.
 
 ## Milestone 4: basic keyMatch
 
@@ -173,3 +175,34 @@ The strict boundaries are checked explicitly against observed Go results:
 No divergent initial domain management case is silently skipped: initialization
 cycle/self-edge differences are covered in this CLI corpus using explicit
 `oracle_expected` values. Management traces start from valid snapshots.
+
+
+## Milestone 7: priority effects and numeric ordering
+
+173 new expectations were independently observed with the pinned Go oracle,
+and the four former normal-priority rejection cases were converted to parity.
+`priority-upstream-implicit.conf`, `priority-upstream-implicit.csv`,
+`priority-upstream-explicit.conf`, `priority-upstream-explicit.csv`, and
+`priority-upstream-indeterminate.csv` were copied byte-for-byte from upstream
+`examples/priority_model.conf`, `priority_policy.csv`,
+`priority_model_explicit.conf`, `priority_policy_explicit.csv`, and
+`priority_indeterminate_policy.csv`, respectively. The preserved LICENSE and
+NOTICE apply; all other priority models and policies were authored for this port.
+
+`priority(p.eft) || deny` selects the first matched determinate Allow or Deny.
+Unknown, mixed-case, and empty effects are skipped. Missing eft defaults to
+Allow; no determinate match denies. Without a priority field, input row order
+wins. An exact `priority` field at any position gives stable ascending signed
+64-bit order, including equal numeric ties with distinct raw spellings.
+The matrix covers first/middle/last positions across all four effects,
+negative and explicit-plus priorities, leading/signed zero, signed64 limits,
+conflicting rules, unmatched earlier denies, synthetic rows, role examples,
+and exact-domain/keyMatch composition.
+
+Fifteen malformed numeric priorities are explicit stricter load boundaries:
+empty/whitespace, padded values, hexadecimal, underscores, fractional and
+scientific notation, bare signs, overflow, and non-ASCII digits. Pinned Go
+accepts each single invalid-priority Allow row; OCaml rejects the retained row.
+A duplicate-key pair also verifies validation follows comma-key deduplication:
+a valid first row suppresses an invalid key-colliding row, while the inverse
+order rejects the retained invalid row. None of these Go observations is skipped.

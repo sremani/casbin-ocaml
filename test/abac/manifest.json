@@ -77,9 +77,9 @@
         "act": "string"
       },
       "request": [
-        "café",
+        "caf\u00e9",
         {
-          "Owner": "café"
+          "Owner": "caf\u00e9"
         },
         "read"
       ],
@@ -1016,8 +1016,8 @@
         "left": "string"
       },
       "request": [
-        "東京",
-        "東京"
+        "\u6771\u4eac",
+        "\u6771\u4eac"
       ],
       "expected": true
     },
@@ -1044,8 +1044,8 @@
         "left": "string"
       },
       "request": [
-        "café",
-        "café"
+        "caf\u00e9",
+        "cafe\u0301"
       ],
       "expected": false
     },
@@ -1128,8 +1128,8 @@
         "left": "string"
       },
       "request": [
-        "東京",
-        "東京"
+        "\u6771\u4eac",
+        "\u6771\u4eac"
       ],
       "expected": false
     },
@@ -1156,8 +1156,8 @@
         "left": "string"
       },
       "request": [
-        "café",
-        "café"
+        "caf\u00e9",
+        "cafe\u0301"
       ],
       "expected": true
     },
@@ -1240,8 +1240,8 @@
         "left": "string"
       },
       "request": [
-        "東京",
-        "東京"
+        "\u6771\u4eac",
+        "\u6771\u4eac"
       ],
       "expected": false
     },
@@ -1268,8 +1268,8 @@
         "left": "string"
       },
       "request": [
-        "café",
-        "café"
+        "caf\u00e9",
+        "cafe\u0301"
       ],
       "expected": false
     },
@@ -1352,8 +1352,8 @@
         "left": "string"
       },
       "request": [
-        "東京",
-        "東京"
+        "\u6771\u4eac",
+        "\u6771\u4eac"
       ],
       "expected": true
     },
@@ -1380,8 +1380,8 @@
         "left": "string"
       },
       "request": [
-        "café",
-        "café"
+        "caf\u00e9",
+        "cafe\u0301"
       ],
       "expected": false
     },
@@ -1464,8 +1464,8 @@
         "left": "string"
       },
       "request": [
-        "東京",
-        "東京"
+        "\u6771\u4eac",
+        "\u6771\u4eac"
       ],
       "expected": false
     },
@@ -1492,8 +1492,8 @@
         "left": "string"
       },
       "request": [
-        "café",
-        "café"
+        "caf\u00e9",
+        "cafe\u0301"
       ],
       "expected": true
     },
@@ -1576,8 +1576,8 @@
         "left": "string"
       },
       "request": [
-        "東京",
-        "東京"
+        "\u6771\u4eac",
+        "\u6771\u4eac"
       ],
       "expected": true
     },
@@ -1604,8 +1604,8 @@
         "left": "string"
       },
       "request": [
-        "café",
-        "café"
+        "caf\u00e9",
+        "cafe\u0301"
       ],
       "expected": true
     },
@@ -2270,14 +2270,14 @@
       "request_schema": {
         "sub": "string",
         "obj": {
-          "東京": "string"
+          "\u6771\u4eac": "string"
         },
         "act": "string"
       },
       "request": [
         "alice",
         {
-          "東京": "anything"
+          "\u6771\u4eac": "anything"
         },
         "read"
       ],
@@ -3688,6 +3688,1436 @@
       ],
       "expected": true,
       "note": "Pinned Go chooses real policy rows when the matcher text contains p_, even inside a literal or request property name; otherwise the request-only synthetic row ignores explicit deny."
+    },
+    {
+      "name": "priority-owner-priority-ranked-allow",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-owner-ranked-allow.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-priority-ranked-deny",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-owner-ranked-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-priority-stable-deny",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-owner-stable-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-priority-stable-allow",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-owner-stable-allow.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-priority-unknown-skip",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-owner-unknown-skip.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-priority-signed-zero",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-owner-signed-zero.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-priority-int64-range",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-owner-int64-range.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-priority-unmatched-deny",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-owner-unmatched-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-allow-ranked-allow",
+      "model": "priority-owner-allow.conf",
+      "policy": "priority-owner-ranked-allow.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-allow-ranked-deny",
+      "model": "priority-owner-allow.conf",
+      "policy": "priority-owner-ranked-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-allow-stable-deny",
+      "model": "priority-owner-allow.conf",
+      "policy": "priority-owner-stable-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-allow-stable-allow",
+      "model": "priority-owner-allow.conf",
+      "policy": "priority-owner-stable-allow.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-allow-unknown-skip",
+      "model": "priority-owner-allow.conf",
+      "policy": "priority-owner-unknown-skip.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-allow-signed-zero",
+      "model": "priority-owner-allow.conf",
+      "policy": "priority-owner-signed-zero.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-allow-int64-range",
+      "model": "priority-owner-allow.conf",
+      "policy": "priority-owner-int64-range.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-allow-unmatched-deny",
+      "model": "priority-owner-allow.conf",
+      "policy": "priority-owner-unmatched-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-deny-ranked-allow",
+      "model": "priority-owner-deny.conf",
+      "policy": "priority-owner-ranked-allow.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-deny-ranked-deny",
+      "model": "priority-owner-deny.conf",
+      "policy": "priority-owner-ranked-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-deny-stable-deny",
+      "model": "priority-owner-deny.conf",
+      "policy": "priority-owner-stable-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-deny-stable-allow",
+      "model": "priority-owner-deny.conf",
+      "policy": "priority-owner-stable-allow.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-deny-unknown-skip",
+      "model": "priority-owner-deny.conf",
+      "policy": "priority-owner-unknown-skip.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-deny-signed-zero",
+      "model": "priority-owner-deny.conf",
+      "policy": "priority-owner-signed-zero.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-deny-int64-range",
+      "model": "priority-owner-deny.conf",
+      "policy": "priority-owner-int64-range.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-deny-unmatched-deny",
+      "model": "priority-owner-deny.conf",
+      "policy": "priority-owner-unmatched-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-allow-deny-ranked-allow",
+      "model": "priority-owner-allow-deny.conf",
+      "policy": "priority-owner-ranked-allow.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-allow-deny-ranked-deny",
+      "model": "priority-owner-allow-deny.conf",
+      "policy": "priority-owner-ranked-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-allow-deny-stable-deny",
+      "model": "priority-owner-allow-deny.conf",
+      "policy": "priority-owner-stable-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-allow-deny-stable-allow",
+      "model": "priority-owner-allow-deny.conf",
+      "policy": "priority-owner-stable-allow.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-allow-deny-unknown-skip",
+      "model": "priority-owner-allow-deny.conf",
+      "policy": "priority-owner-unknown-skip.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-owner-allow-deny-signed-zero",
+      "model": "priority-owner-allow-deny.conf",
+      "policy": "priority-owner-signed-zero.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-allow-deny-int64-range",
+      "model": "priority-owner-allow-deny.conf",
+      "policy": "priority-owner-int64-range.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-owner-allow-deny-unmatched-deny",
+      "model": "priority-owner-allow-deny.conf",
+      "policy": "priority-owner-unmatched-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -0.5,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-typed-number-unmatched",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-owner-ranked-allow.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": 3.25,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-typed-bool-unmatched",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-owner-ranked-allow.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": -1,
+          "Active": false
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-typed-owner-unmatched",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-owner-ranked-allow.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "nobody",
+          "Score": -1,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-typed-implicit-deny-first",
+      "model": "priority-owner-implicit.conf",
+      "policy": "priority-owner-implicit-deny-first.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-typed-implicit-allow-first",
+      "model": "priority-owner-implicit.conf",
+      "policy": "priority-owner-implicit-allow-first.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-typed-implicit-unknown-first",
+      "model": "priority-owner-implicit.conf",
+      "policy": "priority-owner-implicit-unknown-first.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-typed-implicit-empty-first",
+      "model": "priority-owner-implicit.conf",
+      "policy": "priority-owner-implicit-empty-first.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-typed-missing-eft",
+      "model": "priority-owner-no-eft.conf",
+      "policy": "priority-owner-no-eft.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-typed-request-only-populated",
+      "model": "priority-owner-request-only.conf",
+      "policy": "priority-owner-ranked-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-typed-request-only-false",
+      "model": "priority-owner-request-only.conf",
+      "policy": "priority-owner-ranked-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "bob",
+        {
+          "Owner": "alice",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-typed-request-only-empty",
+      "model": "priority-owner-request-only.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "alice",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-typed-textual-selector-populated",
+      "model": "priority-owner-selector.conf",
+      "policy": "priority-owner-ranked-deny.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "p_sub",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-typed-textual-selector-empty",
+      "model": "priority-owner-selector.conf",
+      "policy": "empty.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "alice",
+        {
+          "Owner": "p_sub",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-typed-invalid-0",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-typed-invalid-0.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Retained priority must be signed ASCII decimal within int64 range; pinned Go accepts this single invalid numeric row."
+    },
+    {
+      "name": "priority-typed-invalid-1",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-typed-invalid-1.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Retained priority must be signed ASCII decimal within int64 range; pinned Go accepts this single invalid numeric row."
+    },
+    {
+      "name": "priority-typed-invalid-2",
+      "model": "priority-owner-priority.conf",
+      "policy": "priority-typed-invalid-2.csv",
+      "request_schema": {
+        "sub": "string",
+        "obj": {
+          "Owner": "string",
+          "Score": "number",
+          "Active": "bool"
+        },
+        "act": "string"
+      },
+      "request": [
+        "actor",
+        {
+          "Owner": "alice",
+          "Score": 0,
+          "Active": true
+        },
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "boundary": "Retained priority must be signed ASCII decimal within int64 range; pinned Go accepts this single invalid numeric row."
+    },
+    {
+      "name": "priority-typed-domain-one",
+      "model": "priority-typed-domain.conf",
+      "policy": "priority-typed-domain.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string",
+          "Active": "bool",
+          "Score": "number"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo",
+          "Active": true,
+          "Score": -0.5
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-typed-domain-two",
+      "model": "priority-typed-domain.conf",
+      "policy": "priority-typed-domain.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string",
+          "Active": "bool",
+          "Score": "number"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "two"
+        },
+        {
+          "Path": "/foo",
+          "Active": true,
+          "Score": 0
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-typed-domain-outsider",
+      "model": "priority-typed-domain.conf",
+      "policy": "priority-typed-domain.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string",
+          "Active": "bool",
+          "Score": "number"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "bob"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo",
+          "Active": true,
+          "Score": 0
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-typed-domain-self",
+      "model": "priority-typed-domain.conf",
+      "policy": "priority-typed-domain.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string",
+          "Active": "bool",
+          "Score": "number"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "reader"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo",
+          "Active": true,
+          "Score": 0
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-typed-domain-prefix",
+      "model": "priority-typed-domain.conf",
+      "policy": "priority-typed-domain.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string",
+          "Active": "bool",
+          "Score": "number"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo/\u0000next",
+          "Active": true,
+          "Score": 0
+        },
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-typed-domain-path-false",
+      "model": "priority-typed-domain.conf",
+      "policy": "priority-typed-domain.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string",
+          "Active": "bool",
+          "Score": "number"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/bar",
+          "Active": true,
+          "Score": 0
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-typed-domain-inactive",
+      "model": "priority-typed-domain.conf",
+      "policy": "priority-typed-domain.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string",
+          "Active": "bool",
+          "Score": "number"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo",
+          "Active": false,
+          "Score": 0
+        },
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-typed-domain-score",
+      "model": "priority-typed-domain.conf",
+      "policy": "priority-typed-domain.csv",
+      "request_schema": {
+        "sub": {
+          "Name": "string"
+        },
+        "dom": {
+          "Tenant": "string"
+        },
+        "obj": {
+          "Path": "string",
+          "Active": "bool",
+          "Score": "number"
+        },
+        "act": "string"
+      },
+      "request": [
+        {
+          "Name": "alice"
+        },
+        {
+          "Tenant": "one"
+        },
+        {
+          "Path": "/foo",
+          "Active": true,
+          "Score": 4
+        },
+        "read"
+      ],
+      "expected": false
     }
   ]
 }

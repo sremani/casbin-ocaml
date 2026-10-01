@@ -68,7 +68,7 @@ The local package is `casbin_ocaml`; applications link it with `(libraries casbi
 | Model | One `r`, `p`, `e`, `m`; optional `g = _, _` or domain `g = _, _, _` |
 | Values | Legacy strings, or schema-checked typed request strings, float64 numbers, booleans and objects; policy fields remain strings |
 | Matchers | Legacy string equality and Boolean logic; typed ABAC adds nested attributes and scalar comparisons; declared `g` and `keyMatch` |
-| Policy effect | Allow override, deny override, and combined allow-and-deny; optional explicit `p.eft` at any position |
+| Policy effect | Allow override, deny override, combined allow-and-deny, and first-decision priority; optional explicit `p.eft` at any position |
 | Role graph | Self membership, directed transitive membership, at most ten edges; cyclic/self-edge policies rejected at load |
 | Policy input | Physical-line CSV; quoted commas/doubled quotes; comments and duplicate records |
 | Model input | Whitespace/comments and backslash line continuation within the declared subset |
@@ -84,8 +84,11 @@ Supported effect rules are:
 | `some(where (p.eft == allow))` | Allow if any matching row allows |
 | `!some(where (p.eft == deny))` | Allow unless a matching row denies, including when no rows match |
 | `some(where (p.eft == allow)) && !some(where (p.eft == deny))` | Require a matching allow and no matching deny |
+| `priority(p.eft) \|\| deny` | First matched determinate allow/deny in policy order; default deny |
 
 Without an `eft` policy field, matching rows implicitly allow. Explicit values are case-sensitive: `allow` and `deny` have their named effects; other values, including empty strings, are indeterminate. The synthetic row used for empty policies or request-only matchers follows upstream's special effect behavior: a false synthetic matcher still allows under deny override. The differential corpus covers these cases.
+
+Priority effects use the first matching row whose effect is `allow` or `deny`, skipping unmatched and indeterminate rows. Without a field named `priority`, file/append order applies. A `priority` field at any position stably orders rows by ascending signed64 decimal value for every supported effect; additions insert after numeric ties. Leading zeroes and `+`/`-` signs preserve raw duplicate identities. Invalid stored priorities fail atomically, a stricter boundary than Go's invalid-value ordering. See the [priority contract](docs/priority-contract.md).
 
 Quoted matcher strings preserve literal backslashes. Literal contents containing either quote character, brackets, `#`, `:`, assertion-like `r`/`p` prefixes followed by optional digits and a dot, or a `YYYY-MM-DD` shaped substring are excluded. These restrictions avoid Go preprocessing and implicit date conversion; ordinary literals such as `'alice'` are supported. Arbitrary dates, quotes, Unicode, and backslashes remain usable as request/policy field values.
 
@@ -99,7 +102,7 @@ Domain RBAC uses `g(subject, role, domain)` with exact byte-string domains. Grap
 
 `keyMatch(key, pattern)` compares strings exactly when the pattern has no `*`. With a star it requires the byte prefix before the first star, which may match zero remaining bytes; later pattern text is ignored. `/foo*` matches `/foo` and `/foobar`, while `/foo/*` requires `/foo/`. No path normalization, regex or escaping is applied. See the [keyMatch contract](docs/key-match-contract.md).
 
-Deferred: priority/subject-priority and custom effect rules, multiple assertions, domain patterns, reflection, numeric coercion, `eval`, regex and other path-matching functions, custom functions, adapters, watchers, caching, filtered/batch/update management operations, and the full Casbin public API.
+Deferred: subject-priority and custom effect rules, multiple assertions, domain patterns, reflection, numeric coercion, `eval`, regex and other path-matching functions, custom functions, adapters, watchers, caching, filtered/batch/update management operations, and the full Casbin public API.
 
 ## Verification and provenance
 
@@ -111,8 +114,7 @@ Copied upstream material retains Apache license and notice files. This is an ind
 
 ## Next milestones
 
-1. Implement priority effects and policy ordering through the ticket board.
-2. Select further matching functions with separate compatibility contracts.
-3. Review the coverage inventory, performance and release requirements.
+1. Finish the coverage inventory, performance evidence and release review.
+2. Select future extensions through new tickets and compatibility contracts.
 
 Each extension gets its own contract and comparison cases. The first release establishes a tested core before widening coverage.

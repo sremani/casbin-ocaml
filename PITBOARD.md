@@ -60,7 +60,11 @@ M2 supports allow override, deny override, and allow-and-deny. Missing `eft` mea
 | CB-332 | Immutable Value/schema validation and ABAC regression suite | PitCrew Matcher | CB-303 contract | Done |
 | CB-333 | Native Go typed-request oracle, corpus and strict boundary traces | PitCrew Oracle | CB-303 contract | Done |
 | CB-334 | Typed Enforcer/probe integration, cross-review, full gates and local commit | PitBoss | CB-331–333 | Done |
-| CB-304 | Priority-effect semantics and policy-order tests | PitBoss + crew | CB-206 | Backlog |
+| CB-304 | Implement normal priority effect and stable signed64 policy ordering | PitBoss + crew | CB-334 | Done |
+| CB-341 | Priority parser/effector and load ordering with strict numeric boundaries | PitCrew Intake | CB-304 contract | Done |
+| CB-342 | Priority ordering, first-decision, typed/domain and snapshot regression tests | PitCrew Matcher | CB-304 contract | Done |
+| CB-343 | Independently observed priority enforcement/management/ABAC Go corpus | PitCrew Oracle | CB-304 contract | Done |
+| CB-344 | Enforcer insertion/short circuit, cross-review, full gates and local M7 commit | PitBoss | CB-341–343 | Done |
 | CB-401 | Port coverage inventory, performance evidence, release-quality review | PitBoss + crew | Feature scope selected | Backlog |
 
 The current contract supports legacy string requests and schema-checked typed ABAC requests; policies remain strings within the documented matcher subset. Each extension gets scoped acceptance criteria before dispatch; backlog entries are not claims of implemented parity.
@@ -96,3 +100,7 @@ Upstream: https://github.com/apache/casbin at 524f3f2dc9baef696d748db491d49b3055
 - M5 local commit: `a0cca07`. M6 implements schema-checked ABAC through explicit typed constructors and a separate matcher compiler, preserving legacy string callers.
 
 - M6 gate: 206 ABAC API/value/schema/compiler/snapshot checks and all prior suites pass on OCaml 5.5.0. Enforcement: 511 cases (474 parity, 37 rejections); management: 37 sequences, 444 steps, 13 boundaries; native ABAC: 214 cases (193 parity, 21 boundaries). Install build and independent source/API/probe reviews pass. Go textual p_ row selection is reproduced, including literals and attributes; full validation differences are explicit. Next wave is CB-304 priority effects and stable numeric ordering.
+
+- M6 local commit: `9118d1b`. M7 follows docs/priority-contract.md: normal priority, stable signed64 numeric ordering and immutable insertion; subjectPriority stays outside this bounded port.
+
+- M7 gate: 1,685 priority checks and all prior suites pass on OCaml 5.5.0. Enforcement: 684 cases (635 parity, 49 strict rejections); management: 53 sequences, 787 steps, 14 boundary traces; native ABAC: 270 cases (246 parity, 24 boundaries). All three runners, install build, fixture byte provenance and independent source/test reviews pass. Normal priority and stable signed64 load/insertion ordering are implemented; subjectPriority remains explicitly deferred. Installed consumer/CLI smoke checks also pass. Next wave is CB-401 coverage, measured performance and final local release review.

@@ -81,7 +81,9 @@ let of_string ~(model : Model.t) text =
         | kind :: _ -> fail line (Printf.sprintf "unsupported policy record type %S; expected p or g" kind)
         | [] -> fail line "missing policy record type"
       end);
-    Ok { rules = List.rev !rules; roles = List.rev !roles; domain_roles = List.rev !domain_roles }
+    match Priority.order ~policy_fields:model.policy_fields (List.rev !rules) with
+    | Error message -> Error message
+    | Ok rules -> Ok { rules; roles = List.rev !roles; domain_roles = List.rev !domain_roles }
   with Parse_error message -> Error message
 
 let of_file ~model path =

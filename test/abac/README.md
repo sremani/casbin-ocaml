@@ -3,7 +3,7 @@
 Reference: [Apache Casbin](https://github.com/apache/casbin), clean pinned commit
 `524f3f2dc9baef696d748db491d49b3055d359d1`.
 
-The corpus contains 214 cases: 193 parity cases and 21 explicit stricter
+The corpus contains 270 cases: 246 parity cases and 24 explicit stricter
 boundaries. Every Go expectation was independently observed through
 `oracle/casbin-abac-oracle`, which unmarshals a JSON array into native Go
 strings, float64 numbers, booleans, maps, arrays, and nulls, then calls the real
@@ -38,7 +38,7 @@ ordering can feed boolean equality, and chained boolean equality is checked
 against Go.
 
 Composition cases combine nested string accessors with two-/three-argument
-role calls, exact domains, keyMatch, string-valued policy fields, and all three
+role calls, exact domains, keyMatch, string-valued policy fields, and all four
 supported effects. Both request-only and policy-dependent empty-policy
 synthetic-row behavior are exercised, including empty nested strings and
 implicit role self membership.
@@ -94,3 +94,23 @@ populated explicit-Deny policy and true with no policy. An ordinary
 request-only Owner comparison lacking `p_` still uses the synthetic Allow row
 and returns true despite a populated Deny policy. Six parity controls preserve
 this source behavior alongside actual AST policy dependencies.
+
+
+## Milestone 7 typed priority composition
+
+56 new expectations were observed independently with the native Go oracle.
+All priority models and policies here were authored for this port; the domain
+policy reuses this port's authored enforcement fixture, not an upstream copy.
+Owner, finite numeric score, and Boolean activity properties combine with all
+four effects, signed64 priority limits, stable equal ranks, signed zero,
+unknown effects, and unmatched earlier rules. Implicit row order, missing eft,
+request-only and empty-policy synthetic rows, and the textual p_ selector are
+also checked under the normal priority effect.
+
+Nested subject/domain/object properties compose with exact-domain roles,
+implicit self membership, object keyMatch, embedded NUL in a path, and numeric
+and Boolean conditions. Three retained malformed numeric priorities are explicit
+strict load boundaries: padded decimal, hexadecimal, and signed64 overflow.
+Their native Go Allow verdicts and OCaml load errors are both checked. The
+priority restrictions apply to policy fields without narrowing typed request
+numbers or ordinary string values.

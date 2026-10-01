@@ -28,6 +28,9 @@ let expected policy input =
   | Allow_override -> allow
   | Deny_override -> deny
   | Allow_and_deny -> combined
+  | Priority_override ->
+      (* Priority has a separate ordered oracle; it does not use this mask. *)
+      invalid_arg "priority requires ordered evidence"
 
 let rec sequences length =
   if length = 0 then [[]]

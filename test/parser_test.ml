@@ -37,6 +37,9 @@ let () =
     "spaced deny override", "! some ( where ( p . eft == deny ) )", Effector.Deny_override;
     "compact allow and deny", "some(where(p.eft==allow))&&!some(where(p.eft==deny))", Effector.Allow_and_deny;
     "spaced allow and deny", "some ( where ( p . eft == allow ) ) && ! some ( where ( p . eft == deny ) )", Effector.Allow_and_deny;
+    "priority", "priority(p.eft) || deny", Effector.Priority_override;
+    "compact priority", "priority(p.eft)||deny", Effector.Priority_override;
+    "spaced priority", "priority ( p . eft ) || deny", Effector.Priority_override;
   ] in
   List.iter (fun (label, expression, expected) ->
     let parsed = expect_ok label (Model.of_string
@@ -84,7 +87,6 @@ let () =
     "duplicate fields", replace acl "r = sub, obj, act" "r = sub, sub";
     "empty field", replace acl "r = sub, obj, act" "r = sub,,act";
     "invalid field", replace acl "r = sub, obj, act" "r = sub, 1obj, act";
-    "priority effect", replace acl "some(where (p.eft == allow))" "priority(p.eft) || deny";
     "subject priority effect", replace acl "some(where (p.eft == allow))" "subjectPriority(p.eft) || deny";
     "custom effect", replace acl "some(where (p.eft == allow))" "custom(p.eft)";
     "positive deny aggregation", replace acl "some(where (p.eft == allow))" "some(where (p.eft == deny))";

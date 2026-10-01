@@ -5,11 +5,11 @@ Reference: [Apache Casbin](https://github.com/apache/casbin), unmodified commit
 and enforcement APIs with autosave disabled. Each case initializes a fresh
 model/policy, then executes its complete operation sequence in one process.
 
-The corpus contains 37 cases, 444 operation steps, and 13 explicit boundary
+The corpus contains 53 cases, 787 operation steps, and 14 explicit boundary
 traces. Three cases require initialization failure rather than an operation
 trace. The remaining cases cover duplicate/no-op flags, exact policy/grouping
 row order, additions/removals, enforcement after mutation, transitive role
-changes, sorted direct role/user queries, all three supported effect
+changes, sorted direct role/user queries, all four supported effect
 aggregations, comma-key collisions, request-only matchers, empty strings,
 Unicode, and embedded tab/newline/comma values.
 
@@ -136,3 +136,27 @@ decisions, and later convergence after removing the original link and adding
 or removing the correct second link. The source model was authored for this
 port; `empty.csv` is also port-authored. This exception is explicitly recorded
 in the full Go and OCaml traces, and no cached incorrect grant is emulated.
+
+
+## Milestone 7 priority management
+
+Sixteen new independently observed sequences add 343 operation steps.
+`priority-implicit.conf` and `priority-implicit.csv` preserve the raw upstream
+`examples/priority_model.conf` and `priority_policy.csv` bytes, copied through
+this port's byte-identical enforcement fixtures. The existing LICENSE and
+NOTICE apply. Other priority models and policies are port-authored, including
+models shared with `test/fixtures`.
+
+Twelve sequences combine all four effects with a priority field first, middle,
+or last. GetPolicy traces verify stable ascending order after additions,
+insertion after equal numeric ties, distinct raw spellings, signed zero,
+signed64 limits, removal, and later enforcement. Other traces preserve implicit
+append order, exact-domain role mutation, and raw comma-key collision no-ops
+and removal. An invalid-priority caller colliding with a valid retained row can
+Has, duplicate-add, and remove by raw key without numeric validation.
+
+The new explicit boundary sequence checks fifteen invalid new priorities.
+Pinned Go stores each row, exposes it, grants its Allow request, and later
+removes it. OCaml rejects the add atomically, exposes an empty policy, denies,
+and reports false for subsequent Has/remove. The complete differing traces
+are checked, including the restored empty state before each next attempted add.

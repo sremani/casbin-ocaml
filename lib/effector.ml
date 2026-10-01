@@ -1,4 +1,4 @@
-type policy_effect = Allow_override | Deny_override | Allow_and_deny
+type policy_effect = Allow_override | Deny_override | Allow_and_deny | Priority_override
 type row_effect = Allow | Deny | Indeterminate
 
 let row_effect = function
@@ -12,3 +12,11 @@ let decide policy rows =
   | Allow_override -> has Allow
   | Deny_override -> not (has Deny)
   | Allow_and_deny -> not (has Deny) && has Allow
+  | Priority_override ->
+      let rec first = function
+        | [] -> false
+        | (true, Allow) :: _ -> true
+        | (true, Deny) :: _ -> false
+        | _ :: rest -> first rest
+      in
+      first rows

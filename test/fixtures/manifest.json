@@ -3306,7 +3306,7 @@
       "expected": false
     },
     {
-      "name": "eft-unsupported-priority-allow-only",
+      "name": "eft-supported-priority-allow-only",
       "model": "effects-unsupported-priority.conf",
       "policy": "effects-matrix-last.csv",
       "request": [
@@ -3314,12 +3314,11 @@
         "data",
         "read"
       ],
-      "expected": "error",
-      "oracle_expected": true,
-      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+      "expected": true,
+      "note": "Normal priority became supported in milestone 7; subjectPriority remains separately rejected."
     },
     {
-      "name": "eft-unsupported-priority-deny-only",
+      "name": "eft-supported-priority-deny-only",
       "model": "effects-unsupported-priority.conf",
       "policy": "effects-matrix-last.csv",
       "request": [
@@ -3327,12 +3326,11 @@
         "data",
         "read"
       ],
-      "expected": "error",
-      "oracle_expected": false,
-      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+      "expected": false,
+      "note": "Normal priority became supported in milestone 7; subjectPriority remains separately rejected."
     },
     {
-      "name": "eft-unsupported-priority-allow-then-deny",
+      "name": "eft-supported-priority-allow-then-deny",
       "model": "effects-unsupported-priority.conf",
       "policy": "effects-matrix-last.csv",
       "request": [
@@ -3340,12 +3338,11 @@
         "data",
         "read"
       ],
-      "expected": "error",
-      "oracle_expected": true,
-      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+      "expected": true,
+      "note": "Normal priority became supported in milestone 7; subjectPriority remains separately rejected."
     },
     {
-      "name": "eft-unsupported-priority-deny-then-allow",
+      "name": "eft-supported-priority-deny-then-allow",
       "model": "effects-unsupported-priority.conf",
       "policy": "effects-matrix-last.csv",
       "request": [
@@ -3353,9 +3350,8 @@
         "data",
         "read"
       ],
-      "expected": "error",
-      "oracle_expected": false,
-      "note": "Priority aggregation remains outside the supported effect subset; Go result is still observed and checked."
+      "expected": false,
+      "note": "Normal priority became supported in milestone 7; subjectPriority remains separately rejected."
     },
     {
       "name": "eft-unsupported-subject-priority-allow-only",
@@ -5698,6 +5694,1945 @@
         "",
         "",
         ""
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-upstream-0",
+      "model": "priority-upstream-implicit.conf",
+      "policy": "priority-upstream-implicit.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-upstream-1",
+      "model": "priority-upstream-implicit.conf",
+      "policy": "priority-upstream-implicit.csv",
+      "request": [
+        "alice",
+        "data1",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-upstream-2",
+      "model": "priority-upstream-implicit.conf",
+      "policy": "priority-upstream-implicit.csv",
+      "request": [
+        "bob",
+        "data2",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-upstream-3",
+      "model": "priority-upstream-implicit.conf",
+      "policy": "priority-upstream-implicit.csv",
+      "request": [
+        "bob",
+        "data2",
+        "write"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-upstream-4",
+      "model": "priority-upstream-implicit.conf",
+      "policy": "priority-upstream-implicit.csv",
+      "request": [
+        "other",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-upstream-5",
+      "model": "priority-upstream-explicit.conf",
+      "policy": "priority-upstream-explicit.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-upstream-6",
+      "model": "priority-upstream-explicit.conf",
+      "policy": "priority-upstream-explicit.csv",
+      "request": [
+        "alice",
+        "data1",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-upstream-7",
+      "model": "priority-upstream-explicit.conf",
+      "policy": "priority-upstream-explicit.csv",
+      "request": [
+        "bob",
+        "data2",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-upstream-8",
+      "model": "priority-upstream-explicit.conf",
+      "policy": "priority-upstream-explicit.csv",
+      "request": [
+        "bob",
+        "data2",
+        "write"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-upstream-9",
+      "model": "priority-upstream-explicit.conf",
+      "policy": "priority-upstream-explicit.csv",
+      "request": [
+        "other",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-upstream-indeterminate",
+      "model": "priority-upstream-implicit.conf",
+      "policy": "priority-upstream-indeterminate.csv",
+      "request": [
+        "alice",
+        "data1",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-first-ranked-allow",
+      "model": "priority-allow-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-first-ranked-deny",
+      "model": "priority-allow-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-first-stable-deny",
+      "model": "priority-allow-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-first-stable-allow",
+      "model": "priority-allow-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-first-unknown-skip",
+      "model": "priority-allow-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-first-indeterminate-only",
+      "model": "priority-allow-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-first-signed-zero",
+      "model": "priority-allow-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-first-int64-range",
+      "model": "priority-allow-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-first-raw-spelling",
+      "model": "priority-allow-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-first-unmatched-deny",
+      "model": "priority-allow-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-first-outsider",
+      "model": "priority-allow-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-first-ranked-allow",
+      "model": "priority-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-first-ranked-deny",
+      "model": "priority-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-first-stable-deny",
+      "model": "priority-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-first-stable-allow",
+      "model": "priority-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-first-unknown-skip",
+      "model": "priority-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-first-indeterminate-only",
+      "model": "priority-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-first-signed-zero",
+      "model": "priority-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-first-int64-range",
+      "model": "priority-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-first-raw-spelling",
+      "model": "priority-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-first-unmatched-deny",
+      "model": "priority-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-first-outsider",
+      "model": "priority-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-first-ranked-allow",
+      "model": "priority-allow-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-first-ranked-deny",
+      "model": "priority-allow-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-first-stable-deny",
+      "model": "priority-allow-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-first-stable-allow",
+      "model": "priority-allow-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-first-unknown-skip",
+      "model": "priority-allow-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-first-indeterminate-only",
+      "model": "priority-allow-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-first-signed-zero",
+      "model": "priority-allow-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-first-int64-range",
+      "model": "priority-allow-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-first-raw-spelling",
+      "model": "priority-allow-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-first-unmatched-deny",
+      "model": "priority-allow-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-first-outsider",
+      "model": "priority-allow-deny-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-first-ranked-allow",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-first-ranked-deny",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-first-stable-deny",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-first-stable-allow",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-first-unknown-skip",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-first-indeterminate-only",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-first-signed-zero",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-first-int64-range",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-first-raw-spelling",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-first-unmatched-deny",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-first-outsider",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-middle-ranked-allow",
+      "model": "priority-allow-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-middle-ranked-deny",
+      "model": "priority-allow-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-middle-stable-deny",
+      "model": "priority-allow-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-middle-stable-allow",
+      "model": "priority-allow-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-middle-unknown-skip",
+      "model": "priority-allow-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-middle-indeterminate-only",
+      "model": "priority-allow-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-middle-signed-zero",
+      "model": "priority-allow-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-middle-int64-range",
+      "model": "priority-allow-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-middle-raw-spelling",
+      "model": "priority-allow-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-middle-unmatched-deny",
+      "model": "priority-allow-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-middle-outsider",
+      "model": "priority-allow-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-middle-ranked-allow",
+      "model": "priority-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-middle-ranked-deny",
+      "model": "priority-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-middle-stable-deny",
+      "model": "priority-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-middle-stable-allow",
+      "model": "priority-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-middle-unknown-skip",
+      "model": "priority-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-middle-indeterminate-only",
+      "model": "priority-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-middle-signed-zero",
+      "model": "priority-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-middle-int64-range",
+      "model": "priority-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-middle-raw-spelling",
+      "model": "priority-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-middle-unmatched-deny",
+      "model": "priority-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-middle-outsider",
+      "model": "priority-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-middle-ranked-allow",
+      "model": "priority-allow-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-middle-ranked-deny",
+      "model": "priority-allow-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-middle-stable-deny",
+      "model": "priority-allow-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-middle-stable-allow",
+      "model": "priority-allow-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-middle-unknown-skip",
+      "model": "priority-allow-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-middle-indeterminate-only",
+      "model": "priority-allow-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-middle-signed-zero",
+      "model": "priority-allow-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-middle-int64-range",
+      "model": "priority-allow-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-middle-raw-spelling",
+      "model": "priority-allow-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-middle-unmatched-deny",
+      "model": "priority-allow-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-middle-outsider",
+      "model": "priority-allow-deny-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-middle-ranked-allow",
+      "model": "priority-priority-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-middle-ranked-deny",
+      "model": "priority-priority-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-middle-stable-deny",
+      "model": "priority-priority-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-middle-stable-allow",
+      "model": "priority-priority-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-middle-unknown-skip",
+      "model": "priority-priority-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-middle-indeterminate-only",
+      "model": "priority-priority-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-middle-signed-zero",
+      "model": "priority-priority-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-middle-int64-range",
+      "model": "priority-priority-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-middle-raw-spelling",
+      "model": "priority-priority-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-middle-unmatched-deny",
+      "model": "priority-priority-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-middle-outsider",
+      "model": "priority-priority-middle.conf",
+      "policy": "priority-matrix-middle.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-last-ranked-allow",
+      "model": "priority-allow-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-last-ranked-deny",
+      "model": "priority-allow-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-last-stable-deny",
+      "model": "priority-allow-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-last-stable-allow",
+      "model": "priority-allow-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-last-unknown-skip",
+      "model": "priority-allow-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-last-indeterminate-only",
+      "model": "priority-allow-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-last-signed-zero",
+      "model": "priority-allow-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-last-int64-range",
+      "model": "priority-allow-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-last-raw-spelling",
+      "model": "priority-allow-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-last-unmatched-deny",
+      "model": "priority-allow-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-last-outsider",
+      "model": "priority-allow-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-last-ranked-allow",
+      "model": "priority-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-last-ranked-deny",
+      "model": "priority-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-last-stable-deny",
+      "model": "priority-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-last-stable-allow",
+      "model": "priority-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-last-unknown-skip",
+      "model": "priority-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-last-indeterminate-only",
+      "model": "priority-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-last-signed-zero",
+      "model": "priority-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-last-int64-range",
+      "model": "priority-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-deny-last-raw-spelling",
+      "model": "priority-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-last-unmatched-deny",
+      "model": "priority-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-deny-last-outsider",
+      "model": "priority-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-last-ranked-allow",
+      "model": "priority-allow-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-last-ranked-deny",
+      "model": "priority-allow-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-last-stable-deny",
+      "model": "priority-allow-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-last-stable-allow",
+      "model": "priority-allow-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-last-unknown-skip",
+      "model": "priority-allow-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-last-indeterminate-only",
+      "model": "priority-allow-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-last-signed-zero",
+      "model": "priority-allow-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-last-int64-range",
+      "model": "priority-allow-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-allow-deny-last-raw-spelling",
+      "model": "priority-allow-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-last-unmatched-deny",
+      "model": "priority-allow-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-allow-deny-last-outsider",
+      "model": "priority-allow-deny-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-last-ranked-allow",
+      "model": "priority-priority-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "ranked-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-last-ranked-deny",
+      "model": "priority-priority-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "ranked-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-last-stable-deny",
+      "model": "priority-priority-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "stable-deny",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-last-stable-allow",
+      "model": "priority-priority-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "stable-allow",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-last-unknown-skip",
+      "model": "priority-priority-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "unknown-skip",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-last-indeterminate-only",
+      "model": "priority-priority-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "indeterminate-only",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-last-signed-zero",
+      "model": "priority-priority-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "signed-zero",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-last-int64-range",
+      "model": "priority-priority-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "int64-range",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-priority-last-raw-spelling",
+      "model": "priority-priority-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "raw-spelling",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-last-unmatched-deny",
+      "model": "priority-priority-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "unmatched-deny",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-priority-last-outsider",
+      "model": "priority-priority-last.conf",
+      "policy": "priority-matrix-last.csv",
+      "request": [
+        "outsider",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-no-eft-alice",
+      "model": "priority-no-eft.conf",
+      "policy": "priority-no-eft.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-no-eft-bob",
+      "model": "priority-no-eft.conf",
+      "policy": "priority-no-eft.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-no-eft-other",
+      "model": "priority-no-eft.conf",
+      "policy": "priority-no-eft.csv",
+      "request": [
+        "other",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-request-only-146",
+      "model": "priority-request-only.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-request-only-147",
+      "model": "priority-request-only.conf",
+      "policy": "empty.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-request-only-148",
+      "model": "priority-request-only.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-request-only-149",
+      "model": "priority-request-only.conf",
+      "policy": "priority-matrix-first.csv",
+      "request": [
+        "bob",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-empty-policy-150",
+      "model": "priority-priority-first.conf",
+      "policy": "empty.csv",
+      "request": [
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-empty-policy-151",
+      "model": "priority-priority-first.conf",
+      "policy": "empty.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-invalid-number-0",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-0.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-1",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-1.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-2",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-2.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-3",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-3.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-4",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-4.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-5",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-5.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-6",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-6.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-7",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-7.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-8",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-8.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-9",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-9.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-10",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-10.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-11",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-11.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-12",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-12.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-13",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-13.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-number-14",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-14.csv",
+      "request": [
+        "alice",
+        "data",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-invalid-duplicate-skipped",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-duplicate-skipped.csv",
+      "request": [
+        "a,b",
+        "c",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-invalid-duplicate-retained",
+      "model": "priority-priority-first.conf",
+      "policy": "priority-invalid-duplicate-retained.csv",
+      "request": [
+        "b",
+        "c",
+        "read"
+      ],
+      "expected": "error",
+      "oracle_expected": true,
+      "note": "OCaml validates retained signed64 numeric priorities, while pinned Go accepts invalid stored values and sorts them inconsistently."
+    },
+    {
+      "name": "priority-domain-one-foo",
+      "model": "priority-domain.conf",
+      "policy": "priority-domain.csv",
+      "request": [
+        "alice",
+        "one",
+        "/foo",
+        "read"
+      ],
+      "expected": true
+    },
+    {
+      "name": "priority-domain-two-foo",
+      "model": "priority-domain.conf",
+      "policy": "priority-domain.csv",
+      "request": [
+        "alice",
+        "two",
+        "/foo",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-domain-other-foo",
+      "model": "priority-domain.conf",
+      "policy": "priority-domain.csv",
+      "request": [
+        "alice",
+        "other",
+        "/foo",
+        "read"
+      ],
+      "expected": false
+    },
+    {
+      "name": "priority-domain-one-bar",
+      "model": "priority-domain.conf",
+      "policy": "priority-domain.csv",
+      "request": [
+        "alice",
+        "one",
+        "/bar",
+        "read"
       ],
       "expected": false
     }

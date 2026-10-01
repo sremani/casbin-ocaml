@@ -1,5 +1,5 @@
-(** Validated, single-model ACL/basic or exact-domain RBAC configuration with allow override,
-    deny override, or combined allow-and-deny policy effects. Policy fields may
+(** Validated, single-model ACL/RBAC/typed ABAC configuration with allow override,
+    deny override, combined allow-and-deny, or priority policy effects. Policy fields may
     include an explicit [eft] field at any position; absence implies allow. *)
 type t = {
   request_fields : string list;
