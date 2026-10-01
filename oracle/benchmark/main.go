@@ -1,11 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	casbin "github.com/casbin/casbin/v3"
 	"os"
 	"reflect"
 	"runtime"
+	"runtime/debug"
 	"strconv"
 	"time"
 )
@@ -23,13 +25,33 @@ func main() {
 			fail(r)
 		}
 	}()
-	if len(os.Args) != 5 {
-		fail("usage: benchmark SCENARIO MODEL POLICY ITERATIONS")
+	if len(os.Args) == 2 && os.Args[1] == "--runtime-info" {
+		gc := debug.SetGCPercent(-1)
+		debug.SetGCPercent(gc)
+		info := map[string]interface{}{"gc_percent": gc, "memory_limit_bytes": debug.SetMemoryLimit(-1),
+			"gomaxprocs": runtime.GOMAXPROCS(0), "cpu_count": runtime.NumCPU()}
+		if err := json.NewEncoder(os.Stdout).Encode(info); err != nil {
+			fail(err)
+		}
+		return
+	}
+	if len(os.Args) != 5 && len(os.Args) != 6 {
+		fail("usage: benchmark SCENARIO MODEL POLICY ITERATIONS [ROWS]")
 	}
 	scenario, model, policy := os.Args[1], os.Args[2], os.Args[3]
 	iterations, err := strconv.Atoi(os.Args[4])
 	if err != nil || iterations <= 0 {
 		fail("iterations must be positive")
+	}
+	rows := 100
+	if len(os.Args) == 6 {
+		rows, err = strconv.Atoi(os.Args[5])
+		if err != nil || rows <= 0 {
+			fail("rows must be positive")
+		}
+	}
+	if scenario == "rbac-cold" && iterations > rows {
+		fail("cold role requests require iterations <= rows")
 	}
 	enforcer, err := casbin.NewEnforcer(model, policy)
 	if err != nil {
@@ -70,13 +92,24 @@ func main() {
 			}
 			return yes(added) + yes(removed)
 		}
+	case "rbac-cold":
+		index := 0
+		step = func() int {
+			request := []interface{}{"u" + strconv.Itoa(index), "data", "read"}
+			index++
+			value, err := enforcer.Enforce(request...)
+			if err != nil {
+				fail(err)
+			}
+			return yes(value)
+		}
 	default:
 		var request []interface{}
 		switch scenario {
 		case "acl-first":
 			request = []interface{}{"u0", "data", "read"}
 		case "acl-last", "priority":
-			request = []interface{}{"u99", "data", "read"}
+			request = []interface{}{"u" + strconv.Itoa(rows-1), "data", "read"}
 		case "acl-miss":
 			request = []interface{}{"absent", "data", "read"}
 		case "rbac":
@@ -85,6 +118,10 @@ func main() {
 			request = []interface{}{"u0", "tenant", "data", "read"}
 		case "abac":
 			request = []interface{}{"alice", map[string]interface{}{"Owner": "alice", "Age": float64(42)}, "read"}
+		case "keymatch":
+			request = []interface{}{"u" + strconv.Itoa(rows-1), "/segment" + strconv.Itoa(rows-1) + "/item", "read"}
+		case "deny-override", "allow-and-deny", "priority-first":
+			request = []interface{}{"alice", "data", "read"}
 		default:
 			fail("unknown scenario")
 		}
@@ -96,7 +133,22 @@ func main() {
 			return yes(value)
 		}
 	}
-	for i := 0; i < 100; i++ {
+	warmup := 500000 / rows
+	if warmup < 1 {
+		warmup = 1
+	}
+	if warmup > 100 {
+		warmup = 100
+	}
+	if scenario == "rbac-cold" {
+		warmup = 0
+		// Warm the lazy expression using a role tuple that measured requests
+		// never reuse. The measured u_i tuples still miss the g cache.
+		if _, err := enforcer.Enforce("warmup-unlinked", "data", "read"); err != nil {
+			fail(err)
+		}
+	}
+	for i := 0; i < warmup; i++ {
 		step()
 	}
 	runtime.GC()

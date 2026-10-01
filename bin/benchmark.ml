@@ -3,12 +3,24 @@ module V = Casbin.Value
 external monotonic_seconds : unit -> float = "casbin_benchmark_monotonic"
 let result = function Ok value -> value | Error error -> failwith error
 let integer_bool value = if value then 1 else 0
+let runtime_info () =
+  let config = Gc.get () in
+  Printf.printf "{\"minor_heap_words\":%d,\"space_overhead\":%d,\"stack_limit_words\":%d,\"verbose\":%d}\n"
+    config.minor_heap_size config.space_overhead config.stack_limit config.verbose
 let () =
   try
-    if Array.length Sys.argv <> 5 then failwith "usage: benchmark SCENARIO MODEL POLICY ITERATIONS";
+    if Array.length Sys.argv = 2 && Sys.argv.(1) = "--runtime-info" then begin
+      runtime_info (); exit 0
+    end;
+    if Array.length Sys.argv <> 5 && Array.length Sys.argv <> 6 then
+      failwith "usage: benchmark SCENARIO MODEL POLICY ITERATIONS [ROWS]";
     let scenario, model, policy = Sys.argv.(1), Sys.argv.(2), Sys.argv.(3) in
     let iterations = int_of_string Sys.argv.(4) in
     if iterations <= 0 then failwith "iterations must be positive";
+    let rows = if Array.length Sys.argv = 6 then int_of_string Sys.argv.(5) else 100 in
+    if rows <= 0 then failwith "rows must be positive";
+    if scenario = "rbac-cold" && iterations > rows then
+      failwith "cold role requests require iterations <= rows";
     let enforcer =
       if scenario = "abac" then result (E.of_files_abac ~model ~policy
         ~request_schema:["sub", V.TString; "obj", V.TObject ["Owner", V.TString; "Age", V.TNumber]; "act", V.TString])
@@ -25,17 +37,30 @@ let () =
       | "abac" ->
           let request = [V.String "alice"; V.Object ["Owner", V.String "alice"; "Age", V.Number 42.]; V.String "read"] in
           (fun () -> integer_bool (result (E.enforce_values enforcer request)))
+      | "rbac-cold" ->
+          let index = ref 0 in
+          (fun () ->
+            let request = ["u" ^ string_of_int !index; "data"; "read"] in
+            incr index;
+            integer_bool (result (E.enforce enforcer request)))
       | _ ->
           let request = match scenario with
             | "acl-first" -> ["u0"; "data"; "read"]
-            | "acl-last" | "priority" -> ["u99"; "data"; "read"]
+            | "acl-last" | "priority" -> ["u" ^ string_of_int (rows - 1); "data"; "read"]
             | "acl-miss" -> ["absent"; "data"; "read"]
             | "rbac" -> ["u0"; "data"; "read"]
             | "domain" -> ["u0"; "tenant"; "data"; "read"]
+            | "keymatch" -> ["u" ^ string_of_int (rows - 1); "/segment" ^ string_of_int (rows - 1) ^ "/item"; "read"]
+            | "deny-override" | "allow-and-deny" | "priority-first" -> ["alice"; "data"; "read"]
             | _ -> failwith "unknown benchmark scenario"
           in (fun () -> integer_bool (result (E.enforce enforcer request)))
     in
-    for _ = 1 to 100 do ignore (step ()) done;
+    (* Compile Go's lazy expression using a tuple distinct from every measured
+       request; all measured role tuples remain unseen. *)
+    if scenario = "rbac-cold" then
+      ignore (result (E.enforce enforcer ["warmup-unlinked"; "data"; "read"]));
+    let warmup = if scenario = "rbac-cold" then 0 else min 100 (max 1 (500000 / rows)) in
+    for _ = 1 to warmup do ignore (step ()) done;
     Gc.full_major ();
     let allocated_before = Gc.allocated_bytes () in
     let started = monotonic_seconds () in

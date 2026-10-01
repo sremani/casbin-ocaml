@@ -118,4 +118,6 @@ The current board delivers the bounded feature set above. See the [coverage inve
 
 Performance evidence is reproduced with `python3 scripts/benchmark.py` after preparing the pinned source. The benchmark requires a POSIX monotonic clock and C compiler; it adds no production-library dependency. Timings are workload evidence rather than pass/fail speed targets.
 
+The [Luigi gauntlet](docs/luigi-gauntlet.md) adds seeded differential stress, full upstream tests and race checks, and a release benchmark matrix (`python3 scripts/benchmark.py --matrix --profile release`).
+
 Local commits record completed milestones. GitHub, public package publication and future feature extensions remain later user-requested work; each extension gets a new contract and comparison cases.

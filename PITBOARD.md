@@ -112,3 +112,15 @@ Upstream: https://github.com/apache/casbin at 524f3f2dc9baef696d748db491d49b3055
 - M7 local commit: `c079470`. M8 closes the current board for the declared bounded subset: API inventory, reproducible timing/allocation evidence, isolated package consumption, provenance and independent release review. Future extensions and GitHub publication are separate user-requested work.
 
 - M8 final gate: all current tickets are Done for the declared subset. OCaml 5.5.0 unit suites, 684 enforcement cases, 53 management sequences/787 steps, 270 native ABAC cases, package build/test/install commands and isolated installed consumer/CLI checks pass. Metadata lint has no errors (public URLs deferred with GitHub). Thirty copied-file provenance mappings, all performance source/binary hashes and independent Intake/Matcher/Oracle release reviews pass. Nine workloads have three timing/allocation samples per implementation with checked checksums and explicit limits. Final local release commit is recorded in Git history; closure requires the post-commit clean-tree and no-remote checks. No current-board work remains; future API expansion and GitHub publication require new scope.
+
+## M9 — Luigi test gauntlet and comparative benchmarks
+
+User-authorized extension: transfer both pinned Casbin and Casbin-OCaml to Luigi, exercise both implementations, and deliver measured benchmarks. Toolchains and test workspaces remain isolated; GitHub remains deferred.
+
+| Ticket | Work and acceptance gate | Owner | Depends on | Status |
+| --- | --- | --- | --- | --- |
+| CB-501 | Transfer exact sources, provision project-local OCaml 5.5/Dune, capture Luigi hardware/toolchains | PitBoss | M8 | In progress |
+| CB-502 | Pinned Go full tests, race, vet, schedule stress and native benchmark evidence in disposable checkouts | PitBoss + PitCrew Intake | CB-501 | In progress |
+| CB-503 | OCaml repeat/package gates and seeded differential stress, complete receipts and reproducers | PitCrew Oracle + PitBoss | CB-501 | In progress |
+| CB-504 | Release-profile paired benchmark matrix, scaling/cold-cache/runtime controls and checked results | PitCrew Matcher + PitBoss | CB-501 | In progress |
+| CB-505 | Audit failures, review receipts, report measured comparisons and record local commit | PitBoss + crew | CB-502–504 | In progress |
