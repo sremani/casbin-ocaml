@@ -4,7 +4,12 @@ Measured on 2026-10-01 on macOS-26.6.2-arm64-arm-64bit-Mach-O. OCaml 5.5.0, Dune
 
 The [raw evidence](performance-evidence.json) retains all three timing and allocation samples for each of 18 results, exact tool versions, the clean upstream pin, source/binary SHA-256 hashes, invocation/build commands and project revision/status. The measured library comes from M7 `c079470`; benchmark/metadata/documentation files were pending M8 changes, explicitly captured as a working-tree measurement.
 
-Reproduce from this repository:
+This is historical M8 evidence. Reproduce with the harness at commit `ac5f546`
+in a separate checkout and the recorded toolchain. The current M9 driver uses
+different release profiles, sample ordering and workload scaling; its results
+are documented separately in the [Luigi gauntlet](luigi-gauntlet.md).
+
+With the M8 checkout selected:
 
 ```sh
 ./scripts/check_toolchain.sh

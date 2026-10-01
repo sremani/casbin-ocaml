@@ -1,0 +1,1246 @@
+{
+  "schema_version": 1,
+  "upstream_revision": "524f3f2dc9baef696d748db491d49b3055d359d1",
+  "parser_method": {
+    "format": "one Go test2json event per nonempty stdout line; all lines must parse as JSON objects",
+    "test_count": "Test present and no slash = top-level; Test containing slash = subtest. Counts are event executions; unique_names_run is separate. Parent and subtest passes are not added as independent test functions.",
+    "package_count": "No Test field and terminal pass/skip/fail action; skip packages verified against [no test files] output.",
+    "integrity": "Every (Package,Test) run count must equal total pass/skip/fail count; one start and one terminal action required for every package.",
+    "diagnostics": "Search Output for DATA RACE, panic:, test timed out, and line-start FAIL. Stdout audit does not substitute for process/stderr receipts.",
+    "resources": "Extract exact GNU time labels; require resource command equal space-joined receipt argv, exit status zero agreeing with receipt, wall time within 0.1s, empty stderr, zero swaps/signals. Maximum RSS is the tool-reported Linux kbytes value for that command, not an aggregate machine memory measurement."
+  },
+  "stages": {
+    "go-unit": {
+      "source_log": {
+        "path": ".cache/luigi/evidence/go-unit.stdout",
+        "sha256": "09ca163c601b2e20c057f92eec4261e62961696f1c76c5b2114089911c984a9d",
+        "bytes": 445671
+      },
+      "json_event_count": 2266,
+      "first_event_utc": "2026-10-01T18:20:14.793801595Z",
+      "last_event_utc": "2026-10-01T18:20:32.380870906Z",
+      "packages": {
+        "pass": 8,
+        "skip_no_test_files": 7,
+        "fail": 0
+      },
+      "top_level": {
+        "executions": {
+          "run": 272,
+          "pass": 272,
+          "skip": 0,
+          "fail": 0
+        },
+        "unique_names_run": 272,
+        "terminal_events_match_runs": true
+      },
+      "subtests": {
+        "executions": {
+          "run": 30,
+          "pass": 30,
+          "skip": 0,
+          "fail": 0
+        },
+        "unique_names_run": 30,
+        "terminal_events_match_runs": true
+      },
+      "diagnostics": [],
+      "per_package": [
+        {
+          "package": "github.com/casbin/casbin/v3",
+          "result": "pass",
+          "elapsed_seconds": 17.587,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 199,
+              "pass": 199,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 199,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 25,
+              "pass": 25,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 25,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/config",
+          "result": "pass",
+          "elapsed_seconds": 0.004,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 1,
+              "pass": 1,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 1,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/constant",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/detector",
+          "result": "pass",
+          "elapsed_seconds": 0.085,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 16,
+              "pass": 16,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 16,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/effector",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/errors",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/log",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/model",
+          "result": "pass",
+          "elapsed_seconds": 0.007,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 7,
+              "pass": 7,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 7,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/persist",
+          "result": "pass",
+          "elapsed_seconds": 0.006,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 4,
+              "pass": 4,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 4,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 5,
+              "pass": 5,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 5,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/persist/cache",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/persist/file-adapter",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/persist/string-adapter",
+          "result": "pass",
+          "elapsed_seconds": 0.006,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 3,
+              "pass": 3,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 3,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/rbac",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/rbac/default-role-manager",
+          "result": "pass",
+          "elapsed_seconds": 0.024,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 10,
+              "pass": 10,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 10,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/util",
+          "result": "pass",
+          "elapsed_seconds": 0.01,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 32,
+              "pass": 32,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 32,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        }
+      ],
+      "shuffle_seeds": [],
+      "process_receipt": {
+        "command": [
+          "go",
+          "test",
+          "-mod=readonly",
+          "-p",
+          "8",
+          "-count=1",
+          "-timeout=15m",
+          "-json",
+          "./..."
+        ],
+        "cwd": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/upstream-tests-go-unit",
+        "exit_code": 0,
+        "elapsed_seconds": 21.02394874067977,
+        "started_utc": "2026-10-01T18:20:11.398620+00:00",
+        "finished_utc": "2026-10-01T18:20:32.422571+00:00",
+        "timeout_seconds": 1200,
+        "stdout": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-unit.stdout",
+        "stderr": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-unit.stderr",
+        "resource_log": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-unit.resources",
+        "checkout_status_after": ""
+      },
+      "stderr_log": {
+        "path": ".cache/luigi/evidence/go-unit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr_empty": true,
+      "resource_log": {
+        "path": ".cache/luigi/evidence/go-unit.resources",
+        "sha256": "a3da3b6b80484ffb29731a2d80f85a32705ef9b249897c8ed38e891748e49dfd",
+        "bytes": 798
+      },
+      "resources": {
+        "user_seconds": 25.38,
+        "system_seconds": 4.24,
+        "wall_seconds": 21.01,
+        "cpu_percent": 140,
+        "maximum_resident_set_size_kbytes": 221760,
+        "swaps": 0,
+        "signals_delivered": 0,
+        "exit_status": 0
+      },
+      "resource_command_matches_receipt": true,
+      "resource_wall_time_matches_receipt_within_0_1s": true
+    },
+    "go-race": {
+      "source_log": {
+        "path": ".cache/luigi/evidence/go-race.stdout",
+        "sha256": "b93b135cf79b0b6917a2005b8d93fb5ce485b5c1d1219981d70ef7cb990f23f9",
+        "bytes": 445683
+      },
+      "json_event_count": 2266,
+      "first_event_utc": "2026-10-01T18:20:55.422679324Z",
+      "last_event_utc": "2026-10-01T18:21:14.856526493Z",
+      "packages": {
+        "pass": 8,
+        "skip_no_test_files": 7,
+        "fail": 0
+      },
+      "top_level": {
+        "executions": {
+          "run": 272,
+          "pass": 272,
+          "skip": 0,
+          "fail": 0
+        },
+        "unique_names_run": 272,
+        "terminal_events_match_runs": true
+      },
+      "subtests": {
+        "executions": {
+          "run": 30,
+          "pass": 30,
+          "skip": 0,
+          "fail": 0
+        },
+        "unique_names_run": 30,
+        "terminal_events_match_runs": true
+      },
+      "diagnostics": [],
+      "per_package": [
+        {
+          "package": "github.com/casbin/casbin/v3",
+          "result": "pass",
+          "elapsed_seconds": 19.434,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 199,
+              "pass": 199,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 199,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 25,
+              "pass": 25,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 25,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/config",
+          "result": "pass",
+          "elapsed_seconds": 1.023,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 1,
+              "pass": 1,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 1,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/constant",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/detector",
+          "result": "pass",
+          "elapsed_seconds": 1.326,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 16,
+              "pass": 16,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 16,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/effector",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/errors",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/log",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/model",
+          "result": "pass",
+          "elapsed_seconds": 1.026,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 7,
+              "pass": 7,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 7,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/persist",
+          "result": "pass",
+          "elapsed_seconds": 1.026,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 4,
+              "pass": 4,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 4,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 5,
+              "pass": 5,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 5,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/persist/cache",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/persist/file-adapter",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/persist/string-adapter",
+          "result": "pass",
+          "elapsed_seconds": 1.025,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 3,
+              "pass": 3,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 3,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/rbac",
+          "result": "skip",
+          "elapsed_seconds": 0,
+          "no_test_files": true,
+          "top_level": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/rbac/default-role-manager",
+          "result": "pass",
+          "elapsed_seconds": 1.138,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 10,
+              "pass": 10,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 10,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        },
+        {
+          "package": "github.com/casbin/casbin/v3/util",
+          "result": "pass",
+          "elapsed_seconds": 1.06,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 32,
+              "pass": 32,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 32,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 0,
+              "pass": 0,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 0,
+            "terminal_events_match_runs": true
+          }
+        }
+      ],
+      "shuffle_seeds": [],
+      "process_receipt": {
+        "command": [
+          "go",
+          "test",
+          "-mod=readonly",
+          "-p",
+          "8",
+          "-race",
+          "-count=1",
+          "-timeout=20m",
+          "-json",
+          "./..."
+        ],
+        "cwd": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/upstream-tests-go-race",
+        "exit_code": 0,
+        "elapsed_seconds": 42.37489018496126,
+        "started_utc": "2026-10-01T18:20:32.560303+00:00",
+        "finished_utc": "2026-10-01T18:21:14.935193+00:00",
+        "timeout_seconds": 1500,
+        "stdout": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-race.stdout",
+        "stderr": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-race.stderr",
+        "resource_log": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-race.resources",
+        "checkout_status_after": ""
+      },
+      "stderr_log": {
+        "path": ".cache/luigi/evidence/go-race.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr_empty": true,
+      "resource_log": {
+        "path": ".cache/luigi/evidence/go-race.resources",
+        "sha256": "52ec8b27a1c89204ee8494be1b20a1570be7a8ed17820a9bccc6e9126327726d",
+        "bytes": 805
+      },
+      "resources": {
+        "user_seconds": 60.56,
+        "system_seconds": 9.17,
+        "wall_seconds": 42.36,
+        "cpu_percent": 164,
+        "maximum_resident_set_size_kbytes": 233124,
+        "swaps": 0,
+        "signals_delivered": 0,
+        "exit_status": 0
+      },
+      "resource_command_matches_receipt": true,
+      "resource_wall_time_matches_receipt_within_0_1s": true
+    },
+    "go-schedule-stress": {
+      "source_log": {
+        "path": ".cache/luigi/evidence/go-schedule-stress.stdout",
+        "sha256": "7ade7f86aaf5fe86790d88ff13d739456f7429df96311bad889cd52243a43f3b",
+        "bytes": 233434
+      },
+      "json_event_count": 899,
+      "first_event_utc": "2026-10-01T18:21:23.099136681Z",
+      "last_event_utc": "2026-10-01T18:22:17.412551452Z",
+      "packages": {
+        "pass": 1,
+        "skip_no_test_files": 0,
+        "fail": 0
+      },
+      "top_level": {
+        "executions": {
+          "run": 87,
+          "pass": 87,
+          "skip": 0,
+          "fail": 0
+        },
+        "unique_names_run": 29,
+        "terminal_events_match_runs": true
+      },
+      "subtests": {
+        "executions": {
+          "run": 9,
+          "pass": 9,
+          "skip": 0,
+          "fail": 0
+        },
+        "unique_names_run": 3,
+        "terminal_events_match_runs": true
+      },
+      "diagnostics": [],
+      "per_package": [
+        {
+          "package": "github.com/casbin/casbin/v3",
+          "result": "pass",
+          "elapsed_seconds": 54.313,
+          "no_test_files": false,
+          "top_level": {
+            "executions": {
+              "run": 87,
+              "pass": 87,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 29,
+            "terminal_events_match_runs": true
+          },
+          "subtests": {
+            "executions": {
+              "run": 9,
+              "pass": 9,
+              "skip": 0,
+              "fail": 0
+            },
+            "unique_names_run": 3,
+            "terminal_events_match_runs": true
+          }
+        }
+      ],
+      "shuffle_seeds": [
+        "1790878883120455532"
+      ],
+      "unique_test_names": [
+        "TestCachedGFunctionAfterAddingGroupingPolicy",
+        "TestCachedGFunctionAfterBuildRoleLinks",
+        "TestCachedGFunctionAfterRemovingGroupingPolicy",
+        "TestCachedGFunctionWithMultipleEnforceCalls",
+        "TestConcurrentTransactions",
+        "TestStopAutoLoadPolicy",
+        "TestSync",
+        "TestSyncCache",
+        "TestSyncedEnforcerAddGroupingPoliciesEx",
+        "TestSyncedEnforcerAddNamedGroupingPoliciesEx",
+        "TestSyncedEnforcerAddNamedPoliciesEx",
+        "TestSyncedEnforcerAddPoliciesEx",
+        "TestSyncedEnforcerSelfAddPolicies",
+        "TestSyncedEnforcerSelfAddPoliciesEx",
+        "TestSyncedEnforcerSelfAddPolicy",
+        "TestSyncedEnforcerSelfRemoveFilteredPolicy",
+        "TestSyncedEnforcerSelfRemovePolicies",
+        "TestSyncedEnforcerSelfRemovePolicy",
+        "TestSyncedEnforcerSelfUpdatePolicies",
+        "TestSyncedEnforcerSelfUpdatePolicy",
+        "TestTransactionBasicOperations",
+        "TestTransactionBuffer",
+        "TestTransactionConflicts",
+        "TestTransactionConflicts/NoCommitAfterRollback",
+        "TestTransactionConflicts/TransactionRollback",
+        "TestTransactionConflicts/TwoTransactionsCommit",
+        "TestTransactionGetAdapter",
+        "TestTransactionGroupingPolicies",
+        "TestTransactionRemoveFilteredPolicy",
+        "TestTransactionRemoveFilteredPolicyRollback",
+        "TestTransactionRollback",
+        "TestTransactionUpdateGroupingPolicy"
+      ],
+      "process_receipt": {
+        "command": [
+          "go",
+          "test",
+          "-mod=readonly",
+          "-p",
+          "8",
+          "-race",
+          "-count=3",
+          "-shuffle=on",
+          "-timeout=20m",
+          "-json",
+          "-run",
+          "^(TestSync|TestStopAutoLoadPolicy|TestSynced|TestConcurrentTransactions|TestTransaction|TestCachedGFunction)",
+          "."
+        ],
+        "cwd": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/upstream-tests-go-schedule-stress",
+        "exit_code": 0,
+        "elapsed_seconds": 59.95402229717001,
+        "started_utc": "2026-10-01T18:21:17.483330+00:00",
+        "finished_utc": "2026-10-01T18:22:17.437354+00:00",
+        "timeout_seconds": 1500,
+        "stdout": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-schedule-stress.stdout",
+        "stderr": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-schedule-stress.stderr",
+        "resource_log": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-schedule-stress.resources",
+        "checkout_status_after": ""
+      },
+      "stderr_log": {
+        "path": ".cache/luigi/evidence/go-schedule-stress.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr_empty": true,
+      "resource_log": {
+        "path": ".cache/luigi/evidence/go-schedule-stress.resources",
+        "sha256": "e98c63ee3d81454b1cb2965d5ead38db3625ffc9d03bd7c87f195ddf22007ecd",
+        "bytes": 919
+      },
+      "resources": {
+        "user_seconds": 9.62,
+        "system_seconds": 1.45,
+        "wall_seconds": 59.94,
+        "cpu_percent": 18,
+        "maximum_resident_set_size_kbytes": 224104,
+        "swaps": 0,
+        "signals_delivered": 0,
+        "exit_status": 0
+      },
+      "resource_command_matches_receipt": true,
+      "resource_wall_time_matches_receipt_within_0_1s": true
+    }
+  },
+  "fuzz": {
+    "source_log": {
+      "path": ".cache/luigi/evidence/go-fuzz-inventory.stdout",
+      "sha256": "e12b2c9d46902baafa64f65f88004e847f42964b5d153ed010815996406482e7",
+      "bytes": 816
+    },
+    "targets": [],
+    "status": "not_applicable",
+    "reason": "Pinned upstream declares no Go Fuzz targets; inventory is not a fuzz execution.",
+    "process_receipt": {
+      "command": [
+        "go",
+        "test",
+        "-mod=readonly",
+        "-p",
+        "8",
+        "-list",
+        "^Fuzz",
+        "./..."
+      ],
+      "cwd": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/upstream-tests-go-fuzz-inventory",
+      "exit_code": 0,
+      "elapsed_seconds": 4.992352781817317,
+      "started_utc": "2026-10-01T18:22:17.561280+00:00",
+      "finished_utc": "2026-10-01T18:22:22.553633+00:00",
+      "timeout_seconds": 300,
+      "stdout": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-fuzz-inventory.stdout",
+      "stderr": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-fuzz-inventory.stderr",
+      "resource_log": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-fuzz-inventory.resources",
+      "checkout_status_after": ""
+    },
+    "stderr_log": {
+      "path": ".cache/luigi/evidence/go-fuzz-inventory.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "stderr_empty": true,
+    "resource_log": {
+      "path": ".cache/luigi/evidence/go-fuzz-inventory.resources",
+      "sha256": "02d63e84a990146b2b0bef0d314c384d7f2a1253ed71373eb24ece481e61e0d5",
+      "bytes": 777
+    },
+    "resources": {
+      "user_seconds": 14.95,
+      "system_seconds": 2.05,
+      "wall_seconds": 4.98,
+      "cpu_percent": 341,
+      "maximum_resident_set_size_kbytes": 227136,
+      "swaps": 0,
+      "signals_delivered": 0,
+      "exit_status": 0
+    },
+    "resource_command_matches_receipt": true,
+    "resource_wall_time_matches_receipt_within_0_1s": true
+  },
+  "limitations": [
+    "Counts describe the pinned upstream suite, not the OCaml supported API surface or a compatibility percentage.",
+    "Copied stdout, stderr and GNU time resource logs are SHA256-bound alongside the gauntlet process receipt. All audited Go stderr logs are empty and resource exit statuses agree with the receipt."
+  ],
+  "gauntlet_provenance": {
+    "receipt": {
+      "path": ".cache/luigi/evidence/gauntlet.json",
+      "sha256": "e0569051386bde01bdea9338f3352136d211843e5c70462a5de2e3395b4d4cf3",
+      "bytes": 101866
+    },
+    "project_revision": "b013d40d48614a7dd627e30ea7a9291ef2a8295b",
+    "upstream_revision": "524f3f2dc9baef696d748db491d49b3055d359d1",
+    "machine_hostname": "luigi",
+    "toolchains": {
+      "ocamlc": "5.5.0",
+      "ocamlopt": "5.5.0",
+      "dune": "3.24.2",
+      "go": "go version go1.22.2 linux/amd64",
+      "python": "3.12.3",
+      "go_env": "{\n\t\"CC\": \"gcc\",\n\t\"CGO_ENABLED\": \"1\",\n\t\"GOARCH\": \"amd64\",\n\t\"GOOS\": \"linux\"\n}"
+    },
+    "limits": {
+      "gomaxprocs": 8,
+      "go_package_parallelism": 8
+    },
+    "all_17_stage_exits_zero": true,
+    "original_upstream_clean_after": true,
+    "project_clean_before_and_after": true
+  },
+  "vet": {
+    "process_receipt": {
+      "command": [
+        "go",
+        "vet",
+        "-mod=readonly",
+        "-p",
+        "8",
+        "./..."
+      ],
+      "cwd": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/upstream-tests-go-vet",
+      "exit_code": 0,
+      "elapsed_seconds": 2.2926887585781515,
+      "started_utc": "2026-10-01T18:21:15.065865+00:00",
+      "finished_utc": "2026-10-01T18:21:17.358552+00:00",
+      "timeout_seconds": 600,
+      "stdout": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-vet.stdout",
+      "stderr": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-vet.stderr",
+      "resource_log": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-vet.resources",
+      "checkout_status_after": ""
+    },
+    "interpretation": "go vet ./... succeeded; this does not claim a golangci-lint gate.",
+    "stderr_log": {
+      "path": ".cache/luigi/evidence/go-vet.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "stderr_empty": true,
+    "resource_log": {
+      "path": ".cache/luigi/evidence/go-vet.resources",
+      "sha256": "01f4c3ca79187653d82cb7b902435154ba9cfd9f5909e4028f4bcfd4177ddedd",
+      "bytes": 763
+    },
+    "resources": {
+      "user_seconds": 13.0,
+      "system_seconds": 2.44,
+      "wall_seconds": 2.28,
+      "cpu_percent": 675,
+      "maximum_resident_set_size_kbytes": 152320,
+      "swaps": 0,
+      "signals_delivered": 0,
+      "exit_status": 0
+    },
+    "resource_command_matches_receipt": true,
+    "resource_wall_time_matches_receipt_within_0_1s": true
+  }
+}

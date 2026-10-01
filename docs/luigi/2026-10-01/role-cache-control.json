@@ -1,0 +1,471 @@
+{
+  "schema_version": 1,
+  "captured_at_utc": "2026-10-01T19:09:23.013886+00:00",
+  "experiment": "warm-role request-reuse control",
+  "upstream_commit": "524f3f2dc9baef696d748db491d49b3055d359d1",
+  "profile": "release",
+  "reference": {
+    "path": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/results/paired-release.json",
+    "sha256": "f1dd20fec6c4d890f37eaaa0c66d728457b3f82ecede498a88ba0e6e1b30c3e5",
+    "project_revision": "b013d40d48614a7dd627e30ea7a9291ef2a8295b",
+    "project_status": ""
+  },
+  "provenance": {
+    "project_revision": "b013d40d48614a7dd627e30ea7a9291ef2a8295b",
+    "project_status": "",
+    "project_revision_after": "b013d40d48614a7dd627e30ea7a9291ef2a8295b",
+    "project_status_after": "",
+    "source_validation_mode": "same clean revision and source fingerprints",
+    "source_sha256": {
+      "bin/benchmark.ml": "143ba0068a41ce5fc0d55ed76e90294177d135ee0e5bae8776d04815120c4d82",
+      "bin/benchmark_clock.c": "fc7122cf4a3ebcb90426c1a6f1e64b3ca44a10177e3e888de59d82d251c26a0b",
+      "bin/dune": "804b06cda7a41a9b9e91c50863725481e1e69afbb88206f8c07a56c0fe860601",
+      "dune-project": "a6c16931fb3bcc37181fa1edac32905b42e2823c16627a690a7b47162d739245",
+      "lib/abac_expr.ml": "906796c6641f5d0a5f2229223beae7be64296d1a2d3ab4214229fa4e2f2a6812",
+      "lib/abac_expr.mli": "7c37a81d826f91d87e30eb21696275052c761ef9fe023e8af2e40d3f91725632",
+      "lib/dune": "e0893a0f0948f8b11ca80760590d9f61895a44d8a2e8cd71a549c967ccb102e4",
+      "lib/effector.ml": "e557968c8a908012f0cf14e1a175d8e615ec2cf8fb95c4e54710b0e7b8e9ae17",
+      "lib/effector.mli": "4a0100ecd53d8f0d6f44ba2304458c3c248f780e8a81ed6abb2b00a51fc8fb37",
+      "lib/enforcer.ml": "95cf3f99b1c6489a5dabdc5f7371f061ed29be530c267a8d90f0ab700e3b7819",
+      "lib/enforcer.mli": "00469c0692728906b5bb80db547eff3b1fe131fca2d2404719ecc54e6bc8bf9e",
+      "lib/expr.ml": "54f1890c1f154c482c647c7c3f14724b5ed7df02eb06a38c1b385ab3bca03530",
+      "lib/expr.mli": "e097a394095962fde3a4b2ad527013fbb964df017a2b20df50e0f344b078aa82",
+      "lib/model.ml": "563e5f89c8c94305b935471717fc0708556604cab7c25816dd309db0e269ef52",
+      "lib/model.mli": "96eb30795f5202725dee0df3f67f3eee597bc2e21930889b04399a0bd78932ce",
+      "lib/policy.ml": "fc8acc9e2ef3fc5b1a537cb23abfab5bc5227c4e4221e63b9f616efa7018f10b",
+      "lib/policy.mli": "a1e86172be9d3dacec5361162ee91d4412ce83be2efe9d2d4d798bae7e2920dd",
+      "lib/priority.ml": "aa3a26f84bb512dac4050beb144c39b7fdabe8d7efdee45347f2088027961945",
+      "lib/priority.mli": "33d30b9e48ab9b83fa0726aa39ccdf9aea58dd91069f3092fa088b6289c9c5c1",
+      "lib/role_manager.ml": "3970a12001f5cc4de7901d153b16dfab539e7a0230e7160dfb3fa16ad6ddc1d6",
+      "lib/role_manager.mli": "9c793b708e9e63ab288166f860fc945ca6e1eaf2b722553a16144f938dc75383",
+      "lib/value.ml": "06b941a0101fec755aa99c23d8be6ce80d0758ed5558a302af91e8f0a8367e10",
+      "lib/value.mli": "876f154268f23f497eb9239f55ced06eec80b8a554c684480e7edbf2bc4ff5ae",
+      "oracle/benchmark/main.go": "9003c98b77fafd2211f1c45aaff6bd9c51a8b6f33557bb0f304e681d136098a1",
+      "oracle/go.mod": "1ce28224dc5cb1035838cff9b5e5928482d1bcb8bf2150450879fdb4de493bf9",
+      "oracle/go.sum": "6ce17b46d710210b14fbd41727a1188b29a0ffadf0f988853ac73c4b8efc1e95",
+      "scripts/benchmark.py": "adb98a97ebb2a08f08f1ac1e6a29f599fc8103e346b5748d468bc0dbf4b34306"
+    },
+    "binary_sha256": {
+      "ocaml": "4b318581af7d8d92171a3f86919da0d56a331e0241ebdec9f82c788d07134d19",
+      "go": "c4817632fe0a59bb0f64ed7dc5a86c40100e36eaf2d782bb04167d06f5acae62"
+    },
+    "binary_paths": {
+      "ocaml": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/project/_build/default/bin/benchmark.exe",
+      "go": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/project/.cache/casbin-benchmark-release"
+    },
+    "driver_sha256": "9dca7b2665e494aefa2b3ceb378dd86c6acfc83fc8e3851f544ce9d8cf144aa6",
+    "command": [
+      "/usr/bin/python3",
+      "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/tools/role_cache_benchmark.py",
+      "--project-root",
+      "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/project",
+      "--reference",
+      "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/results/paired-release.json",
+      "--output",
+      "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/results/role-cache-control.json"
+    ]
+  },
+  "versions": {
+    "ocamlc": "5.5.0",
+    "ocamlopt": "5.5.0",
+    "dune": "3.24.2",
+    "go": "go version go1.22.2 linux/amd64"
+  },
+  "machine": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39",
+    "uname": {
+      "system": "Linux",
+      "node": "luigi",
+      "release": "6.8.0-138-generic",
+      "version": "#138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:41:49 UTC 2026",
+      "machine": "x86_64",
+      "processor": "x86_64"
+    },
+    "cpu_count": 56,
+    "load_average": [
+      1.32763671875,
+      1.4658203125,
+      1.43994140625
+    ],
+    "affinity_cpus": [
+      2
+    ],
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2695 v3 @ 2.30GHz",
+    "memory_kib": {
+      "MemTotal": 131900092,
+      "MemAvailable": 121463136,
+      "SwapTotal": 8388604,
+      "SwapFree": 8380412
+    },
+    "physical_memory_bytes": 135065694208,
+    "cpu_governor": "ondemand",
+    "cgroup_limits": {
+      "cpu.max": null,
+      "memory.max": null,
+      "memory.current": null
+    },
+    "os_release": "PRETTY_NAME=\"Ubuntu 24.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.4 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo"
+  },
+  "machine_after": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39",
+    "uname": {
+      "system": "Linux",
+      "node": "luigi",
+      "release": "6.8.0-138-generic",
+      "version": "#138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:41:49 UTC 2026",
+      "machine": "x86_64",
+      "processor": "x86_64"
+    },
+    "cpu_count": 56,
+    "load_average": [
+      1.27685546875,
+      1.4501953125,
+      1.43505859375
+    ],
+    "affinity_cpus": [
+      2
+    ],
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2695 v3 @ 2.30GHz",
+    "memory_kib": {
+      "MemTotal": 131900092,
+      "MemAvailable": 121459188,
+      "SwapTotal": 8388604,
+      "SwapFree": 8380412
+    },
+    "physical_memory_bytes": 135065694208,
+    "cpu_governor": "ondemand",
+    "cgroup_limits": {
+      "cpu.max": null,
+      "memory.max": null,
+      "memory.current": null
+    },
+    "os_release": "PRETTY_NAME=\"Ubuntu 24.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.4 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo"
+  },
+  "runtime": {
+    "effective_flags": {
+      "OCAMLRUNPARAM": null,
+      "OCAMLPARAM": null,
+      "GOGC": null,
+      "GOMAXPROCS": "1",
+      "GOMEMLIMIT": null,
+      "GOFLAGS": null,
+      "GOOS": null,
+      "GOARCH": null,
+      "CGO_ENABLED": null
+    },
+    "effective": {
+      "ocaml": {
+        "minor_heap_words": 262144,
+        "space_overhead": 120,
+        "stack_limit_words": 134217728,
+        "verbose": 0
+      },
+      "go": {
+        "cpu_count": 1,
+        "gc_percent": 100,
+        "gomaxprocs": 1,
+        "memory_limit_bytes": 9223372036854775807
+      }
+    }
+  },
+  "rows": 10000,
+  "iterations": 100000,
+  "repeats": 7,
+  "input_sha256": {
+    "model_sha256": "737db4ba80fb208a4c4f2bd4819fddce63bd46345aa447b43f164738605c8a3e",
+    "policy_sha256": "12b4f0c34723718c9fa121d35ab5667865b64313e33dd0188ab36443b6a882c4",
+    "schema_sha256": "4c13f312a466c3b0a77309ac4963d8525b93082dc83cbb1ab738e9c5151e5fcf",
+    "request_sha256": "6cf84b11ff5b0e349a0bae804aaa9e589ba38a86727dc574f7f2b540974c8515"
+  },
+  "schema": {
+    "sub": "string",
+    "obj": "string",
+    "act": "string"
+  },
+  "request": {
+    "sub": "u0",
+    "obj": "data",
+    "act": "read"
+  },
+  "cold_reference_records": [
+    {
+      "scenario": "rbac-cold",
+      "language": "ocaml",
+      "rows": 10000,
+      "policy_rows": 1,
+      "grouping_rows": 10009,
+      "schema": {
+        "sub": "string",
+        "obj": "string",
+        "act": "string"
+      },
+      "request": {
+        "sub": {
+          "strategy": "unique u0..u(iterations-1)",
+          "cold_role_tuples": true,
+          "expression_warmup_subject": "warmup-unlinked"
+        },
+        "obj": "data",
+        "act": "read"
+      },
+      "input_sha256": {
+        "model_sha256": "737db4ba80fb208a4c4f2bd4819fddce63bd46345aa447b43f164738605c8a3e",
+        "policy_sha256": "12b4f0c34723718c9fa121d35ab5667865b64313e33dd0188ab36443b6a882c4",
+        "schema_sha256": "4c13f312a466c3b0a77309ac4963d8525b93082dc83cbb1ab738e9c5151e5fcf",
+        "request_sha256": "c57b6be2eb3b645db76f190d717c6cd622ab35a78e35b4b0bb3ffceb8941431f"
+      },
+      "iterations": 10000,
+      "warmup_operations": 1,
+      "checksum": 10000,
+      "sample_order": [
+        [
+          "ocaml",
+          "go"
+        ],
+        [
+          "go",
+          "ocaml"
+        ],
+        [
+          "ocaml",
+          "go"
+        ],
+        [
+          "go",
+          "ocaml"
+        ],
+        [
+          "ocaml",
+          "go"
+        ],
+        [
+          "go",
+          "ocaml"
+        ],
+        [
+          "ocaml",
+          "go"
+        ]
+      ],
+      "seconds": [
+        0.046139926,
+        0.04249343,
+        0.042512024,
+        0.043671453,
+        0.044378226,
+        0.043894606,
+        0.042966656
+      ],
+      "allocated_bytes": [
+        73600128.0,
+        73600128.0,
+        73600128.0,
+        73600128.0,
+        73600128.0,
+        73600128.0,
+        73600128.0
+      ],
+      "median_allocated_bytes_per_operation": 7360.0128,
+      "median_seconds": 0.043671453,
+      "median_us_per_operation": 4.3671453
+    },
+    {
+      "scenario": "rbac-cold",
+      "language": "go",
+      "rows": 10000,
+      "policy_rows": 1,
+      "grouping_rows": 10009,
+      "schema": {
+        "sub": "string",
+        "obj": "string",
+        "act": "string"
+      },
+      "request": {
+        "sub": {
+          "strategy": "unique u0..u(iterations-1)",
+          "cold_role_tuples": true,
+          "expression_warmup_subject": "warmup-unlinked"
+        },
+        "obj": "data",
+        "act": "read"
+      },
+      "input_sha256": {
+        "model_sha256": "737db4ba80fb208a4c4f2bd4819fddce63bd46345aa447b43f164738605c8a3e",
+        "policy_sha256": "12b4f0c34723718c9fa121d35ab5667865b64313e33dd0188ab36443b6a882c4",
+        "schema_sha256": "4c13f312a466c3b0a77309ac4963d8525b93082dc83cbb1ab738e9c5151e5fcf",
+        "request_sha256": "c57b6be2eb3b645db76f190d717c6cd622ab35a78e35b4b0bb3ffceb8941431f"
+      },
+      "iterations": 10000,
+      "warmup_operations": 1,
+      "checksum": 10000,
+      "sample_order": [
+        [
+          "ocaml",
+          "go"
+        ],
+        [
+          "go",
+          "ocaml"
+        ],
+        [
+          "ocaml",
+          "go"
+        ],
+        [
+          "go",
+          "ocaml"
+        ],
+        [
+          "ocaml",
+          "go"
+        ],
+        [
+          "go",
+          "ocaml"
+        ],
+        [
+          "ocaml",
+          "go"
+        ]
+      ],
+      "seconds": [
+        0.123275969,
+        0.113746842,
+        0.132099926,
+        0.125780118,
+        0.116395199,
+        0.115500527,
+        0.123099699
+      ],
+      "allocated_bytes": [
+        18050176.0,
+        18057872.0,
+        18067856.0,
+        18083528.0,
+        18070560.0,
+        18053504.0,
+        18079160.0
+      ],
+      "median_allocated_bytes_per_operation": 1806.7856,
+      "median_seconds": 0.123099699,
+      "median_us_per_operation": 12.3099699
+    }
+  ],
+  "sample_order": [
+    [
+      "ocaml",
+      "go"
+    ],
+    [
+      "go",
+      "ocaml"
+    ],
+    [
+      "ocaml",
+      "go"
+    ],
+    [
+      "go",
+      "ocaml"
+    ],
+    [
+      "ocaml",
+      "go"
+    ],
+    [
+      "go",
+      "ocaml"
+    ],
+    [
+      "ocaml",
+      "go"
+    ]
+  ],
+  "interpretation": "Same model, policy, schema, one permission row and full identity graph. Cold uses unique subjects after one disjoint sentinel warmup; warm reuses u0 after repeated warmup. Cold also formats each subject and constructs each request inside timing, while warm preconstructs its request. This changes request reuse and formatting as well as Go g-cache hits; it is not a pure isolated g-cache ablation.",
+  "results": [
+    {
+      "scenario": "rbac-warm-control",
+      "binary_scenario": "rbac",
+      "language": "ocaml",
+      "rows": 10000,
+      "policy_rows": 1,
+      "grouping_rows": 10009,
+      "iterations": 100000,
+      "warmup_operations": 50,
+      "checksum": 100000,
+      "command_template": [
+        "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/project/_build/default/bin/benchmark.exe",
+        "rbac",
+        "MODEL.conf",
+        "POLICY.csv",
+        "100000",
+        "10000"
+      ],
+      "seconds": [
+        0.413866164,
+        0.412744358,
+        0.410224893,
+        0.409846555,
+        0.416525042,
+        0.408122456,
+        0.409907593
+      ],
+      "allocated_bytes": [
+        730400128.0,
+        730400128.0,
+        730400128.0,
+        730400128.0,
+        730400128.0,
+        730400128.0,
+        730400128.0
+      ],
+      "median_seconds": 0.410224893,
+      "median_us_per_operation": 4.10224893,
+      "median_allocated_bytes_per_operation": 7304.00128
+    },
+    {
+      "scenario": "rbac-warm-control",
+      "binary_scenario": "rbac",
+      "language": "go",
+      "rows": 10000,
+      "policy_rows": 1,
+      "grouping_rows": 10009,
+      "iterations": 100000,
+      "warmup_operations": 50,
+      "checksum": 100000,
+      "command_template": [
+        "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/project/.cache/casbin-benchmark-release",
+        "rbac",
+        "MODEL.conf",
+        "POLICY.csv",
+        "100000",
+        "10000"
+      ],
+      "seconds": [
+        0.715155658,
+        0.711774854,
+        0.713104774,
+        0.730936974,
+        0.718314451,
+        0.718484385,
+        0.704142058
+      ],
+      "allocated_bytes": [
+        157472952.0,
+        157427816.0,
+        157450736.0,
+        157407640.0,
+        157474408.0,
+        157455896.0,
+        157433016.0
+      ],
+      "median_seconds": 0.715155658,
+      "median_us_per_operation": 7.15155658,
+      "median_allocated_bytes_per_operation": 1574.50736
+    }
+  ]
+}

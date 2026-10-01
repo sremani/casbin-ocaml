@@ -119,8 +119,10 @@ User-authorized extension: transfer both pinned Casbin and Casbin-OCaml to Luigi
 
 | Ticket | Work and acceptance gate | Owner | Depends on | Status |
 | --- | --- | --- | --- | --- |
-| CB-501 | Transfer exact sources, provision project-local OCaml 5.5/Dune, capture Luigi hardware/toolchains | PitBoss | M8 | In progress |
-| CB-502 | Pinned Go full tests, race, vet, schedule stress and native benchmark evidence in disposable checkouts | PitBoss + PitCrew Intake | CB-501 | In progress |
-| CB-503 | OCaml repeat/package gates and seeded differential stress, complete receipts and reproducers | PitCrew Oracle + PitBoss | CB-501 | In progress |
-| CB-504 | Release-profile paired benchmark matrix, scaling/cold-cache/runtime controls and checked results | PitCrew Matcher + PitBoss | CB-501 | In progress |
-| CB-505 | Audit failures, review receipts, report measured comparisons and record local commit | PitBoss + crew | CB-502–504 | In progress |
+| CB-501 | Transfer exact sources, provision project-local OCaml 5.5/Dune, capture Luigi hardware/toolchains | PitBoss | M8 | Done |
+| CB-502 | Pinned Go full tests, race, vet, schedule stress and native benchmark evidence in disposable checkouts | PitBoss + PitCrew Intake | CB-501 | Done |
+| CB-503 | OCaml repeat/package gates and seeded differential stress, complete receipts and reproducers | PitCrew Oracle + PitBoss | CB-501 | Done |
+| CB-504 | Release-profile paired benchmark matrix, scaling/cold-cache/runtime controls and checked results | PitCrew Matcher + PitBoss | CB-501 | Done |
+| CB-505 | Audit failures, review receipts, report measured comparisons and record local commit | PitBoss + crew | CB-502–504 | Done |
+
+- M9 gate: Luigi OCaml 5.5.0/Dune 3.24.2 and Go 1.22.2; all 17 gauntlet stages pass. Go unit/race each 302 test/subtest runs, vet and shuffled concurrency pass; 174 native benchmark samples complete. Differential stress passes 9,000 cases/31,045 management steps and all 837 eligible anchors, with full JSONL evidence and 73 audit assertions. Release matrix plus longer first-match and same-graph request-reuse controls pass 826 samples and 529 benchmark audit assertions. Exact sources, binaries, runtime settings, raw receipts, archive hashes and limitations are in docs/luigi/2026-10-01/README.md. Production library is unchanged; no GitHub publication. All M9 tickets are Done; local results commit is recorded in Git history.

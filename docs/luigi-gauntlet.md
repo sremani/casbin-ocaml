@@ -65,11 +65,25 @@ and should be interpreted cautiously.
 The receipt records actual iteration counts, raw samples, medians, workload
 hashes, compiler/runtime settings, machine load/affinity and source/binary
 hashes. The scan budget bounds expensive cases; it is not a latency guarantee.
+It counts logical row visits, not internal effector work: pinned Go normal
+priority scans the full effect buffer after each evaluated row. With only the
+last row matching, that produces N(N−1)+1 merge-slot checks. The OCaml effector
+streams ordered outcomes. This is an implementation cost difference for the
+measured workload, rather than a general language claim.
 GC flags are opt-in per-process experiments and must be reported separately
 from default-runtime measurements. Luigi is a shared host: CPU pinning reduces
 scheduling variation but does not eliminate shared-cache or memory interference.
 Timings are evidence rather than pass/fail speed targets. M8's earlier local
 performance receipt remains historical and separate.
 
-Final Luigi results and their limitations will be recorded alongside the raw
-receipts after all stages finish.
+The focused first-match receipt uses 100,000 operations at 10,000 rows because
+the matrix's row budget yields very short OCaml first-match samples. A separate
+`scripts/role_cache_benchmark.py` control verifies and reuses the matrix binaries,
+source hashes and runtime settings. It holds the cold-role model, one permission
+row and 10,000-identity graph constant while measuring repeated `u0` requests.
+The original cold case measures fresh subject/role tuples; formatting those
+subjects also occurs inside its timer. This control changes request reuse and
+that formatting cost together, so it is not a pure isolated cache ablation.
+
+The completed [Luigi results](luigi/2026-10-01/README.md) include the full matrix,
+controls, correctness audits, raw receipts and evidence archive manifest.

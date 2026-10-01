@@ -1,0 +1,2437 @@
+{
+  "schema_version": 1,
+  "upstream_revision": "524f3f2dc9baef696d748db491d49b3055d359d1",
+  "source_log": {
+    "path": ".cache/luigi/evidence/go-native-benchmarks.stdout",
+    "sha256": "6b36252ccb7414d513f93dece4305c689f5da92e8f16a59dce804767ea85e081",
+    "bytes": 21336
+  },
+  "inventory_log": {
+    "path": ".cache/luigi/evidence/go-benchmark-inventory.stdout",
+    "sha256": "44cb871ec07d28e25760175321881c2ee9a6f8ed6a644bf06d4e80d594ce608a",
+    "bytes": 2383
+  },
+  "source_files": [
+    {
+      "path": "upstream/casbin/enforcer_cached_b_test.go",
+      "sha256": "e24d91f954f51128a6bb670de45ab863651d8606d90dda1b0be74cfcc4ff33f8",
+      "bytes": 6131
+    },
+    {
+      "path": "upstream/casbin/model_b_test.go",
+      "sha256": "08cc31d903740381dbaea0d771fca44463ff712ad78dfef2e43b2256a3dde4e5",
+      "bytes": 7824
+    },
+    {
+      "path": "upstream/casbin/management_api_b_test.go",
+      "sha256": "38b2e4a11094b68676f304627b541b52636a1ad58c590d72f44c28aea60543c5",
+      "bytes": 6588
+    },
+    {
+      "path": "upstream/casbin/role_manager_b_test.go",
+      "sha256": "2000b5a9112e9a5dd163a7639fc32f35f3fe8bc3d7d0365c967d35c7e8304d48",
+      "bytes": 6527
+    },
+    {
+      "path": "upstream/casbin/util/builtin_operators_b_test.go",
+      "sha256": "73b12c19a55ba8ab67332ae02c4e598fea5463c1d0cee267bf2f815d16956054",
+      "bytes": 1936
+    },
+    {
+      "path": "upstream/casbin/enforcer_cached.go",
+      "sha256": "0036207960d67cdf3a2a6b5aa9e4065f55c460bee8b0dc3831904c2925adf563",
+      "bytes": 4939
+    },
+    {
+      "path": "upstream/casbin/abac_test.go",
+      "sha256": "919e67cd76de904101c03c24e150e3734016438f9daa684de408bf14381b87c0",
+      "bytes": 6630
+    }
+  ],
+  "headers": {
+    "goos": "linux",
+    "goarch": "amd64",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2695 v3 @ 2.30GHz"
+  },
+  "parser_method": {
+    "sample_pattern": "^(Benchmark\\S+)\\s+(\\d+)\\s+([\\d.eE+-]+)\\s+ns/op\\s+(\\d+)\\s+B/op\\s+(\\d+)\\s+allocs/op\\s*$",
+    "group_key": "(current pkg header, complete benchmark name including subbenchmark and GOMAXPROCS suffix)",
+    "aggregation": "Arithmetic median separately for ns/op, B/op and allocs/op over all three reported samples; medians need not come from the same sample. Original rounded Go output is retained.",
+    "checks": "Every line starting Benchmark parses; iterations positive, timings finite/positive, allocation counters nonnegative; exactly three samples per result; stripping /subcase and -GOMAXPROCS reproduces the complete unique -list inventory.",
+    "resources": "GNU time exact-label extraction; require exit0 agreeing with receipt, argv agreement, wall time within0.1s, empty stderr, zero swaps/signals. RSS is command resource output, not aggregate machine memory."
+  },
+  "inventory": {
+    "top_level_functions": 56,
+    "names": [
+      "BenchmarkCachedRaw",
+      "BenchmarkCachedBasicModel",
+      "BenchmarkCachedRBACModel",
+      "BenchmarkCachedRBACModelSmall",
+      "BenchmarkCachedRBACModelMedium",
+      "BenchmarkCachedRBACModelLarge",
+      "BenchmarkCachedRBACModelWithResourceRoles",
+      "BenchmarkCachedRBACModelWithDomains",
+      "BenchmarkCachedABACModel",
+      "BenchmarkCachedKeyMatchModel",
+      "BenchmarkCachedRBACModelWithDeny",
+      "BenchmarkCachedPriorityModel",
+      "BenchmarkCachedWithEnforceContext",
+      "BenchmarkCachedRBACModelMediumParallel",
+      "BenchmarkHasPolicySmall",
+      "BenchmarkHasPolicyMedium",
+      "BenchmarkHasPolicyLarge",
+      "BenchmarkAddPolicySmall",
+      "BenchmarkAddPolicyMedium",
+      "BenchmarkAddPolicyLarge",
+      "BenchmarkRemovePolicySmall",
+      "BenchmarkRemovePolicyMedium",
+      "BenchmarkRemovePolicyLarge",
+      "BenchmarkRemovePoliciesLarge",
+      "BenchmarkRaw",
+      "BenchmarkBasicModel",
+      "BenchmarkRBACModel",
+      "BenchmarkRBACModelSizes",
+      "BenchmarkRBACModelSmall",
+      "BenchmarkRBACModelMedium",
+      "BenchmarkRBACModelLarge",
+      "BenchmarkRBACModelWithResourceRoles",
+      "BenchmarkRBACModelWithDomains",
+      "BenchmarkABACModel",
+      "BenchmarkABACRuleModel",
+      "BenchmarkKeyMatchModel",
+      "BenchmarkRBACModelWithDeny",
+      "BenchmarkPriorityModel",
+      "BenchmarkRBACModelWithDomainPatternLarge",
+      "BenchmarkRoleManagerSmall",
+      "BenchmarkRoleManagerMedium",
+      "BenchmarkRoleManagerLarge",
+      "BenchmarkBuildRoleLinksWithPatternLarge",
+      "BenchmarkBuildRoleLinksWithDomainPatternLarge",
+      "BenchmarkBuildRoleLinksWithPatternAndDomainPatternLarge",
+      "BenchmarkHasLinkWithPatternLarge",
+      "BenchmarkHasLinkWithDomainPatternLarge",
+      "BenchmarkHasLinkWithPatternAndDomainPatternLarge",
+      "BenchmarkConcurrentHasLinkWithMatching",
+      "BenchmarkKeyMatch2",
+      "BenchmarkKeyMatch3",
+      "BenchmarkKeyMatch4",
+      "BenchmarkKeyMatch5",
+      "BenchmarkKeyGet2",
+      "BenchmarkKeyGet3",
+      "BenchmarkRegexMatch"
+    ],
+    "measured_distinct_results": 58,
+    "sample_count": 174,
+    "samples_per_result": 3,
+    "expanded_subbenchmarks": {
+      "BenchmarkRBACModelSizes": [
+        "small",
+        "medium",
+        "large"
+      ]
+    },
+    "unmeasured_inventory_functions": []
+  },
+  "package_footers": [
+    "ok  \tgithub.com/casbin/casbin/v3\t90.992s",
+    "ok  \tgithub.com/casbin/casbin/v3/config\t0.005s",
+    "?   \tgithub.com/casbin/casbin/v3/constant\t[no test files]",
+    "ok  \tgithub.com/casbin/casbin/v3/detector\t0.007s",
+    "?   \tgithub.com/casbin/casbin/v3/effector\t[no test files]",
+    "?   \tgithub.com/casbin/casbin/v3/errors\t[no test files]",
+    "?   \tgithub.com/casbin/casbin/v3/log\t[no test files]",
+    "ok  \tgithub.com/casbin/casbin/v3/model\t0.009s",
+    "ok  \tgithub.com/casbin/casbin/v3/persist\t0.007s",
+    "?   \tgithub.com/casbin/casbin/v3/persist/cache\t[no test files]",
+    "?   \tgithub.com/casbin/casbin/v3/persist/file-adapter\t[no test files]",
+    "ok  \tgithub.com/casbin/casbin/v3/persist/string-adapter\t0.009s",
+    "?   \tgithub.com/casbin/casbin/v3/rbac\t[no test files]",
+    "ok  \tgithub.com/casbin/casbin/v3/rbac/default-role-manager\t0.007s",
+    "ok  \tgithub.com/casbin/casbin/v3/util\t3.622s"
+  ],
+  "package_pass_count": 8,
+  "package_no_test_files_count": 7,
+  "pass_markers": 8,
+  "malformed_sample_rows": [],
+  "failure_diagnostics": [],
+  "results": [
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedRaw-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 5135180,
+          "ns_per_op": 24.81,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 5
+        },
+        {
+          "iterations": 4911260,
+          "ns_per_op": 23.51,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 6
+        },
+        {
+          "iterations": 6875194,
+          "ns_per_op": 19.84,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 7
+        }
+      ],
+      "median": {
+        "ns_per_op": 23.51,
+        "bytes_per_op": 0,
+        "allocs_per_op": 0
+      },
+      "ns_per_op_range": {
+        "min": 19.84,
+        "max": 24.81
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedBasicModel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 326724,
+          "ns_per_op": 334.3,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 8
+        },
+        {
+          "iterations": 388048,
+          "ns_per_op": 306.5,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 9
+        },
+        {
+          "iterations": 441942,
+          "ns_per_op": 335.0,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 10
+        }
+      ],
+      "median": {
+        "ns_per_op": 334.3,
+        "bytes_per_op": 104,
+        "allocs_per_op": 4
+      },
+      "ns_per_op_range": {
+        "min": 306.5,
+        "max": 335.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedRBACModel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 330927,
+          "ns_per_op": 344.8,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 11
+        },
+        {
+          "iterations": 332376,
+          "ns_per_op": 358.4,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 12
+        },
+        {
+          "iterations": 301533,
+          "ns_per_op": 374.6,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 13
+        }
+      ],
+      "median": {
+        "ns_per_op": 358.4,
+        "bytes_per_op": 104,
+        "allocs_per_op": 4
+      },
+      "ns_per_op_range": {
+        "min": 344.8,
+        "max": 374.6
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedRBACModelSmall-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 278768,
+          "ns_per_op": 432.1,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 14
+        },
+        {
+          "iterations": 270800,
+          "ns_per_op": 411.4,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 15
+        },
+        {
+          "iterations": 259231,
+          "ns_per_op": 451.0,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 16
+        }
+      ],
+      "median": {
+        "ns_per_op": 432.1,
+        "bytes_per_op": 104,
+        "allocs_per_op": 4
+      },
+      "ns_per_op_range": {
+        "min": 411.4,
+        "max": 451.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedRBACModelMedium-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 312700,
+          "ns_per_op": 378.3,
+          "bytes_per_op": 105,
+          "allocs_per_op": 4,
+          "source_line": 17
+        },
+        {
+          "iterations": 319297,
+          "ns_per_op": 380.1,
+          "bytes_per_op": 105,
+          "allocs_per_op": 4,
+          "source_line": 18
+        },
+        {
+          "iterations": 239683,
+          "ns_per_op": 421.2,
+          "bytes_per_op": 105,
+          "allocs_per_op": 4,
+          "source_line": 19
+        }
+      ],
+      "median": {
+        "ns_per_op": 380.1,
+        "bytes_per_op": 105,
+        "allocs_per_op": 4
+      },
+      "ns_per_op_range": {
+        "min": 378.3,
+        "max": 421.2
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedRBACModelLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 362565,
+          "ns_per_op": 325.4,
+          "bytes_per_op": 105,
+          "allocs_per_op": 3,
+          "source_line": 20
+        },
+        {
+          "iterations": 292556,
+          "ns_per_op": 472.0,
+          "bytes_per_op": 107,
+          "allocs_per_op": 3,
+          "source_line": 21
+        },
+        {
+          "iterations": 261493,
+          "ns_per_op": 393.6,
+          "bytes_per_op": 109,
+          "allocs_per_op": 3,
+          "source_line": 22
+        }
+      ],
+      "median": {
+        "ns_per_op": 393.6,
+        "bytes_per_op": 107,
+        "allocs_per_op": 3
+      },
+      "ns_per_op_range": {
+        "min": 325.4,
+        "max": 472.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedRBACModelWithResourceRoles-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 338266,
+          "ns_per_op": 332.1,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 23
+        },
+        {
+          "iterations": 318550,
+          "ns_per_op": 322.0,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 24
+        },
+        {
+          "iterations": 386110,
+          "ns_per_op": 305.9,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 25
+        }
+      ],
+      "median": {
+        "ns_per_op": 322.0,
+        "bytes_per_op": 104,
+        "allocs_per_op": 4
+      },
+      "ns_per_op_range": {
+        "min": 305.9,
+        "max": 332.1
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedRBACModelWithDomains-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 342589,
+          "ns_per_op": 326.5,
+          "bytes_per_op": 120,
+          "allocs_per_op": 4,
+          "source_line": 26
+        },
+        {
+          "iterations": 335044,
+          "ns_per_op": 349.0,
+          "bytes_per_op": 120,
+          "allocs_per_op": 4,
+          "source_line": 27
+        },
+        {
+          "iterations": 322860,
+          "ns_per_op": 342.9,
+          "bytes_per_op": 120,
+          "allocs_per_op": 4,
+          "source_line": 28
+        }
+      ],
+      "median": {
+        "ns_per_op": 342.9,
+        "bytes_per_op": 120,
+        "allocs_per_op": 4
+      },
+      "ns_per_op_range": {
+        "min": 326.5,
+        "max": 349.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedABACModel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 22856,
+          "ns_per_op": 5039.0,
+          "bytes_per_op": 1523,
+          "allocs_per_op": 17,
+          "source_line": 29
+        },
+        {
+          "iterations": 23229,
+          "ns_per_op": 5147.0,
+          "bytes_per_op": 1521,
+          "allocs_per_op": 17,
+          "source_line": 30
+        },
+        {
+          "iterations": 22986,
+          "ns_per_op": 4981.0,
+          "bytes_per_op": 1518,
+          "allocs_per_op": 17,
+          "source_line": 31
+        }
+      ],
+      "median": {
+        "ns_per_op": 5039.0,
+        "bytes_per_op": 1521,
+        "allocs_per_op": 17
+      },
+      "ns_per_op_range": {
+        "min": 4981.0,
+        "max": 5147.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedKeyMatchModel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 305034,
+          "ns_per_op": 389.8,
+          "bytes_per_op": 152,
+          "allocs_per_op": 4,
+          "source_line": 32
+        },
+        {
+          "iterations": 266331,
+          "ns_per_op": 380.7,
+          "bytes_per_op": 152,
+          "allocs_per_op": 4,
+          "source_line": 33
+        },
+        {
+          "iterations": 303894,
+          "ns_per_op": 403.6,
+          "bytes_per_op": 152,
+          "allocs_per_op": 4,
+          "source_line": 34
+        }
+      ],
+      "median": {
+        "ns_per_op": 389.8,
+        "bytes_per_op": 152,
+        "allocs_per_op": 4
+      },
+      "ns_per_op_range": {
+        "min": 380.7,
+        "max": 403.6
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedRBACModelWithDeny-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 341404,
+          "ns_per_op": 344.9,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 35
+        },
+        {
+          "iterations": 287235,
+          "ns_per_op": 360.3,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 36
+        },
+        {
+          "iterations": 287548,
+          "ns_per_op": 375.6,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 37
+        }
+      ],
+      "median": {
+        "ns_per_op": 360.3,
+        "bytes_per_op": 104,
+        "allocs_per_op": 4
+      },
+      "ns_per_op_range": {
+        "min": 344.9,
+        "max": 375.6
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedPriorityModel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 317481,
+          "ns_per_op": 354.6,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 38
+        },
+        {
+          "iterations": 305086,
+          "ns_per_op": 346.2,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 39
+        },
+        {
+          "iterations": 328452,
+          "ns_per_op": 336.0,
+          "bytes_per_op": 104,
+          "allocs_per_op": 4,
+          "source_line": 40
+        }
+      ],
+      "median": {
+        "ns_per_op": 346.2,
+        "bytes_per_op": 104,
+        "allocs_per_op": 4
+      },
+      "ns_per_op_range": {
+        "min": 336.0,
+        "max": 354.6
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedWithEnforceContext-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 169636,
+          "ns_per_op": 633.7,
+          "bytes_per_op": 240,
+          "allocs_per_op": 5,
+          "source_line": 41
+        },
+        {
+          "iterations": 195222,
+          "ns_per_op": 630.6,
+          "bytes_per_op": 240,
+          "allocs_per_op": 5,
+          "source_line": 42
+        },
+        {
+          "iterations": 179949,
+          "ns_per_op": 640.1,
+          "bytes_per_op": 240,
+          "allocs_per_op": 5,
+          "source_line": 43
+        }
+      ],
+      "median": {
+        "ns_per_op": 633.7,
+        "bytes_per_op": 240,
+        "allocs_per_op": 5
+      },
+      "ns_per_op_range": {
+        "min": 630.6,
+        "max": 640.1
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkCachedRBACModelMediumParallel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 7,
+          "ns_per_op": 14581329.0,
+          "bytes_per_op": 2580466,
+          "allocs_per_op": 66479,
+          "source_line": 44
+        },
+        {
+          "iterations": 8,
+          "ns_per_op": 12937505.0,
+          "bytes_per_op": 2589580,
+          "allocs_per_op": 65584,
+          "source_line": 45
+        },
+        {
+          "iterations": 4,
+          "ns_per_op": 28311961.0,
+          "bytes_per_op": 3254538,
+          "allocs_per_op": 90916,
+          "source_line": 46
+        }
+      ],
+      "median": {
+        "ns_per_op": 14581329.0,
+        "bytes_per_op": 2589580,
+        "allocs_per_op": 66479
+      },
+      "ns_per_op_range": {
+        "min": 12937505.0,
+        "max": 28311961.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkHasPolicySmall-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 116661,
+          "ns_per_op": 971.2,
+          "bytes_per_op": 150,
+          "allocs_per_op": 6,
+          "source_line": 47
+        },
+        {
+          "iterations": 109268,
+          "ns_per_op": 987.7,
+          "bytes_per_op": 150,
+          "allocs_per_op": 6,
+          "source_line": 48
+        },
+        {
+          "iterations": 98055,
+          "ns_per_op": 1098.0,
+          "bytes_per_op": 150,
+          "allocs_per_op": 6,
+          "source_line": 49
+        }
+      ],
+      "median": {
+        "ns_per_op": 987.7,
+        "bytes_per_op": 150,
+        "allocs_per_op": 6
+      },
+      "ns_per_op_range": {
+        "min": 971.2,
+        "max": 1098.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkHasPolicyMedium-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 99097,
+          "ns_per_op": 1031.0,
+          "bytes_per_op": 157,
+          "allocs_per_op": 6,
+          "source_line": 50
+        },
+        {
+          "iterations": 121084,
+          "ns_per_op": 1045.0,
+          "bytes_per_op": 158,
+          "allocs_per_op": 6,
+          "source_line": 51
+        },
+        {
+          "iterations": 109944,
+          "ns_per_op": 1038.0,
+          "bytes_per_op": 158,
+          "allocs_per_op": 6,
+          "source_line": 52
+        }
+      ],
+      "median": {
+        "ns_per_op": 1038.0,
+        "bytes_per_op": 158,
+        "allocs_per_op": 6
+      },
+      "ns_per_op_range": {
+        "min": 1031.0,
+        "max": 1045.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkHasPolicyLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 90289,
+          "ns_per_op": 1215.0,
+          "bytes_per_op": 165,
+          "allocs_per_op": 7,
+          "source_line": 53
+        },
+        {
+          "iterations": 111303,
+          "ns_per_op": 1212.0,
+          "bytes_per_op": 165,
+          "allocs_per_op": 7,
+          "source_line": 54
+        },
+        {
+          "iterations": 103987,
+          "ns_per_op": 1271.0,
+          "bytes_per_op": 165,
+          "allocs_per_op": 7,
+          "source_line": 55
+        }
+      ],
+      "median": {
+        "ns_per_op": 1215.0,
+        "bytes_per_op": 165,
+        "allocs_per_op": 7
+      },
+      "ns_per_op_range": {
+        "min": 1212.0,
+        "max": 1271.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkAddPolicySmall-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 104670,
+          "ns_per_op": 1162.0,
+          "bytes_per_op": 154,
+          "allocs_per_op": 6,
+          "source_line": 56
+        },
+        {
+          "iterations": 97628,
+          "ns_per_op": 1131.0,
+          "bytes_per_op": 154,
+          "allocs_per_op": 6,
+          "source_line": 57
+        },
+        {
+          "iterations": 102266,
+          "ns_per_op": 1092.0,
+          "bytes_per_op": 154,
+          "allocs_per_op": 6,
+          "source_line": 58
+        }
+      ],
+      "median": {
+        "ns_per_op": 1131.0,
+        "bytes_per_op": 154,
+        "allocs_per_op": 6
+      },
+      "ns_per_op_range": {
+        "min": 1092.0,
+        "max": 1162.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkAddPolicyMedium-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 55641,
+          "ns_per_op": 1890.0,
+          "bytes_per_op": 346,
+          "allocs_per_op": 8,
+          "source_line": 59
+        },
+        {
+          "iterations": 68649,
+          "ns_per_op": 1852.0,
+          "bytes_per_op": 337,
+          "allocs_per_op": 8,
+          "source_line": 60
+        },
+        {
+          "iterations": 57376,
+          "ns_per_op": 1910.0,
+          "bytes_per_op": 342,
+          "allocs_per_op": 8,
+          "source_line": 61
+        }
+      ],
+      "median": {
+        "ns_per_op": 1890.0,
+        "bytes_per_op": 342,
+        "allocs_per_op": 8
+      },
+      "ns_per_op_range": {
+        "min": 1852.0,
+        "max": 1910.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkAddPolicyLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 47960,
+          "ns_per_op": 2359.0,
+          "bytes_per_op": 504,
+          "allocs_per_op": 10,
+          "source_line": 62
+        },
+        {
+          "iterations": 54124,
+          "ns_per_op": 2169.0,
+          "bytes_per_op": 472,
+          "allocs_per_op": 10,
+          "source_line": 63
+        },
+        {
+          "iterations": 54864,
+          "ns_per_op": 2430.0,
+          "bytes_per_op": 468,
+          "allocs_per_op": 10,
+          "source_line": 64
+        }
+      ],
+      "median": {
+        "ns_per_op": 2359.0,
+        "bytes_per_op": 472,
+        "allocs_per_op": 10
+      },
+      "ns_per_op_range": {
+        "min": 2169.0,
+        "max": 2430.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRemovePolicySmall-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 114374,
+          "ns_per_op": 1065.0,
+          "bytes_per_op": 166,
+          "allocs_per_op": 7,
+          "source_line": 65
+        },
+        {
+          "iterations": 102734,
+          "ns_per_op": 1058.0,
+          "bytes_per_op": 167,
+          "allocs_per_op": 7,
+          "source_line": 66
+        },
+        {
+          "iterations": 122592,
+          "ns_per_op": 1047.0,
+          "bytes_per_op": 166,
+          "allocs_per_op": 7,
+          "source_line": 67
+        }
+      ],
+      "median": {
+        "ns_per_op": 1058.0,
+        "bytes_per_op": 166,
+        "allocs_per_op": 7
+      },
+      "ns_per_op_range": {
+        "min": 1047.0,
+        "max": 1065.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRemovePolicyMedium-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 70897,
+          "ns_per_op": 1670.0,
+          "bytes_per_op": 237,
+          "allocs_per_op": 10,
+          "source_line": 68
+        },
+        {
+          "iterations": 63495,
+          "ns_per_op": 1684.0,
+          "bytes_per_op": 241,
+          "allocs_per_op": 10,
+          "source_line": 69
+        },
+        {
+          "iterations": 69673,
+          "ns_per_op": 1630.0,
+          "bytes_per_op": 244,
+          "allocs_per_op": 10,
+          "source_line": 70
+        }
+      ],
+      "median": {
+        "ns_per_op": 1670.0,
+        "bytes_per_op": 241,
+        "allocs_per_op": 10
+      },
+      "ns_per_op_range": {
+        "min": 1630.0,
+        "max": 1684.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRemovePolicyLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 52946,
+          "ns_per_op": 2653.0,
+          "bytes_per_op": 299,
+          "allocs_per_op": 13,
+          "source_line": 71
+        },
+        {
+          "iterations": 49062,
+          "ns_per_op": 2538.0,
+          "bytes_per_op": 295,
+          "allocs_per_op": 13,
+          "source_line": 72
+        },
+        {
+          "iterations": 55659,
+          "ns_per_op": 2562.0,
+          "bytes_per_op": 290,
+          "allocs_per_op": 13,
+          "source_line": 73
+        }
+      ],
+      "median": {
+        "ns_per_op": 2562.0,
+        "bytes_per_op": 295,
+        "allocs_per_op": 13
+      },
+      "ns_per_op_range": {
+        "min": 2538.0,
+        "max": 2653.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRemovePoliciesLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 33,
+          "ns_per_op": 3269565.0,
+          "bytes_per_op": 711547,
+          "allocs_per_op": 10115,
+          "source_line": 74
+        },
+        {
+          "iterations": 34,
+          "ns_per_op": 3198616.0,
+          "bytes_per_op": 711565,
+          "allocs_per_op": 10116,
+          "source_line": 75
+        },
+        {
+          "iterations": 36,
+          "ns_per_op": 3294386.0,
+          "bytes_per_op": 711532,
+          "allocs_per_op": 10115,
+          "source_line": 76
+        }
+      ],
+      "median": {
+        "ns_per_op": 3269565.0,
+        "bytes_per_op": 711547,
+        "allocs_per_op": 10115
+      },
+      "ns_per_op_range": {
+        "min": 3198616.0,
+        "max": 3294386.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRaw-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 4749093,
+          "ns_per_op": 24.6,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 77
+        },
+        {
+          "iterations": 4702600,
+          "ns_per_op": 24.63,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 78
+        },
+        {
+          "iterations": 4578271,
+          "ns_per_op": 24.35,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 79
+        }
+      ],
+      "median": {
+        "ns_per_op": 24.6,
+        "bytes_per_op": 0,
+        "allocs_per_op": 0
+      },
+      "ns_per_op_range": {
+        "min": 24.35,
+        "max": 24.63
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkBasicModel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 17779,
+          "ns_per_op": 6368.0,
+          "bytes_per_op": 1482,
+          "allocs_per_op": 16,
+          "source_line": 80
+        },
+        {
+          "iterations": 19767,
+          "ns_per_op": 6833.0,
+          "bytes_per_op": 1482,
+          "allocs_per_op": 16,
+          "source_line": 81
+        },
+        {
+          "iterations": 17083,
+          "ns_per_op": 6862.0,
+          "bytes_per_op": 1485,
+          "allocs_per_op": 16,
+          "source_line": 82
+        }
+      ],
+      "median": {
+        "ns_per_op": 6833.0,
+        "bytes_per_op": 1482,
+        "allocs_per_op": 16
+      },
+      "ns_per_op_range": {
+        "min": 6368.0,
+        "max": 6862.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRBACModel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 11659,
+          "ns_per_op": 9419.0,
+          "bytes_per_op": 2062,
+          "allocs_per_op": 34,
+          "source_line": 83
+        },
+        {
+          "iterations": 10000,
+          "ns_per_op": 10146.0,
+          "bytes_per_op": 2053,
+          "allocs_per_op": 34,
+          "source_line": 84
+        },
+        {
+          "iterations": 10000,
+          "ns_per_op": 10228.0,
+          "bytes_per_op": 2060,
+          "allocs_per_op": 34,
+          "source_line": 85
+        }
+      ],
+      "median": {
+        "ns_per_op": 10146.0,
+        "bytes_per_op": 2060,
+        "allocs_per_op": 34
+      },
+      "ns_per_op_range": {
+        "min": 9419.0,
+        "max": 10228.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRBACModelSizes/small-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 1120,
+          "ns_per_op": 110414.0,
+          "bytes_per_op": 20715,
+          "allocs_per_op": 479,
+          "source_line": 86
+        },
+        {
+          "iterations": 1066,
+          "ns_per_op": 114273.0,
+          "bytes_per_op": 20853,
+          "allocs_per_op": 479,
+          "source_line": 87
+        },
+        {
+          "iterations": 1166,
+          "ns_per_op": 106986.0,
+          "bytes_per_op": 20497,
+          "allocs_per_op": 479,
+          "source_line": 88
+        }
+      ],
+      "median": {
+        "ns_per_op": 110414.0,
+        "bytes_per_op": 20715,
+        "allocs_per_op": 479
+      },
+      "ns_per_op_range": {
+        "min": 106986.0,
+        "max": 114273.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRBACModelSizes/medium-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 116,
+          "ns_per_op": 986419.0,
+          "bytes_per_op": 191598,
+          "allocs_per_op": 4806,
+          "source_line": 89
+        },
+        {
+          "iterations": 117,
+          "ns_per_op": 1035876.0,
+          "bytes_per_op": 192917,
+          "allocs_per_op": 4816,
+          "source_line": 90
+        },
+        {
+          "iterations": 117,
+          "ns_per_op": 1075867.0,
+          "bytes_per_op": 191653,
+          "allocs_per_op": 4816,
+          "source_line": 91
+        }
+      ],
+      "median": {
+        "ns_per_op": 1035876.0,
+        "bytes_per_op": 191653,
+        "allocs_per_op": 4816
+      },
+      "ns_per_op_range": {
+        "min": 986419.0,
+        "max": 1075867.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRBACModelSizes/large-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 7,
+          "ns_per_op": 19135999.0,
+          "bytes_per_op": 2814357,
+          "allocs_per_op": 65195,
+          "source_line": 92
+        },
+        {
+          "iterations": 9,
+          "ns_per_op": 15378734.0,
+          "bytes_per_op": 2420084,
+          "allocs_per_op": 54392,
+          "source_line": 93
+        },
+        {
+          "iterations": 9,
+          "ns_per_op": 12363280.0,
+          "bytes_per_op": 1948242,
+          "allocs_per_op": 49424,
+          "source_line": 94
+        }
+      ],
+      "median": {
+        "ns_per_op": 15378734.0,
+        "bytes_per_op": 2420084,
+        "allocs_per_op": 54392
+      },
+      "ns_per_op_range": {
+        "min": 12363280.0,
+        "max": 19135999.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRBACModelSmall-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 1455,
+          "ns_per_op": 107705.0,
+          "bytes_per_op": 20648,
+          "allocs_per_op": 614,
+          "source_line": 95
+        },
+        {
+          "iterations": 1359,
+          "ns_per_op": 113942.0,
+          "bytes_per_op": 20694,
+          "allocs_per_op": 614,
+          "source_line": 96
+        },
+        {
+          "iterations": 969,
+          "ns_per_op": 110779.0,
+          "bytes_per_op": 20734,
+          "allocs_per_op": 614,
+          "source_line": 97
+        }
+      ],
+      "median": {
+        "ns_per_op": 110779.0,
+        "bytes_per_op": 20694,
+        "allocs_per_op": 614
+      },
+      "ns_per_op_range": {
+        "min": 107705.0,
+        "max": 113942.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRBACModelMedium-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 112,
+          "ns_per_op": 968660.0,
+          "bytes_per_op": 197695,
+          "allocs_per_op": 6051,
+          "source_line": 98
+        },
+        {
+          "iterations": 138,
+          "ns_per_op": 910694.0,
+          "bytes_per_op": 195892,
+          "allocs_per_op": 6044,
+          "source_line": 99
+        },
+        {
+          "iterations": 136,
+          "ns_per_op": 914452.0,
+          "bytes_per_op": 197019,
+          "allocs_per_op": 6044,
+          "source_line": 100
+        }
+      ],
+      "median": {
+        "ns_per_op": 914452.0,
+        "bytes_per_op": 197019,
+        "allocs_per_op": 6044
+      },
+      "ns_per_op_range": {
+        "min": 910694.0,
+        "max": 968660.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRBACModelLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 9,
+          "ns_per_op": 13708771.0,
+          "bytes_per_op": 2100558,
+          "allocs_per_op": 64501,
+          "source_line": 101
+        },
+        {
+          "iterations": 9,
+          "ns_per_op": 11751127.0,
+          "bytes_per_op": 2104350,
+          "allocs_per_op": 64500,
+          "source_line": 102
+        },
+        {
+          "iterations": 8,
+          "ns_per_op": 12541835.0,
+          "bytes_per_op": 2122578,
+          "allocs_per_op": 65062,
+          "source_line": 103
+        }
+      ],
+      "median": {
+        "ns_per_op": 12541835.0,
+        "bytes_per_op": 2104350,
+        "allocs_per_op": 64501
+      },
+      "ns_per_op_range": {
+        "min": 11751127.0,
+        "max": 13708771.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRBACModelWithResourceRoles-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 16172,
+          "ns_per_op": 6337.0,
+          "bytes_per_op": 1862,
+          "allocs_per_op": 26,
+          "source_line": 104
+        },
+        {
+          "iterations": 16466,
+          "ns_per_op": 6865.0,
+          "bytes_per_op": 1856,
+          "allocs_per_op": 26,
+          "source_line": 105
+        },
+        {
+          "iterations": 17388,
+          "ns_per_op": 7250.0,
+          "bytes_per_op": 1855,
+          "allocs_per_op": 26,
+          "source_line": 106
+        }
+      ],
+      "median": {
+        "ns_per_op": 6865.0,
+        "bytes_per_op": 1856,
+        "allocs_per_op": 26
+      },
+      "ns_per_op_range": {
+        "min": 6337.0,
+        "max": 7250.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRBACModelWithDomains-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 13926,
+          "ns_per_op": 8534.0,
+          "bytes_per_op": 1815,
+          "allocs_per_op": 24,
+          "source_line": 107
+        },
+        {
+          "iterations": 14991,
+          "ns_per_op": 8777.0,
+          "bytes_per_op": 1819,
+          "allocs_per_op": 24,
+          "source_line": 108
+        },
+        {
+          "iterations": 12750,
+          "ns_per_op": 8138.0,
+          "bytes_per_op": 1820,
+          "allocs_per_op": 24,
+          "source_line": 109
+        }
+      ],
+      "median": {
+        "ns_per_op": 8534.0,
+        "bytes_per_op": 1819,
+        "allocs_per_op": 24
+      },
+      "ns_per_op_range": {
+        "min": 8138.0,
+        "max": 8777.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkABACModel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 23875,
+          "ns_per_op": 5048.0,
+          "bytes_per_op": 1512,
+          "allocs_per_op": 16,
+          "source_line": 110
+        },
+        {
+          "iterations": 22825,
+          "ns_per_op": 4888.0,
+          "bytes_per_op": 1510,
+          "allocs_per_op": 16,
+          "source_line": 111
+        },
+        {
+          "iterations": 21078,
+          "ns_per_op": 4979.0,
+          "bytes_per_op": 1511,
+          "allocs_per_op": 16,
+          "source_line": 112
+        }
+      ],
+      "median": {
+        "ns_per_op": 4979.0,
+        "bytes_per_op": 1511,
+        "allocs_per_op": 16
+      },
+      "ns_per_op_range": {
+        "min": 4888.0,
+        "max": 5048.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkABACRuleModel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 15,
+          "ns_per_op": 7614935.0,
+          "bytes_per_op": 1323908,
+          "allocs_per_op": 40090,
+          "source_line": 113
+        },
+        {
+          "iterations": 15,
+          "ns_per_op": 7538341.0,
+          "bytes_per_op": 1323857,
+          "allocs_per_op": 40090,
+          "source_line": 114
+        },
+        {
+          "iterations": 18,
+          "ns_per_op": 7735452.0,
+          "bytes_per_op": 1320128,
+          "allocs_per_op": 40089,
+          "source_line": 115
+        }
+      ],
+      "median": {
+        "ns_per_op": 7614935.0,
+        "bytes_per_op": 1323857,
+        "allocs_per_op": 40090
+      },
+      "ns_per_op_range": {
+        "min": 7538341.0,
+        "max": 7735452.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkKeyMatchModel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 14385,
+          "ns_per_op": 8101.0,
+          "bytes_per_op": 1670,
+          "allocs_per_op": 20,
+          "source_line": 116
+        },
+        {
+          "iterations": 14547,
+          "ns_per_op": 8669.0,
+          "bytes_per_op": 1664,
+          "allocs_per_op": 20,
+          "source_line": 117
+        },
+        {
+          "iterations": 14643,
+          "ns_per_op": 7828.0,
+          "bytes_per_op": 1667,
+          "allocs_per_op": 20,
+          "source_line": 118
+        }
+      ],
+      "median": {
+        "ns_per_op": 8101.0,
+        "bytes_per_op": 1667,
+        "allocs_per_op": 20
+      },
+      "ns_per_op_range": {
+        "min": 7828.0,
+        "max": 8669.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRBACModelWithDeny-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 9615,
+          "ns_per_op": 13114.0,
+          "bytes_per_op": 2458,
+          "allocs_per_op": 48,
+          "source_line": 119
+        },
+        {
+          "iterations": 9388,
+          "ns_per_op": 12676.0,
+          "bytes_per_op": 2450,
+          "allocs_per_op": 48,
+          "source_line": 120
+        },
+        {
+          "iterations": 9870,
+          "ns_per_op": 13208.0,
+          "bytes_per_op": 2466,
+          "allocs_per_op": 48,
+          "source_line": 121
+        }
+      ],
+      "median": {
+        "ns_per_op": 13114.0,
+        "bytes_per_op": 2458,
+        "allocs_per_op": 48
+      },
+      "ns_per_op_range": {
+        "min": 12676.0,
+        "max": 13208.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkPriorityModel-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 15658,
+          "ns_per_op": 7362.0,
+          "bytes_per_op": 1756,
+          "allocs_per_op": 21,
+          "source_line": 122
+        },
+        {
+          "iterations": 15397,
+          "ns_per_op": 7485.0,
+          "bytes_per_op": 1749,
+          "allocs_per_op": 21,
+          "source_line": 123
+        },
+        {
+          "iterations": 15916,
+          "ns_per_op": 7893.0,
+          "bytes_per_op": 1746,
+          "allocs_per_op": 21,
+          "source_line": 124
+        }
+      ],
+      "median": {
+        "ns_per_op": 7485.0,
+        "bytes_per_op": 1749,
+        "allocs_per_op": 21
+      },
+      "ns_per_op_range": {
+        "min": 7362.0,
+        "max": 7893.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRBACModelWithDomainPatternLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 9109,
+          "ns_per_op": 13226.0,
+          "bytes_per_op": 4360,
+          "allocs_per_op": 29,
+          "source_line": 125
+        },
+        {
+          "iterations": 10000,
+          "ns_per_op": 12504.0,
+          "bytes_per_op": 4355,
+          "allocs_per_op": 29,
+          "source_line": 126
+        },
+        {
+          "iterations": 10000,
+          "ns_per_op": 12842.0,
+          "bytes_per_op": 4345,
+          "allocs_per_op": 29,
+          "source_line": 127
+        }
+      ],
+      "median": {
+        "ns_per_op": 12842.0,
+        "bytes_per_op": 4355,
+        "allocs_per_op": 29
+      },
+      "ns_per_op_range": {
+        "min": 12504.0,
+        "max": 13226.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRoleManagerSmall-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 1371,
+          "ns_per_op": 88361.0,
+          "bytes_per_op": 800,
+          "allocs_per_op": 100,
+          "source_line": 128
+        },
+        {
+          "iterations": 1357,
+          "ns_per_op": 87539.0,
+          "bytes_per_op": 800,
+          "allocs_per_op": 100,
+          "source_line": 129
+        },
+        {
+          "iterations": 1356,
+          "ns_per_op": 87862.0,
+          "bytes_per_op": 800,
+          "allocs_per_op": 100,
+          "source_line": 130
+        }
+      ],
+      "median": {
+        "ns_per_op": 87862.0,
+        "bytes_per_op": 800,
+        "allocs_per_op": 100
+      },
+      "ns_per_op_range": {
+        "min": 87539.0,
+        "max": 88361.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRoleManagerMedium-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 128,
+          "ns_per_op": 998184.0,
+          "bytes_per_op": 13963,
+          "allocs_per_op": 1744,
+          "source_line": 131
+        },
+        {
+          "iterations": 124,
+          "ns_per_op": 972646.0,
+          "bytes_per_op": 13977,
+          "allocs_per_op": 1744,
+          "source_line": 132
+        },
+        {
+          "iterations": 123,
+          "ns_per_op": 954103.0,
+          "bytes_per_op": 13963,
+          "allocs_per_op": 1744,
+          "source_line": 133
+        }
+      ],
+      "median": {
+        "ns_per_op": 972646.0,
+        "bytes_per_op": 13963,
+        "allocs_per_op": 1744
+      },
+      "ns_per_op_range": {
+        "min": 954103.0,
+        "max": 998184.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkRoleManagerLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 13,
+          "ns_per_op": 10709875.0,
+          "bytes_per_op": 230099,
+          "allocs_per_op": 19745,
+          "source_line": 134
+        },
+        {
+          "iterations": 14,
+          "ns_per_op": 7765824.0,
+          "bytes_per_op": 230054,
+          "allocs_per_op": 19744,
+          "source_line": 135
+        },
+        {
+          "iterations": 14,
+          "ns_per_op": 8181989.0,
+          "bytes_per_op": 230054,
+          "allocs_per_op": 19744,
+          "source_line": 136
+        }
+      ],
+      "median": {
+        "ns_per_op": 8181989.0,
+        "bytes_per_op": 230054,
+        "allocs_per_op": 19744
+      },
+      "ns_per_op_range": {
+        "min": 7765824.0,
+        "max": 10709875.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkBuildRoleLinksWithPatternLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 1,
+          "ns_per_op": 184277451.0,
+          "bytes_per_op": 26844400,
+          "allocs_per_op": 80146,
+          "source_line": 137
+        },
+        {
+          "iterations": 1,
+          "ns_per_op": 197018084.0,
+          "bytes_per_op": 26841584,
+          "allocs_per_op": 80133,
+          "source_line": 138
+        },
+        {
+          "iterations": 1,
+          "ns_per_op": 195809906.0,
+          "bytes_per_op": 26845024,
+          "allocs_per_op": 80149,
+          "source_line": 139
+        }
+      ],
+      "median": {
+        "ns_per_op": 195809906.0,
+        "bytes_per_op": 26844400,
+        "allocs_per_op": 80146
+      },
+      "ns_per_op_range": {
+        "min": 184277451.0,
+        "max": 197018084.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkBuildRoleLinksWithDomainPatternLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 8,
+          "ns_per_op": 13082649.0,
+          "bytes_per_op": 2662638,
+          "allocs_per_op": 65766,
+          "source_line": 140
+        },
+        {
+          "iterations": 9,
+          "ns_per_op": 12600812.0,
+          "bytes_per_op": 2662506,
+          "allocs_per_op": 65766,
+          "source_line": 141
+        },
+        {
+          "iterations": 8,
+          "ns_per_op": 12804738.0,
+          "bytes_per_op": 2660702,
+          "allocs_per_op": 65757,
+          "source_line": 142
+        }
+      ],
+      "median": {
+        "ns_per_op": 12804738.0,
+        "bytes_per_op": 2662506,
+        "allocs_per_op": 65766
+      },
+      "ns_per_op_range": {
+        "min": 12600812.0,
+        "max": 13082649.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkBuildRoleLinksWithPatternAndDomainPatternLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 1,
+          "ns_per_op": 213484051.0,
+          "bytes_per_op": 26844672,
+          "allocs_per_op": 80163,
+          "source_line": 143
+        },
+        {
+          "iterations": 1,
+          "ns_per_op": 205283285.0,
+          "bytes_per_op": 26843296,
+          "allocs_per_op": 80158,
+          "source_line": 144
+        },
+        {
+          "iterations": 1,
+          "ns_per_op": 202792074.0,
+          "bytes_per_op": 26854224,
+          "allocs_per_op": 80210,
+          "source_line": 145
+        }
+      ],
+      "median": {
+        "ns_per_op": 205283285.0,
+        "bytes_per_op": 26844672,
+        "allocs_per_op": 80163
+      },
+      "ns_per_op_range": {
+        "min": 202792074.0,
+        "max": 213484051.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkHasLinkWithPatternLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 128440,
+          "ns_per_op": 924.0,
+          "bytes_per_op": 16,
+          "allocs_per_op": 1,
+          "source_line": 146
+        },
+        {
+          "iterations": 125988,
+          "ns_per_op": 944.3,
+          "bytes_per_op": 16,
+          "allocs_per_op": 1,
+          "source_line": 147
+        },
+        {
+          "iterations": 130634,
+          "ns_per_op": 850.1,
+          "bytes_per_op": 16,
+          "allocs_per_op": 1,
+          "source_line": 148
+        }
+      ],
+      "median": {
+        "ns_per_op": 924.0,
+        "bytes_per_op": 16,
+        "allocs_per_op": 1
+      },
+      "ns_per_op_range": {
+        "min": 850.1,
+        "max": 944.3
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkHasLinkWithDomainPatternLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 163999,
+          "ns_per_op": 746.0,
+          "bytes_per_op": 16,
+          "allocs_per_op": 1,
+          "source_line": 149
+        },
+        {
+          "iterations": 162712,
+          "ns_per_op": 748.0,
+          "bytes_per_op": 16,
+          "allocs_per_op": 1,
+          "source_line": 150
+        },
+        {
+          "iterations": 164582,
+          "ns_per_op": 740.5,
+          "bytes_per_op": 16,
+          "allocs_per_op": 1,
+          "source_line": 151
+        }
+      ],
+      "median": {
+        "ns_per_op": 746.0,
+        "bytes_per_op": 16,
+        "allocs_per_op": 1
+      },
+      "ns_per_op_range": {
+        "min": 740.5,
+        "max": 748.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkHasLinkWithPatternAndDomainPatternLarge-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 126398,
+          "ns_per_op": 906.2,
+          "bytes_per_op": 16,
+          "allocs_per_op": 1,
+          "source_line": 152
+        },
+        {
+          "iterations": 130533,
+          "ns_per_op": 843.8,
+          "bytes_per_op": 16,
+          "allocs_per_op": 1,
+          "source_line": 153
+        },
+        {
+          "iterations": 130065,
+          "ns_per_op": 908.0,
+          "bytes_per_op": 16,
+          "allocs_per_op": 1,
+          "source_line": 154
+        }
+      ],
+      "median": {
+        "ns_per_op": 906.2,
+        "bytes_per_op": 16,
+        "allocs_per_op": 1
+      },
+      "ns_per_op_range": {
+        "min": 843.8,
+        "max": 908.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3",
+      "name": "BenchmarkConcurrentHasLinkWithMatching-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 31088,
+          "ns_per_op": 3656.0,
+          "bytes_per_op": 479,
+          "allocs_per_op": 12,
+          "source_line": 155
+        },
+        {
+          "iterations": 31159,
+          "ns_per_op": 3586.0,
+          "bytes_per_op": 478,
+          "allocs_per_op": 12,
+          "source_line": 156
+        },
+        {
+          "iterations": 31323,
+          "ns_per_op": 3532.0,
+          "bytes_per_op": 478,
+          "allocs_per_op": 12,
+          "source_line": 157
+        }
+      ],
+      "median": {
+        "ns_per_op": 3586.0,
+        "bytes_per_op": 478,
+        "allocs_per_op": 12
+      },
+      "ns_per_op_range": {
+        "min": 3532.0,
+        "max": 3656.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3/util",
+      "name": "BenchmarkKeyMatch2-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 169426,
+          "ns_per_op": 636.2,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 183
+        },
+        {
+          "iterations": 185406,
+          "ns_per_op": 609.6,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 184
+        },
+        {
+          "iterations": 185220,
+          "ns_per_op": 649.6,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 185
+        }
+      ],
+      "median": {
+        "ns_per_op": 636.2,
+        "bytes_per_op": 0,
+        "allocs_per_op": 0
+      },
+      "ns_per_op_range": {
+        "min": 609.6,
+        "max": 649.6
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3/util",
+      "name": "BenchmarkKeyMatch3-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 294126,
+          "ns_per_op": 413.9,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 186
+        },
+        {
+          "iterations": 292878,
+          "ns_per_op": 394.7,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 187
+        },
+        {
+          "iterations": 244345,
+          "ns_per_op": 410.7,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 188
+        }
+      ],
+      "median": {
+        "ns_per_op": 410.7,
+        "bytes_per_op": 0,
+        "allocs_per_op": 0
+      },
+      "ns_per_op_range": {
+        "min": 394.7,
+        "max": 413.9
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3/util",
+      "name": "BenchmarkKeyMatch4-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 143155,
+          "ns_per_op": 768.1,
+          "bytes_per_op": 112,
+          "allocs_per_op": 2,
+          "source_line": 189
+        },
+        {
+          "iterations": 172135,
+          "ns_per_op": 770.5,
+          "bytes_per_op": 112,
+          "allocs_per_op": 2,
+          "source_line": 190
+        },
+        {
+          "iterations": 130940,
+          "ns_per_op": 808.4,
+          "bytes_per_op": 112,
+          "allocs_per_op": 2,
+          "source_line": 191
+        }
+      ],
+      "median": {
+        "ns_per_op": 770.5,
+        "bytes_per_op": 112,
+        "allocs_per_op": 2
+      },
+      "ns_per_op_range": {
+        "min": 768.1,
+        "max": 808.4
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3/util",
+      "name": "BenchmarkKeyMatch5-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 430503,
+          "ns_per_op": 274.8,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 192
+        },
+        {
+          "iterations": 419199,
+          "ns_per_op": 323.8,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 193
+        },
+        {
+          "iterations": 439624,
+          "ns_per_op": 287.9,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 194
+        }
+      ],
+      "median": {
+        "ns_per_op": 287.9,
+        "bytes_per_op": 0,
+        "allocs_per_op": 0
+      },
+      "ns_per_op_range": {
+        "min": 274.8,
+        "max": 323.8
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3/util",
+      "name": "BenchmarkKeyGet2-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 120480,
+          "ns_per_op": 1098.0,
+          "bytes_per_op": 304,
+          "allocs_per_op": 3,
+          "source_line": 195
+        },
+        {
+          "iterations": 107238,
+          "ns_per_op": 1081.0,
+          "bytes_per_op": 304,
+          "allocs_per_op": 3,
+          "source_line": 196
+        },
+        {
+          "iterations": 107202,
+          "ns_per_op": 998.3,
+          "bytes_per_op": 304,
+          "allocs_per_op": 3,
+          "source_line": 197
+        }
+      ],
+      "median": {
+        "ns_per_op": 1081.0,
+        "bytes_per_op": 304,
+        "allocs_per_op": 3
+      },
+      "ns_per_op_range": {
+        "min": 998.3,
+        "max": 1098.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3/util",
+      "name": "BenchmarkKeyGet3-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 82232,
+          "ns_per_op": 1292.0,
+          "bytes_per_op": 305,
+          "allocs_per_op": 3,
+          "source_line": 198
+        },
+        {
+          "iterations": 99639,
+          "ns_per_op": 1112.0,
+          "bytes_per_op": 306,
+          "allocs_per_op": 3,
+          "source_line": 199
+        },
+        {
+          "iterations": 77918,
+          "ns_per_op": 1352.0,
+          "bytes_per_op": 305,
+          "allocs_per_op": 3,
+          "source_line": 200
+        }
+      ],
+      "median": {
+        "ns_per_op": 1292.0,
+        "bytes_per_op": 305,
+        "allocs_per_op": 3
+      },
+      "ns_per_op_range": {
+        "min": 1112.0,
+        "max": 1352.0
+      }
+    },
+    {
+      "package": "github.com/casbin/casbin/v3/util",
+      "name": "BenchmarkRegexMatch-8",
+      "sample_count": 3,
+      "samples": [
+        {
+          "iterations": 732340,
+          "ns_per_op": 141.9,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 201
+        },
+        {
+          "iterations": 754572,
+          "ns_per_op": 163.7,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 202
+        },
+        {
+          "iterations": 1067804,
+          "ns_per_op": 112.5,
+          "bytes_per_op": 0,
+          "allocs_per_op": 0,
+          "source_line": 203
+        }
+      ],
+      "median": {
+        "ns_per_op": 141.9,
+        "bytes_per_op": 0,
+        "allocs_per_op": 0
+      },
+      "ns_per_op_range": {
+        "min": 112.5,
+        "max": 163.7
+      }
+    }
+  ],
+  "limitations": [
+    "Upstream native benchmarks are a separate Go-only inventory, including cache, reflection, pattern and concurrent APIs absent from the OCaml declared subset. Names do not establish identical paired workloads.",
+    "Many native constructors and timed Enforce calls discard returned errors and authorization decisions (model_b_test.go; enforcer_cached_b_test.go). PASS confirms benchmark completion, not checksummed enforcement correctness.",
+    "Cached string benchmarks repeat one request key and amortize initial misses. CachedABACModel and CachedWithEnforceContext use non-cacheable parameters and fall back to ordinary Enforcer (enforcer_cached.go:63-70,163-176; abac_test.go:28-37).",
+    "CachedRBACModelMediumParallel reports only 7,8,4 iterations; initial misses and scheduling can dominate these short samples. The two pattern graph-building results have one iteration per sample.",
+    "Single-rule native management benchmarks use random inputs and mix changes with noops, including formatting/randomness in timing. RemovePoliciesLarge checks removal/restoration and excludes restoration timing.",
+    "Three 100ms samples provide bounded exploratory measurements, not confidence intervals or universal performance claims. Setup can exceed benchtime; independent resource/exit receipts remain necessary.",
+    "The project paired benchmark harness separately checks exact expected checksums and process/stderr protocol for both implementations; those receipts are the supported-subset comparison evidence."
+  ],
+  "gauntlet_provenance": {
+    "receipt": {
+      "path": ".cache/luigi/evidence/gauntlet.json",
+      "sha256": "e0569051386bde01bdea9338f3352136d211843e5c70462a5de2e3395b4d4cf3",
+      "bytes": 101866
+    },
+    "project_revision": "b013d40d48614a7dd627e30ea7a9291ef2a8295b",
+    "upstream_revision": "524f3f2dc9baef696d748db491d49b3055d359d1",
+    "machine_hostname": "luigi",
+    "toolchains": {
+      "ocamlc": "5.5.0",
+      "ocamlopt": "5.5.0",
+      "dune": "3.24.2",
+      "go": "go version go1.22.2 linux/amd64",
+      "python": "3.12.3",
+      "go_env": "{\n\t\"CC\": \"gcc\",\n\t\"CGO_ENABLED\": \"1\",\n\t\"GOARCH\": \"amd64\",\n\t\"GOOS\": \"linux\"\n}"
+    },
+    "limits": {
+      "gomaxprocs": 8,
+      "go_package_parallelism": 8
+    },
+    "all_17_stage_exits_zero": true,
+    "original_upstream_clean_after": true,
+    "project_clean_before_and_after": true
+  },
+  "process_receipt": {
+    "command": [
+      "go",
+      "test",
+      "-mod=readonly",
+      "-p",
+      "8",
+      "-run",
+      "^$",
+      "-bench",
+      ".",
+      "-benchtime=100ms",
+      "-benchmem",
+      "-count=3",
+      "-timeout=30m",
+      "./..."
+    ],
+    "cwd": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/upstream-tests-go-native-benchmarks",
+    "exit_code": 0,
+    "elapsed_seconds": 97.71466440195218,
+    "started_utc": "2026-10-01T18:22:27.836758+00:00",
+    "finished_utc": "2026-10-01T18:24:05.551419+00:00",
+    "timeout_seconds": 2100,
+    "stdout": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-native-benchmarks.stdout",
+    "stderr": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-native-benchmarks.stderr",
+    "resource_log": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-native-benchmarks.resources",
+    "checkout_status_after": ""
+  },
+  "inventory_process_receipt": {
+    "command": [
+      "go",
+      "test",
+      "-mod=readonly",
+      "-p",
+      "8",
+      "-list",
+      "^Benchmark",
+      "./..."
+    ],
+    "cwd": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/upstream-tests-go-benchmark-inventory",
+    "exit_code": 0,
+    "elapsed_seconds": 5.042689747642726,
+    "started_utc": "2026-10-01T18:22:22.673171+00:00",
+    "finished_utc": "2026-10-01T18:22:27.715862+00:00",
+    "timeout_seconds": 300,
+    "stdout": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-benchmark-inventory.stdout",
+    "stderr": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-benchmark-inventory.stderr",
+    "resource_log": "/home/srikanth/casbin-ocaml-luigi-20261001-ac5f546/logs/go-benchmark-inventory.resources",
+    "checkout_status_after": ""
+  },
+  "stderr_log": {
+    "path": ".cache/luigi/evidence/go-native-benchmarks.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "stderr_empty": true,
+  "resource_log": {
+    "path": ".cache/luigi/evidence/go-native-benchmarks.resources",
+    "sha256": "c2a1ce7e924aaa091536c26b49546a44170b43830fab0e48f6e1da3f1090304b",
+    "bytes": 836
+  },
+  "resources": {
+    "user_seconds": 174.84,
+    "system_seconds": 11.21,
+    "wall_seconds": 97.7,
+    "cpu_percent": 190,
+    "maximum_resident_set_size_kbytes": 218176,
+    "swaps": 0,
+    "signals_delivered": 0,
+    "exit_status": 0
+  },
+  "resource_command_matches_receipt": true,
+  "resource_wall_time_matches_receipt_within_0_1s": true,
+  "inventory_logs": {
+    "stderr_log": {
+      "path": ".cache/luigi/evidence/go-benchmark-inventory.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "stderr_empty": true,
+    "resource_log": {
+      "path": ".cache/luigi/evidence/go-benchmark-inventory.resources",
+      "sha256": "d38d9cc5380681237662b59f03f13076d3e03861537b43dd5962146ba4a036fd",
+      "bytes": 782
+    },
+    "resources": {
+      "user_seconds": 14.86,
+      "system_seconds": 2.02,
+      "wall_seconds": 5.03,
+      "cpu_percent": 335,
+      "maximum_resident_set_size_kbytes": 227584,
+      "swaps": 0,
+      "signals_delivered": 0,
+      "exit_status": 0
+    },
+    "resource_command_matches_receipt": true,
+    "resource_wall_time_matches_receipt_within_0_1s": true
+  }
+}
